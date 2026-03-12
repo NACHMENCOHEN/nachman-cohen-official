@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <PageTransition>
-      <SEO title="Nachman Cohen | נחמן כהן – Hasidic Singer" description="Official website of Nachman Cohen (נחמן כהן). Listen to Hasidic music, watch videos and book events. האתר הרשמי של נחמן כהן." />
+      <SEO title="Nachman Cohen | נחמן כהן" description="Nachman Cohen – Official Website. Nachman began his musical journey at a young age. At just 15 years old he released his debut single "Refua," and since then has continued creating and performing music rooted in the spirit of classic Hasidic song." />
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
         {/* Blurred backdrop with parallax */}
