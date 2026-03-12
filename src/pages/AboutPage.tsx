@@ -25,11 +25,11 @@ const AboutPage = () => {
               transition={spring}
               className="order-1 lg:order-2"
             >
-              <div className="aspect-square overflow-hidden rounded-2xl">
+              <div className="aspect-square overflow-hidden rounded-2xl -scale-x-100">
                 <motion.img
                   src={aboutImg}
                   alt="Nachman Cohen"
-                  className="w-full h-full object-cover object-[center_15%] -scale-x-100 shadow-lg shadow-foreground/5"
+                  className="w-full h-full object-cover object-[center_15%] shadow-lg shadow-foreground/5"
                   style={{ scale: imgScale }}
                 />
               </div>
