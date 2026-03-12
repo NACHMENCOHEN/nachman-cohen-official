@@ -10,7 +10,7 @@ import Index from "./pages/Index";
 import MusicPage from "./pages/MusicPage";
 import ShowsPage from "./pages/ShowsPage";
 import AboutPage from "./pages/AboutPage";
-import GalleryPage from "./pages/GalleryPage";
+
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 
@@ -32,7 +32,7 @@ const AnimatedRoutes = () => {
           <Route path="/music" element={<MusicPage />} />
           <Route path="/shows" element={<ShowsPage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/gallery" element={<GalleryPage />} />
+          
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -7,8 +7,6 @@ const navLinks = [
   { to: "/", label: "בית" },
   { to: "/music", label: "שירים" },
   { to: "/about", label: "אודות" },
-  { to: "/about", label: "אודות" },
-  { to: "/gallery", label: "גלריה" },
   { to: "/contact", label: "צור קשר" },
 ];
 
