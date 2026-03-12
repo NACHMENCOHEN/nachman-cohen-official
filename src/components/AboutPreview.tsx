@@ -7,27 +7,9 @@ const AboutPreview = () => (
   <section className="py-24 md:py-32 border-t border-border">
     <div className="container mx-auto px-6">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        {/* Text – LEFT */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={spring}
-          className="relative"
-        >
-          <div className="rounded-2xl overflow-hidden img-frame">
-            <img
-              src={aboutImg}
-              alt="Nachman Cohen"
-              className="w-full aspect-[3/4] object-cover object-top"
-              loading="lazy"
-            />
-          </div>
-          {/* Decorative glow */}
-          <div className="absolute -bottom-4 -right-4 w-32 h-32 rounded-full bg-primary/10 blur-[60px] pointer-events-none" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ ...spring, delay: 0.15 }}
@@ -54,6 +36,26 @@ const AboutPreview = () => (
           >
             Read Full Story →
           </motion.a>
+        </motion.div>
+
+        {/* Image – RIGHT, square */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={spring}
+          className="relative order-first md:order-last"
+        >
+          <div className="rounded-2xl overflow-hidden img-frame">
+            <img
+              src={aboutImg}
+              alt="Nachman Cohen"
+              className="w-full aspect-square object-cover object-top"
+              loading="lazy"
+            />
+          </div>
+          {/* Decorative glow */}
+          <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-primary/10 blur-[60px] pointer-events-none" />
         </motion.div>
       </div>
     </div>
