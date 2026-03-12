@@ -17,16 +17,9 @@ const socials = [
     desc: "Music videos & performances",
   },
   {
-    name: "Spotify",
-    icon: Music2,
-    url: "#",
-    color: "from-green-500 to-green-700",
-    desc: "Stream all songs",
-  },
-  {
     name: "TikTok",
     icon: Heart,
-    url: "#",
+    url: "https://www.tiktok.com/@nachman_cohen_music?_r=1&_t=ZN-94co99vL1bK",
     color: "from-foreground to-muted-foreground",
     desc: "Short clips & moments",
   },
