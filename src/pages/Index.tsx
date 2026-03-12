@@ -61,22 +61,33 @@ const Index = () => {
     <div>
       {/* ═══════════════ 1. HERO ═══════════════ */}
       <section className="relative min-h-screen flex items-end justify-center overflow-hidden">
-        {/* Background image – full bleed */}
+        {/* Blurred background fill for wide screens */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={heroImg}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-top scale-110 blur-2xl brightness-50"
+          />
+        </div>
+
+        {/* Main sharp image – contained, no crop */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...spring, duration: 1, delay: 0.1 }}
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 z-[1] flex items-start justify-center"
         >
           <img
             src={heroImg}
             alt="נחמן כהן"
-            className="w-full h-full object-contain object-top"
+            className="h-full object-contain"
           />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          <div className="absolute inset-0 bg-background/30" />
         </motion.div>
+
+        {/* Overlays for text readability */}
+        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 z-[2] bg-background/20" />
 
         {/* Content */}
         <div className="relative z-10 text-center pb-16 md:pb-24 px-4">
