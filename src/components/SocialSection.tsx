@@ -41,7 +41,7 @@ const SocialSection = () => (
         <h2 className="font-display text-4xl md:text-5xl text-foreground">Stay Connected</h2>
       </motion.div>
 
-      <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         {socials.map((s, i) => (
           <motion.a
             key={s.name}
@@ -54,7 +54,7 @@ const SocialSection = () => (
             transition={{ ...spring, delay: i * 0.08 }}
             whileHover={{ scale: 1.05, y: -4 }}
             whileTap={{ scale: 0.97 }}
-            className="flex flex-col items-center py-8 px-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors group"
+            className="flex flex-col items-center py-8 px-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors group w-[160px]"
           >
             <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
               <s.icon size={24} className="text-foreground group-hover:text-primary transition-colors" />
