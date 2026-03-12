@@ -46,7 +46,7 @@ const HomeTrack = ({ title, audioSrc, index }: { title: string; audioSrc: string
 const featuredTracks = [
   { title: "רפואה", audioSrc: "/music/refua.m4a" },
   { title: "למעלה", audioSrc: "/music/lemala.mp3" },
-  { title: "תפילין", audioSrc: "/music/tefillin.mp3" },
+  { title: "תפילין (קאבר)", audioSrc: "/music/tefillin.mp3" },
 ];
 
 const featuredVideos = [
