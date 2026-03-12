@@ -141,16 +141,20 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
         <div className="mt-3">
           <div
             ref={barRef}
-            className="w-full h-3 bg-muted rounded-full cursor-pointer group/bar flex items-center touch-none"
+            className="w-full h-5 cursor-pointer group/bar flex items-center touch-none select-none"
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
           >
-            <div
-              className="h-1.5 bg-primary rounded-full relative"
-              style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
-            >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover/bar:opacity-100 transition-opacity shadow-sm" />
+            <div className="w-full h-1.5 bg-muted rounded-full relative">
+              <div
+                className="h-full bg-primary rounded-full pointer-events-none"
+                style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
+              />
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-md pointer-events-none opacity-0 group-hover/bar:opacity-100 transition-opacity"
+                style={{ left: duration ? `calc(${(progress / duration) * 100}% - 7px)` : "0" }}
+              />
             </div>
           </div>
           <div className="flex items-center justify-between mt-1.5">
