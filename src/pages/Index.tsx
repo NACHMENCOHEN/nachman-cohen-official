@@ -1,71 +1,69 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import heroImg from "@/assets/hero-portrait.jpg";
-import MusicPlayer from "@/components/MusicPlayer";
 
-const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
+const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 const Index = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={heroImg}
-            alt="נחמן כהן — תמונה מקצועית"
-            className="w-full h-full object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background" />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6 text-center flex flex-col items-center pt-20">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.3 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-4"
-          >
-            נחמן כהן
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.5 }}
-            className="font-body text-sm md:text-base text-muted-foreground mb-10 tracking-widest"
-          >
-            האתר הרשמי
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.7 }}
-          >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                to="/music"
-                className="inline-block bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-lg"
-              >
-                האזינו לשירים
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Portrait */}
         <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ ...spring, delay: 0.2 }}
+          className="relative z-10 mt-24 mb-8"
+        >
+          <div className="w-72 md:w-80 lg:w-96 mx-auto">
+            <img
+              src={heroImg}
+              alt="נחמן כהן — תמונה מקצועית"
+              className="w-full rounded-2xl shadow-2xl shadow-foreground/10 grayscale"
+              style={{ filter: "grayscale(100%) contrast(1.05)" }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Name & CTA */}
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.9 }}
-          className="absolute bottom-6 left-6 right-6 z-10 max-w-3xl mx-auto"
+          transition={{ ...spring, delay: 0.5 }}
+          className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground mb-3 text-center"
         >
-          <MusicPlayer />
+          נחמן כהן
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.65 }}
+          className="font-body text-sm text-muted-foreground mb-10 tracking-widest"
+        >
+          האתר הרשמי
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.8 }}
+          className="mb-20"
+        >
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              to="/music"
+              className="inline-block bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-full"
+            >
+              האזינו לשירים
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* Featured section */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 border-t border-border">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -73,7 +71,7 @@ const Index = () => {
             viewport={{ once: true }}
             transition={spring}
           >
-            <p className="font-body text-xs font-medium text-primary mb-4">מומלץ</p>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest">מומלץ</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
               מביא שמחה לכל אירוע
             </h2>
@@ -85,7 +83,7 @@ const Index = () => {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/about"
-                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-lg shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] text-foreground"
+                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-foreground text-foreground"
               >
                 קראו עוד
               </Link>
@@ -103,7 +101,7 @@ const Index = () => {
             viewport={{ once: true }}
             transition={spring}
           >
-            <p className="font-body text-xs font-medium text-primary mb-8">הופעות קרובות</p>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-8 tracking-widest">הופעות קרובות</p>
             <div className="space-y-4">
               {[
                 { date: "28 מרץ, 2026", venue: "אולם הגדול, ברוקלין", event: "חתונה פרטית" },
@@ -118,7 +116,7 @@ const Index = () => {
                   transition={{ ...spring, delay: i * 0.07 }}
                   className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-border gap-2"
                 >
-                  <span className="font-body text-xs font-medium text-primary">{show.date}</span>
+                  <span className="font-body text-xs font-medium text-foreground">{show.date}</span>
                   <span className="text-foreground font-body">{show.venue}</span>
                   <span className="text-muted-foreground font-body text-sm">{show.event}</span>
                 </motion.div>

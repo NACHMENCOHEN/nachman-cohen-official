@@ -27,10 +27,10 @@ const ShowsPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ ...spring, delay: i * 0.07 }}
-            className="flex flex-col md:flex-row md:items-center justify-between py-5 px-4 rounded-lg hover:bg-secondary/30 transition-colors border-b border-border gap-3"
+            className="flex flex-col md:flex-row md:items-center justify-between py-5 px-4 rounded-xl hover:bg-secondary/50 transition-colors border-b border-border gap-3"
           >
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 flex-1">
-              <span className="font-body text-xs font-medium text-primary w-28">{show.date}</span>
+              <span className="font-body text-xs font-medium text-foreground w-28">{show.date}</span>
               <span className="text-foreground font-body">{show.venue}</span>
               <span className="text-sm text-muted-foreground">— {show.city}</span>
             </div>
@@ -39,7 +39,7 @@ const ShowsPage = () => (
               {show.available && (
                 <Link
                   to="/contact"
-                  className="font-body text-xs font-medium text-primary hover:text-foreground transition-colors"
+                  className="font-body text-xs font-medium text-foreground hover:text-muted-foreground transition-colors"
                 >
                   ← הזמנת כרטיסים
                 </Link>
@@ -56,7 +56,7 @@ const ShowsPage = () => (
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
           <Link
             to="/contact"
-            className="inline-block bg-primary text-primary-foreground font-body font-medium text-xs px-6 py-3 rounded-lg"
+            className="inline-block bg-primary text-primary-foreground font-body font-medium text-xs px-6 py-3 rounded-full"
           >
             הזמינו עכשיו
           </Link>

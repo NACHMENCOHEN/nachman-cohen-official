@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel rounded-none border-x-0 border-t-0">
-      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+      <div className="container mx-auto flex items-center justify-between px-6 py-5">
         <Link to="/" className="font-display text-2xl tracking-tight text-foreground">
           נחמן כהן
         </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
               {location.pathname === link.to && (
                 <motion.span
                   layoutId="nav-dot"
-                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
+                  className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-foreground"
                 />
               )}
             </Link>
@@ -67,7 +67,7 @@ const Navbar = () => {
                   onClick={() => setMobileOpen(false)}
                   className={`font-body text-xs font-medium py-3 transition-colors ${
                     location.pathname === link.to
-                      ? "text-primary"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
 const inputClasses =
-  "w-full bg-transparent px-4 py-3 rounded-lg text-foreground font-body placeholder:text-muted-foreground shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] focus:shadow-[inset_0_0_0_1px_hsl(45_70%_70%),0_0_0_4px_hsla(45_70%_70%/0.15)] focus:outline-none transition-shadow text-right";
+  "w-full bg-transparent px-4 py-3 rounded-full text-foreground font-body placeholder:text-muted-foreground border border-border focus:border-foreground focus:outline-none transition-colors text-right";
 
 const ContactPage = () => {
   const [sending, setSending] = useState(false);
@@ -48,14 +48,14 @@ const ContactPage = () => {
             <textarea
               placeholder="ספרו לנו על האירוע שלכם..."
               rows={5}
-              className={inputClasses + " resize-none"}
+              className="w-full bg-transparent px-4 py-3 rounded-2xl text-foreground font-body placeholder:text-muted-foreground border border-border focus:border-foreground focus:outline-none transition-colors resize-none text-right"
             />
             <motion.button
               type="submit"
               disabled={sending}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-primary text-primary-foreground font-body font-medium text-xs px-8 py-3 rounded-lg flex items-center gap-2 disabled:opacity-50"
+              className="bg-primary text-primary-foreground font-body font-medium text-xs px-8 py-3 rounded-full flex items-center gap-2 disabled:opacity-50"
             >
               <Send size={14} />
               {sending ? "שולח..." : "שלח הודעה"}
@@ -64,11 +64,11 @@ const ContactPage = () => {
 
           <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row gap-8">
             <div className="flex items-center gap-3">
-              <Mail size={16} className="text-primary" />
+              <Mail size={16} className="text-foreground" />
               <span className="text-sm text-muted-foreground">booking@nachmancohen.com</span>
             </div>
             <div className="flex items-center gap-3">
-              <Phone size={16} className="text-primary" />
+              <Phone size={16} className="text-foreground" />
               <span className="text-sm text-muted-foreground">+1 (718) 555-0123</span>
             </div>
           </div>
