@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutImg from "@/assets/about-portrait.jpg";
+import { User } from "lucide-react";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
@@ -11,12 +11,12 @@ const AboutPage = () => (
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={spring}
+          className="flex items-center justify-center aspect-[3/4] rounded-2xl bg-muted/30 border border-dashed border-border"
         >
-          <img
-            src={aboutImg}
-            alt="נחמן כהן מופיע בחתונה"
-            className="w-full rounded-2xl img-frame"
-          />
+          <div className="flex flex-col items-center text-muted-foreground">
+            <User className="w-20 h-20 mb-4" />
+            <span className="font-body text-sm">תמונה תועלה בקרוב</span>
+          </div>
         </motion.div>
 
         <motion.div

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/nachman-portrait.jpg";
 import MusicPlayer from "@/components/MusicPlayer";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
@@ -9,13 +8,8 @@ const Index = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-muted/50 via-background to-background">
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroImg}
-            alt="נחמן כהן — תמונה מקצועית"
-            className="w-full h-full object-cover object-[center_25%]"
-          />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
         </div>
 
