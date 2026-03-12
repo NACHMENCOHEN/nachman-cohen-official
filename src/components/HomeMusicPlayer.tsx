@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw, Download } from "lucide-react";
 
 interface Track {
   title: string;
@@ -53,11 +53,14 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   };
 
   const seekToPosition = (clientX: number) => {
-    if (!audioRef.current || !duration || !barRef.current) return;
+    if (!audioRef.current || !barRef.current) return;
+    const dur = audioRef.current.duration;
+    if (!dur || isNaN(dur)) return;
     const rect = barRef.current.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    audioRef.current.currentTime = ratio * duration;
-    setProgress(ratio * duration);
+    audioRef.current.currentTime = ratio * dur;
+    setProgress(ratio * dur);
+    setDuration(dur);
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -158,13 +161,22 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="Next">
             <SkipForward size={22} />
           </button>
-          <div className="w-[18px]" /> {/* spacer for symmetry */}
+          <a
+            href={current.audioSrc}
+            download
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Download"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Download size={18} />
+          </a>
         </div>
 
         <audio
           ref={audioRef}
           src={current.audioSrc}
           muted={muted}
+          preload="metadata"
           onTimeUpdate={onTimeUpdate}
           onLoadedMetadata={onTimeUpdate}
           onEnded={next}
@@ -174,14 +186,14 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
       {/* Track List */}
       <div className="mt-4 space-y-1">
         {tracks.map((track, i) => (
-          <button
+          <div
             key={i}
-            onClick={() => setCurrentIndex(i)}
-            className={`w-full flex items-center justify-between py-3.5 px-5 rounded-xl transition-all ${
+            className={`w-full flex items-center justify-between py-3.5 px-5 rounded-xl transition-all cursor-pointer ${
               i === currentIndex
                 ? "bg-accent text-foreground"
                 : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
             }`}
+            onClick={() => setCurrentIndex(i)}
           >
             <div className="flex items-center gap-4">
               <span className="font-body text-xs w-5 text-center">
@@ -196,8 +208,16 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
                 <span className="font-body text-xs ml-2 opacity-60">({track.title})</span>
               </div>
             </div>
-            <Play size={14} className={i === currentIndex ? "text-primary" : "opacity-40"} />
-          </button>
+            <a
+              href={track.audioSrc}
+              download
+              className="text-muted-foreground hover:text-primary transition-colors p-1"
+              aria-label={`Download ${track.titleEn}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Download size={14} />
+            </a>
+          </div>
         ))}
       </div>
     </motion.div>

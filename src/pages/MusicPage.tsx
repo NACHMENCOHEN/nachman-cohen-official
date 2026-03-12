@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, RotateCcw, RotateCw } from "lucide-react";
+import { Play, Pause, RotateCcw, RotateCw, Download } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
 
@@ -56,11 +56,14 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   };
 
   const seekToPosition = (clientX: number) => {
-    if (!audioRef.current || !duration || !barRef.current) return;
+    if (!audioRef.current || !barRef.current) return;
+    const dur = audioRef.current.duration;
+    if (!dur || isNaN(dur)) return;
     const rect = barRef.current.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    audioRef.current.currentTime = ratio * duration;
-    setProgress(ratio * duration);
+    audioRef.current.currentTime = ratio * dur;
+    setProgress(ratio * dur);
+    setDuration(dur);
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -172,9 +175,22 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
         </div>
       </div>
 
+      {/* Download Button */}
+      <div className="px-4 pb-3">
+        <a
+          href={track.audioSrc}
+          download
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+        >
+          <Download size={12} />
+          <span>Download</span>
+        </a>
+      </div>
+
       <audio
         ref={audioRef}
         src={track.audioSrc}
+        preload="metadata"
         onTimeUpdate={onTimeUpdate}
         onLoadedMetadata={onTimeUpdate}
         onEnded={() => setPlaying(false)}
