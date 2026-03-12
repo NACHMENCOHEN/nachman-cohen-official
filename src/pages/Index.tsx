@@ -66,11 +66,14 @@ const Index = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center pb-16 md:pb-24 px-4">
+          {/* Title glow */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-20 md:bottom-28 w-[600px] h-[200px] rounded-full bg-primary/12 blur-[100px] pointer-events-none z-0" />
+          
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.5 }}
-            className="font-hero-title text-7xl md:text-[9rem] lg:text-[12rem] text-foreground mb-10 gold-text uppercase"
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ ...spring, delay: 0.5, duration: 1 }}
+            className="font-hero-title text-[4.5rem] md:text-[10rem] lg:text-[14rem] xl:text-[16rem] text-foreground mb-10 gold-text uppercase whitespace-nowrap relative z-10 drop-shadow-[0_0_60px_hsla(38,70%,55%,0.25)]"
           >
             Nachman Cohen
           </motion.h1>
