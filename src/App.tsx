@@ -10,7 +10,7 @@ import Index from "./pages/Index";
 import MusicPage from "./pages/MusicPage";
 import ShowsPage from "./pages/ShowsPage";
 import AboutPage from "./pages/AboutPage";
-import GalleryPage from "./pages/GalleryPage";
+
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 
