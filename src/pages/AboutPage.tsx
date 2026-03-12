@@ -6,7 +6,7 @@ const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 const AboutPage = () => (
   <div className="pt-28 pb-24">
     <div className="container mx-auto px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start lg:[direction:ltr]">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
