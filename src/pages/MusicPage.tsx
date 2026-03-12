@@ -153,8 +153,16 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover/bar:opacity-100 transition-opacity shadow-sm" />
             </div>
           </div>
-          <div className="flex justify-between mt-1">
+          <div className="flex items-center justify-between mt-1.5">
             <span className="font-body text-[10px] text-muted-foreground">{formatTime(progress)}</span>
+            <div className="flex items-center gap-2">
+              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Back 10s">
+                <RotateCcw size={12} />
+              </button>
+              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Forward 10s">
+                <RotateCw size={12} />
+              </button>
+            </div>
             <span className="font-body text-[10px] text-muted-foreground">{duration ? formatTime(duration) : "0:00"}</span>
           </div>
         </div>
