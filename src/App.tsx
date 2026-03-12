@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "./pages/Index";
 import MusicPage from "./pages/MusicPage";
-import VideosPage from "./pages/VideosPage";
+import ShowsPage from "./pages/ShowsPage";
 import AboutPage from "./pages/AboutPage";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
@@ -30,7 +30,7 @@ const AnimatedRoutes = () => {
         <Routes location={location}>
           <Route path="/" element={<Index />} />
           <Route path="/music" element={<MusicPage />} />
-          <Route path="/videos" element={<VideosPage />} />
+          <Route path="/shows" element={<ShowsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />

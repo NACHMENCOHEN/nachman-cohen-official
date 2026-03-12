@@ -6,7 +6,7 @@ import { Menu, X, Instagram, Youtube } from "lucide-react";
 const navLinks = [
   { to: "/", label: "בית" },
   { to: "/music", label: "שירים" },
-  { to: "/videos", label: "וידאו" },
+  { to: "/about", label: "אודות" },
   { to: "/about", label: "אודות" },
   { to: "/gallery", label: "גלריה" },
   { to: "/contact", label: "צור קשר" },
