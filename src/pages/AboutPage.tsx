@@ -12,11 +12,13 @@ const AboutPage = () => (
           animate={{ opacity: 1, x: 0 }}
           transition={spring}
         >
-          <img
-            src={aboutImg}
-            alt="נחמן כהן"
-            className="w-full rounded-2xl shadow-lg shadow-foreground/5 -scale-x-100"
-          />
+          <div className="aspect-square overflow-hidden rounded-2xl">
+            <img
+              src={aboutImg}
+              alt="נחמן כהן"
+              className="w-full h-full object-cover object-[center_15%] -scale-x-100 shadow-lg shadow-foreground/5"
+            />
+          </div>
         </motion.div>
 
         <motion.div
