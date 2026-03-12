@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -15,6 +16,7 @@ const AboutPage = () => {
 
   return (
     <PageTransition>
+      <SEO title="About – Nachman Cohen" description="Learn about Nachman Cohen, a Hasidic singer blending traditional melodies with contemporary style." />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start lg:[direction:ltr]">

@@ -8,6 +8,7 @@ import AboutPreview from "@/components/AboutPreview";
 import BookingSection from "@/components/BookingSection";
 import SocialSection from "@/components/SocialSection";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
@@ -30,6 +31,7 @@ const Index = () => {
 
   return (
     <PageTransition>
+      <SEO title="Nachman Cohen – Hasidic Singer" description="Official website of Nachman Cohen. Listen to music, watch videos and book events." />
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
         {/* Blurred backdrop with parallax */}
