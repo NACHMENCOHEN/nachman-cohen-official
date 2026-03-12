@@ -80,12 +80,10 @@
   }
 
   .font-hero-title {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
     line-height: 0.9;
-    transform: scaleX(0.82);
-    transform-origin: center;
   }
 
   .font-body {
