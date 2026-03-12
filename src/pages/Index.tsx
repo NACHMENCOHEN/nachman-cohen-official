@@ -71,7 +71,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.55 }}
             className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-10"
           >
-            Nachman Cohen
+            נחמן כהן
           </motion.h1>
 
           <motion.div
