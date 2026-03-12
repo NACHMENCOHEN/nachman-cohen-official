@@ -9,6 +9,7 @@ const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 const ContactPage = () => {
   return (
     <PageTransition>
+      <SEO title="Contact – Nachman Cohen" description="Book Nachman Cohen for weddings, concerts and private events." />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
           <SectionHeading

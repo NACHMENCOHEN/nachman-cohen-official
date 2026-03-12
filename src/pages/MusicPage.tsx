@@ -202,6 +202,7 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
 
 const MusicPage = () => (
   <PageTransition>
+    <SEO title="Music – Nachman Cohen" description="Listen to Nachman Cohen's latest Hasidic songs. Stream and download music." />
     <div className="pt-28 pb-24">
       <div className="container mx-auto px-6">
         <SectionHeading title="Music" subtitle="Listen to Nachman Cohen's songs" />
