@@ -62,7 +62,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.4 }}
             className="font-body text-xs text-primary mb-4 tracking-[0.25em] uppercase"
           >
-            Hasidic Singer
+            נחמן כהן – זמר חסידי
           </motion.p>
 
           <motion.h1
@@ -71,7 +71,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.55 }}
             className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-10"
           >
-            Nachman Cohen
+            נחמן כהן
           </motion.h1>
 
           <motion.div
