@@ -186,14 +186,14 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
       {/* Track List */}
       <div className="mt-4 space-y-1">
         {tracks.map((track, i) => (
-          <button
+          <div
             key={i}
-            onClick={() => setCurrentIndex(i)}
-            className={`w-full flex items-center justify-between py-3.5 px-5 rounded-xl transition-all ${
+            className={`w-full flex items-center justify-between py-3.5 px-5 rounded-xl transition-all cursor-pointer ${
               i === currentIndex
                 ? "bg-accent text-foreground"
                 : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
             }`}
+            onClick={() => setCurrentIndex(i)}
           >
             <div className="flex items-center gap-4">
               <span className="font-body text-xs w-5 text-center">
@@ -211,13 +211,13 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
             <a
               href={track.audioSrc}
               download
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground hover:text-primary transition-colors p-1"
               aria-label={`Download ${track.titleEn}`}
               onClick={(e) => e.stopPropagation()}
             >
               <Download size={14} />
             </a>
-          </button>
+          </div>
         ))}
       </div>
     </motion.div>
