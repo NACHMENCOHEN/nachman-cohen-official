@@ -80,11 +80,10 @@
   }
 
   .font-hero-title {
-    font-family: 'Oswald', 'Archivo Narrow', sans-serif;
-    font-weight: 300;
-    letter-spacing: -0.035em;
-    line-height: 0.86;
-    font-stretch: condensed;
+    font-family: 'League Gothic', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 0.92;
   }
 
   .font-body {
