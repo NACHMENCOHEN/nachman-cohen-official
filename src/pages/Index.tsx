@@ -137,8 +137,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══════════════ LIVE PERFORMANCES ═══════════════ */}
-      <LivePerformances />
+      {/* ═══════════════ ABOUT ═══════════════ */}
 
       {/* ═══════════════ ABOUT ═══════════════ */}
       <AboutPreview />
