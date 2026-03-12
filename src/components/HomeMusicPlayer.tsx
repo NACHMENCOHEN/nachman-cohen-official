@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw } from "lucide-react";
 
 interface Track {
   title: string;
@@ -15,11 +15,13 @@ interface MusicPlayerProps {
 
 const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [muted, setMuted] = useState(false);
+  const [dragging, setDragging] = useState(false);
 
   const current = tracks[currentIndex];
 
@@ -45,16 +47,40 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   const prev = () => setCurrentIndex((i) => (i - 1 + tracks.length) % tracks.length);
 
   const onTimeUpdate = () => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || dragging) return;
     setProgress(audioRef.current.currentTime);
     setDuration(audioRef.current.duration || 0);
   };
 
-  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = (e.clientX - rect.left) / rect.width;
+  const seekToPosition = (clientX: number) => {
+    if (!audioRef.current || !duration || !barRef.current) return;
+    const rect = barRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
     audioRef.current.currentTime = ratio * duration;
+    setProgress(ratio * duration);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setDragging(true);
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    setDragging(false);
+    seekToPosition(e.clientX);
+  };
+
+  const skip = (seconds: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = Math.max(0, Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + seconds));
   };
 
   const formatTime = (t: number) => {
@@ -83,18 +109,33 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
         {/* Progress Bar */}
         <div className="mb-4">
           <div
-            className="w-full h-1.5 bg-muted rounded-full cursor-pointer group"
-            onClick={seek}
+            ref={barRef}
+            className="w-full h-5 cursor-pointer group flex items-center touch-none select-none"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
           >
-            <div
-              className="h-full bg-primary rounded-full relative transition-all"
-              style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
-            >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="w-full h-1.5 bg-muted rounded-full relative">
+              <div
+                className="h-full bg-primary rounded-full pointer-events-none transition-all"
+                style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
+              />
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-md pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ left: duration ? `calc(${(progress / duration) * 100}% - 7px)` : "0" }}
+              />
             </div>
           </div>
-          <div className="flex justify-between mt-1.5">
+          <div className="flex items-center justify-between mt-1.5">
             <span className="font-body text-xs text-muted-foreground">{formatTime(progress)}</span>
+            <div className="flex items-center gap-3">
+              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Back 10s">
+                <RotateCcw size={14} />
+              </button>
+              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Forward 10s">
+                <RotateCw size={14} />
+              </button>
+            </div>
             <span className="font-body text-xs text-muted-foreground">{duration ? formatTime(duration) : "0:00"}</span>
           </div>
         </div>
