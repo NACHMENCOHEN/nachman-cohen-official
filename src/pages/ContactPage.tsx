@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 

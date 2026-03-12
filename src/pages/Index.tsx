@@ -31,6 +31,7 @@ const Index = () => {
 
   return (
     <PageTransition>
+      <SEO title="Nachman Cohen – Hasidic Singer" description="Official website of Nachman Cohen. Listen to music, watch videos and book events." />
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
         {/* Blurred backdrop with parallax */}

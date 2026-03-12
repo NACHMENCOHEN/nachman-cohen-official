@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
