@@ -36,9 +36,11 @@ const cardVariants = {
 
 const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [dragging, setDragging] = useState(false);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -48,17 +50,35 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   };
 
   const onTimeUpdate = () => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || dragging) return;
     setProgress(audioRef.current.currentTime);
     setDuration(audioRef.current.duration || 0);
   };
 
-  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (!audioRef.current || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = (e.clientX - rect.left) / rect.width;
+  const seekToPosition = (clientX: number) => {
+    if (!audioRef.current || !duration || !barRef.current) return;
+    const rect = barRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
     audioRef.current.currentTime = ratio * duration;
+    setProgress(ratio * duration);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setDragging(true);
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    setDragging(false);
+    seekToPosition(e.clientX);
   };
 
   const formatTime = (t: number) => {
