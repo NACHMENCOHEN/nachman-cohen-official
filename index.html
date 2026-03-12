@@ -69,6 +69,16 @@
     
     <!-- Robots -->
     <meta name="robots" content="index, follow, max-image-preview:large">
+    
+    <!-- Noindex for lovable.app subdomain to prevent duplicate content -->
+    <script>
+      if (window.location.hostname.includes('lovable.app')) {
+        const meta = document.createElement('meta');
+        meta.name = 'robots';
+        meta.content = 'noindex, nofollow';
+        document.head.appendChild(meta);
+      }
+    </script>
   </head>
 
   <body>
