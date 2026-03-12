@@ -8,6 +8,7 @@ import AboutPreview from "@/components/AboutPreview";
 import BookingSection from "@/components/BookingSection";
 import SocialSection from "@/components/SocialSection";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
