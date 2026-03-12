@@ -80,12 +80,11 @@
   }
 
   .font-hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.04em;
-    line-height: 0.85;
-    transform: scaleX(0.78);
-    transform-origin: center;
+    font-family: 'League Gothic', 'Oswald', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    font-stretch: condensed;
   }
 
   .font-body {
