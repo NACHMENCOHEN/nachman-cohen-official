@@ -71,7 +71,7 @@ const Index = () => {
           <img
             src={heroImg}
             alt="נחמן כהן"
-            className="w-full h-full object-cover object-[center_25%]"
+            className="w-full h-full object-cover object-[center_40%]"
           />
           {/* Gradient overlays to blend into background */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
