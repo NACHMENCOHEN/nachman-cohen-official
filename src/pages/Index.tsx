@@ -1,12 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Music, Calendar } from "lucide-react";
 import heroImg from "@/assets/hero-portrait.jpg";
 import HomeMusicPlayer from "@/components/HomeMusicPlayer";
-import LivePerformances from "@/components/LivePerformances";
 import AboutPreview from "@/components/AboutPreview";
 import BookingSection from "@/components/BookingSection";
 import SocialSection from "@/components/SocialSection";
+import PageTransition from "@/components/PageTransition";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
@@ -19,25 +20,34 @@ const featuredTracks = [
 ];
 
 const Index = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <div>
+    <PageTransition>
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative min-h-screen flex items-end justify-center overflow-hidden">
-        {/* Blurred backdrop */}
-        <div className="absolute inset-0 z-0">
+      <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
+        {/* Blurred backdrop with parallax */}
+        <motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
           <img
             src={heroImg}
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-top scale-110 blur-2xl brightness-[0.35]"
           />
-        </div>
+        </motion.div>
 
-        {/* Main portrait */}
+        {/* Main portrait with parallax */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...spring, duration: 1.2, delay: 0.1 }}
+          style={{ y: heroY, opacity: heroOpacity }}
           className="absolute inset-0 z-[1] flex items-start justify-center"
         >
           <img
@@ -80,19 +90,19 @@ const Index = () => {
             transition={{ ...spring, delay: 0.75 }}
             className="flex flex-wrap items-center justify-center gap-3"
           >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/music"
-                className="inline-flex items-center gap-2 gold-gradient text-primary-foreground font-body font-semibold text-sm px-8 py-4 rounded-full shadow-lg shadow-primary/20"
+                className="inline-flex items-center gap-2 gold-gradient text-primary-foreground font-body font-semibold text-sm px-8 py-4 rounded-full shadow-lg shadow-primary/20 transition-shadow hover:shadow-xl hover:shadow-primary/30"
               >
                 <Music size={16} />
                 Listen to Music
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <a
                 href="#booking"
-                className="inline-flex items-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-full border border-primary/40 text-foreground hover:bg-primary/10 backdrop-blur-sm transition-colors"
+                className="inline-flex items-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-full border border-primary/40 text-foreground hover:bg-primary/10 backdrop-blur-sm transition-all hover:border-primary/60"
               >
                 <Calendar size={16} />
                 Book for Events
@@ -106,29 +116,45 @@ const Index = () => {
       <section className="py-24 md:py-32 border-t border-border">
         <div className="container mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={spring}
             className="text-center mb-14"
           >
-            <p className="font-body text-xs font-medium text-primary mb-3 tracking-widest uppercase">Music</p>
-            <h2 className="font-display text-4xl md:text-6xl text-foreground">Latest Songs</h2>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...spring, delay: 0.1 }}
+              className="font-body text-xs font-medium text-primary mb-3 tracking-widest uppercase"
+            >
+              Music
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...spring, delay: 0.2 }}
+              className="font-display text-4xl md:text-6xl text-foreground"
+            >
+              Latest Songs
+            </motion.h2>
           </motion.div>
 
           <HomeMusicPlayer tracks={featuredTracks} />
 
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ ...spring, delay: 0.3 }}
             className="text-center mt-10"
           >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="inline-block">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} className="inline-block">
               <Link
                 to="/music"
-                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-colors"
+                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all hover:border-primary/60"
               >
                 View All Songs →
               </Link>
@@ -136,8 +162,6 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* ═══════════════ ABOUT ═══════════════ */}
 
       {/* ═══════════════ ABOUT ═══════════════ */}
       <AboutPreview />
@@ -149,7 +173,7 @@ const Index = () => {
 
       {/* ═══════════════ SOCIAL ═══════════════ */}
       <SocialSection />
-    </div>
+    </PageTransition>
   );
 };
 
