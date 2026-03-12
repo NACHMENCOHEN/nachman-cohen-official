@@ -13,12 +13,12 @@ const GalleryPage = () => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={spring}
-        className="flex flex-col items-center justify-center py-24 px-6 border border-dashed border-border rounded-2xl bg-muted/30"
+        className="flex flex-col items-center justify-center py-24 px-6 border border-dashed border-border rounded-2xl"
       >
-        <Camera className="w-16 h-16 text-muted-foreground mb-6" />
+        <Camera className="w-16 h-16 text-muted-foreground/50 mb-6" />
         <h3 className="font-display text-2xl text-foreground mb-2">גלריה ריקה</h3>
         <p className="font-body text-muted-foreground text-center max-w-md">
-          אין תמונות להצגה כעת. תמונות אמיתיות יעלו בקרוב.
+          תמונות אמיתיות יעלו בקרוב.
         </p>
       </motion.div>
     </div>

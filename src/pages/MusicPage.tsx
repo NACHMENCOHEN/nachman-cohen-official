@@ -40,7 +40,7 @@ const TrackRow = ({ track, index }: { track: Track; index: number }) => {
       transition={{ ...spring, delay: index * 0.07 }}
       className="border-b border-border"
     >
-      <div className="flex items-center justify-between py-5 px-4 rounded-lg hover:bg-secondary/30 transition-colors gap-4">
+      <div className="flex items-center justify-between py-5 px-4 rounded-xl hover:bg-secondary/50 transition-colors gap-4">
         <div className="flex items-center gap-4 flex-1">
           <span className="font-body text-xs text-muted-foreground w-6">{index + 1}</span>
           <span className="text-foreground font-body text-sm">{track.title}</span>
@@ -48,7 +48,7 @@ const TrackRow = ({ track, index }: { track: Track; index: number }) => {
 
         <button
           onClick={togglePlay}
-          className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity"
+          className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-80 transition-opacity"
           aria-label={playing ? "השהה" : "נגן"}
         >
           {playing ? <Pause size={14} /> : <Play size={14} className="mr-[-1px]" />}

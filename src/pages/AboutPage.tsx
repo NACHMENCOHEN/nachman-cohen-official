@@ -15,7 +15,7 @@ const AboutPage = () => (
           <img
             src={aboutImg}
             alt="נחמן כהן"
-            className="w-full rounded-2xl img-frame"
+            className="w-full rounded-2xl shadow-lg shadow-foreground/5"
           />
         </motion.div>
 
@@ -25,7 +25,7 @@ const AboutPage = () => (
           transition={{ ...spring, delay: 0.15 }}
           className="lg:pt-8"
         >
-          <p className="font-body text-xs font-medium text-primary mb-4">אודות</p>
+          <p className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest">אודות</p>
           <h1 className="font-display text-4xl md:text-5xl text-foreground mb-8">
             נחמן כהן
           </h1>
@@ -57,7 +57,7 @@ const AboutPage = () => (
               { num: "10+", label: "שנים" },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="font-display text-3xl text-primary">{stat.num}</p>
+                <p className="font-display text-3xl text-foreground">{stat.num}</p>
                 <p className="font-body text-xs text-muted-foreground mt-1">{stat.label}</p>
               </div>
             ))}
