@@ -12,7 +12,7 @@ interface Track {
 }
 
 const tracks: Track[] = [
-  { title: "רפואה", audioSrc: "/music/refua.m4a" },
+  { title: "רפואה", audioSrc: "/music/refua.m4a", cover: "/covers/refua.jpg" },
   { title: "למעלה", audioSrc: "/music/lemala.mp3", cover: "/covers/lemala.jpg" },
   { title: "תפילין (קאבר)", audioSrc: "/music/tefillin.mp3" },
   { title: "מיין טייערע לעכטעלע", audioSrc: "/music/mein-taiere-lechtele.mp3" },
