@@ -1,78 +1,64 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, Phone } from "lucide-react";
+import { Phone, MessageCircle } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { toast } from "sonner";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
-const inputClasses =
-  "w-full bg-transparent px-4 py-3 rounded-full text-foreground font-body placeholder:text-muted-foreground border border-border focus:border-foreground focus:outline-none transition-colors text-right";
-
 const ContactPage = () => {
-  const [sending, setSending] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    setTimeout(() => {
-      setSending(false);
-      toast.success("ההודעה נשלחה! נחזור אליכם בהקדם.");
-    }, 1000);
-  };
-
   return (
     <div className="pt-28 pb-24">
       <div className="container mx-auto px-6">
         <SectionHeading
-          title="הזמנת נחמן"
-          subtitle="מלאו את הטופס ונחזור אליכם תוך 24 שעות"
+          title="הזמנת הופעה"
+          subtitle="Book Nachman Cohen for live performances"
         />
 
-        <div className="max-w-2xl mx-auto">
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={spring}
-            className="space-y-5"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <input type="text" placeholder="שם מלא" required className={inputClasses} />
-              <input type="email" placeholder="כתובת אימייל" required className={inputClasses} />
-              <input type="tel" placeholder="מספר טלפון" className={inputClasses} />
-              <input type="text" placeholder="סוג אירוע" className={inputClasses} />
-              <input type="text" placeholder="תאריך האירוע" className={inputClasses} />
-              <input type="text" placeholder="מיקום" className={inputClasses} />
-            </div>
-            <textarea
-              placeholder="ספרו לנו על האירוע שלכם..."
-              rows={5}
-              className="w-full bg-transparent px-4 py-3 rounded-2xl text-foreground font-body placeholder:text-muted-foreground border border-border focus:border-foreground focus:outline-none transition-colors resize-none text-right"
-            />
-            <motion.button
-              type="submit"
-              disabled={sending}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={spring}
+          className="max-w-2xl mx-auto text-center"
+        >
+          <div className="space-y-6 mb-12">
+            <p className="font-body text-lg text-foreground">
+              Weddings • Bar Mitzvah • Private Events
+            </p>
+            <p className="font-body text-muted-foreground">
+              For bookings please call:
+            </p>
+            <a
+              href="tel:+447435952083"
+              className="inline-block font-display text-4xl md:text-5xl text-foreground hover:text-muted-foreground transition-colors"
+              dir="ltr"
+            >
+              +44 7435 952083
+            </a>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <motion.a
+              href="tel:+447435952083"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-primary text-primary-foreground font-body font-medium text-xs px-8 py-3 rounded-full flex items-center gap-2 disabled:opacity-50"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-full"
             >
-              <Send size={14} />
-              {sending ? "שולח..." : "שלח הודעה"}
-            </motion.button>
-          </motion.form>
+              <Phone size={18} />
+              התקשרו עכשיו
+            </motion.a>
 
-          <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row gap-8">
-            <div className="flex items-center gap-3">
-              <Mail size={16} className="text-foreground" />
-              <span className="text-sm text-muted-foreground">booking@nachmancohen.com</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Phone size={16} className="text-foreground" />
-              <span className="text-sm text-muted-foreground">+1 (718) 555-0123</span>
-            </div>
+            <motion.a
+              href="https://wa.me/447435952083"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-full border border-foreground text-foreground"
+            >
+              <MessageCircle size={18} />
+              WhatsApp
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "./pages/Index";
 import MusicPage from "./pages/MusicPage";
 import VideosPage from "./pages/VideosPage";
@@ -48,6 +49,7 @@ const App = () => (
         <Navbar />
         <AnimatedRoutes />
         <Footer />
+        <WhatsAppButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
