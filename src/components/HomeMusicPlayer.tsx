@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw } from "lucide-react";
 
 interface Track {
   title: string;
@@ -15,11 +15,13 @@ interface MusicPlayerProps {
 
 const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [muted, setMuted] = useState(false);
+  const [dragging, setDragging] = useState(false);
 
   const current = tracks[currentIndex];
 
@@ -45,16 +47,40 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   const prev = () => setCurrentIndex((i) => (i - 1 + tracks.length) % tracks.length);
 
   const onTimeUpdate = () => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || dragging) return;
     setProgress(audioRef.current.currentTime);
     setDuration(audioRef.current.duration || 0);
   };
 
-  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = (e.clientX - rect.left) / rect.width;
+  const seekToPosition = (clientX: number) => {
+    if (!audioRef.current || !duration || !barRef.current) return;
+    const rect = barRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
     audioRef.current.currentTime = ratio * duration;
+    setProgress(ratio * duration);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setDragging(true);
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    seekToPosition(e.clientX);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging) return;
+    setDragging(false);
+    seekToPosition(e.clientX);
+  };
+
+  const skip = (seconds: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = Math.max(0, Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + seconds));
   };
 
   const formatTime = (t: number) => {
