@@ -6,44 +6,44 @@
 
 @layer base {
   :root {
-    --background: 30 30% 92%;
-    --foreground: 220 15% 15%;
+    --background: 28 45% 80%;
+    --foreground: 220 20% 12%;
 
-    --card: 30 25% 88%;
-    --card-foreground: 220 15% 15%;
+    --card: 28 40% 76%;
+    --card-foreground: 220 20% 12%;
 
-    --popover: 30 25% 90%;
-    --popover-foreground: 220 15% 15%;
+    --popover: 28 40% 78%;
+    --popover-foreground: 220 20% 12%;
 
-    --primary: 220 15% 15%;
-    --primary-foreground: 30 30% 92%;
+    --primary: 220 20% 12%;
+    --primary-foreground: 28 45% 80%;
 
-    --secondary: 30 20% 85%;
-    --secondary-foreground: 220 15% 15%;
+    --secondary: 28 35% 74%;
+    --secondary-foreground: 220 20% 12%;
 
-    --muted: 30 15% 85%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 28 30% 72%;
+    --muted-foreground: 220 12% 38%;
 
-    --accent: 30 20% 82%;
-    --accent-foreground: 220 15% 15%;
+    --accent: 28 30% 70%;
+    --accent-foreground: 220 20% 12%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 82%;
-    --input: 30 15% 82%;
-    --ring: 220 15% 15%;
+    --border: 28 25% 72%;
+    --input: 28 25% 72%;
+    --ring: 220 20% 12%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 30 25% 90%;
-    --sidebar-foreground: 220 15% 15%;
-    --sidebar-primary: 220 15% 15%;
-    --sidebar-primary-foreground: 30 30% 92%;
-    --sidebar-accent: 30 20% 85%;
-    --sidebar-accent-foreground: 220 15% 15%;
-    --sidebar-border: 30 15% 82%;
-    --sidebar-ring: 220 15% 15%;
+    --sidebar-background: 28 40% 78%;
+    --sidebar-foreground: 220 20% 12%;
+    --sidebar-primary: 220 20% 12%;
+    --sidebar-primary-foreground: 28 45% 80%;
+    --sidebar-accent: 28 35% 74%;
+    --sidebar-accent-foreground: 220 20% 12%;
+    --sidebar-border: 28 25% 72%;
+    --sidebar-ring: 220 20% 12%;
   }
 }
 
@@ -86,10 +86,10 @@
   }
 
   .glass-panel {
-    background: hsla(30, 25%, 90%, 0.85);
+    background: hsla(28, 40%, 78%, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid hsl(30, 15%, 82%);
+    border-bottom: 1px solid hsla(28, 25%, 68%, 0.5);
   }
 
   .card-hover {
@@ -102,7 +102,7 @@
   }
 
   .img-frame {
-    outline: 1px solid hsl(30, 15%, 82%);
+    outline: 1px solid hsla(28, 25%, 68%, 0.5);
     outline-offset: -1px;
   }
 }
