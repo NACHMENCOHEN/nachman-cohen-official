@@ -7,7 +7,7 @@ import heroImg from "@/assets/hero-portrait.jpg";
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 /* ── Mini track player for homepage ── */
-const HomeTrack = ({ title, audioSrc, index }: { title: string; audioSrc: string; index: number }) => {
+const HomeTrack = ({ title, titleEn, audioSrc, index }: { title: string; titleEn: string; audioSrc: string; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -28,14 +28,17 @@ const HomeTrack = ({ title, audioSrc, index }: { title: string; audioSrc: string
     >
       <div className="flex items-center gap-4 flex-1">
         <span className="font-body text-xs text-muted-foreground w-5">{index + 1}</span>
-        <span className="text-foreground font-body text-sm">{title}</span>
+        <div>
+          <span className="text-foreground font-body text-sm">{titleEn}</span>
+          <span className="text-muted-foreground font-body text-xs mr-2 ml-2">({title})</span>
+        </div>
       </div>
       <button
         onClick={togglePlay}
         className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
-        aria-label={playing ? "השהה" : "נגן"}
+        aria-label={playing ? "Pause" : "Play"}
       >
-        {playing ? <Pause size={14} /> : <Play size={14} className="mr-[-1px]" />}
+        {playing ? <Pause size={14} /> : <Play size={14} className="ml-0.5" />}
       </button>
       <audio ref={audioRef} src={audioSrc} onEnded={() => setPlaying(false)} />
     </motion.div>
@@ -44,15 +47,15 @@ const HomeTrack = ({ title, audioSrc, index }: { title: string; audioSrc: string
 
 /* ── Data ── */
 const featuredTracks = [
-  { title: "רפואה", audioSrc: "/music/refua.m4a" },
-  { title: "למעלה", audioSrc: "/music/lemala.mp3" },
-  { title: "תפילין (קאבר)", audioSrc: "/music/tefillin.mp3" },
+  { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.m4a" },
+  { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3" },
+  { title: "תפילין", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3" },
 ];
 
 const latestReleases = [
-  { title: "מיין טייערע לעכטעלע", type: "סינגל חדש" },
-  { title: "תפילין", type: "סינגל חדש" },
-  { title: "ומרדכי ידע", type: "קליפ" },
+  { title: "מיין טייערע לעכטעלע", titleEn: "Mein Taiere Lechtele", type: "New Single" },
+  { title: "תפילין", titleEn: "Tefillin", type: "New Single" },
+  { title: "ומרדכי ידע", titleEn: "U'Mordechai Yada", type: "Music Video" },
 ];
 
 /* ── Page ── */
@@ -61,7 +64,6 @@ const Index = () => {
     <div>
       {/* ═══════════════ 1. HERO ═══════════════ */}
       <section className="relative min-h-screen flex items-end justify-center overflow-hidden">
-        {/* Blurred background fill for wide screens */}
         <div className="absolute inset-0 z-0">
           <img
             src={heroImg}
@@ -71,7 +73,6 @@ const Index = () => {
           />
         </div>
 
-        {/* Main sharp image – contained, no crop */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -80,16 +81,14 @@ const Index = () => {
         >
           <img
             src={heroImg}
-            alt="נחמן כהן"
+            alt="Nachman Cohen"
             className="h-full object-contain"
           />
         </motion.div>
 
-        {/* Overlays for text readability */}
         <div className="absolute inset-0 z-[2] bg-gradient-to-t from-background via-background/60 to-transparent" />
         <div className="absolute inset-0 z-[2] bg-background/20" />
 
-        {/* Content */}
         <div className="relative z-10 text-center pb-16 md:pb-24 px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -97,7 +96,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.5 }}
             className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-3"
           >
-            נחמן כהן
+            Nachman Cohen
           </motion.h1>
 
           <motion.p
@@ -106,7 +105,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.65 }}
             className="font-body text-sm text-muted-foreground mb-10 tracking-widest"
           >
-            זמר חסידי | האתר הרשמי
+            Hasidic Singer | Official Website
           </motion.p>
 
           <motion.div
@@ -121,7 +120,7 @@ const Index = () => {
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-7 py-3.5 rounded-full"
               >
                 <Music size={16} />
-                האזינו לשירים
+                Listen to Music
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
@@ -130,16 +129,7 @@ const Index = () => {
                 className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground/30 text-foreground backdrop-blur-sm"
               >
                 <Calendar size={16} />
-                הזמנת הופעה
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground/30 text-foreground backdrop-blur-sm"
-              >
-                <Calendar size={16} />
-                הזמנת הופעה
+                Book a Show
               </Link>
             </motion.div>
           </motion.div>
@@ -156,13 +146,13 @@ const Index = () => {
             transition={spring}
             className="text-center mb-12"
           >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">שירים</p>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">האזינו לשירים</h2>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">MUSIC</p>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground">Listen to Songs</h2>
           </motion.div>
 
           <div className="max-w-2xl mx-auto">
             {featuredTracks.map((track, i) => (
-              <HomeTrack key={i} title={track.title} audioSrc={track.audioSrc} index={i} />
+              <HomeTrack key={i} title={track.title} titleEn={track.titleEn} audioSrc={track.audioSrc} index={i} />
             ))}
           </div>
 
@@ -178,14 +168,12 @@ const Index = () => {
                 to="/music"
                 className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-foreground text-foreground"
               >
-                כל השירים ←
+                All Songs →
               </Link>
             </motion.div>
           </motion.div>
         </div>
       </section>
-
-
 
       {/* ═══════════════ 4. NEW RELEASES ═══════════════ */}
       <section className="py-20 md:py-28 border-t border-border">
@@ -197,8 +185,8 @@ const Index = () => {
             transition={spring}
             className="text-center mb-12"
           >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">חדש</p>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">יצירות אחרונות</h2>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">NEW</p>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground">Latest Releases</h2>
           </motion.div>
 
           <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -212,7 +200,8 @@ const Index = () => {
                 className="text-center py-8 px-4 rounded-2xl border border-border hover:bg-secondary/40 transition-colors"
               >
                 <p className="font-body text-xs text-muted-foreground mb-2">{item.type}</p>
-                <h3 className="font-display text-xl text-foreground">{item.title}</h3>
+                <h3 className="font-display text-xl text-foreground">{item.titleEn}</h3>
+                <p className="font-body text-xs text-muted-foreground mt-1">{item.title}</p>
               </motion.div>
             ))}
           </div>
@@ -229,7 +218,7 @@ const Index = () => {
             transition={spring}
             className="text-center"
           >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">הזמנת הופעה</p>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">BOOKING</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
               Book Nachman Cohen
             </h2>
@@ -254,7 +243,7 @@ const Index = () => {
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-7 py-3.5 rounded-full"
               >
                 <Phone size={16} />
-                התקשרו עכשיו
+                Call Now
               </motion.a>
               <motion.a
                 href="https://wa.me/447435952083"
@@ -282,15 +271,15 @@ const Index = () => {
             transition={spring}
             className="max-w-2xl mx-auto text-center"
           >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">אודות</p>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mb-8">נחמן כהן</h2>
+            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">ABOUT</p>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mb-8">Nachman Cohen</h2>
 
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="inline-block">
               <Link
                 to="/about"
                 className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-foreground text-foreground"
               >
-                קראו עוד ←
+                Read More →
               </Link>
             </motion.div>
           </motion.div>

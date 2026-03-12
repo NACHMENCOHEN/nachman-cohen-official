@@ -9,7 +9,7 @@ const ContactPage = () => {
     <div className="pt-28 pb-24">
       <div className="container mx-auto px-6">
         <SectionHeading
-          title="הזמנת הופעה"
+          title="Book a Show"
           subtitle="Book Nachman Cohen for live performances"
         />
 
@@ -43,7 +43,7 @@ const ContactPage = () => {
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-full"
             >
               <Phone size={18} />
-              התקשרו עכשיו
+              Call Now
             </motion.a>
 
             <motion.a
