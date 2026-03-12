@@ -70,9 +70,9 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.5 }}
-            className="font-hero-title text-8xl md:text-[10rem] lg:text-[13rem] text-foreground mb-10 gold-text"
+            className="font-hero-title text-7xl md:text-[9rem] lg:text-[12rem] text-foreground mb-10 gold-text uppercase"
           >
-            נחמן כהן
+            Nachman Cohen
           </motion.h1>
 
           <motion.div
