@@ -13,9 +13,12 @@ interface Track {
 const tracks: Track[] = [
   { title: "רפואה", audioSrc: "/music/refua.m4a" },
   { title: "למעלה", audioSrc: "/music/lemala.mp3" },
-  { title: "למצוא חן", audioSrc: "/music/limtzo-chen.mp3" },
-  { title: "מיין טייערע לעכטעלע", audioSrc: "/music/mein-taiere-lechtele.mp3" },
   { title: "תפילין", audioSrc: "/music/tefillin.mp3" },
+  { title: "חנוכה – מיין טייערע לעכטעלע", audioSrc: "/music/mein-taiere-lechtele.mp3" },
+  { title: "התעוררי (קאבר)", audioSrc: "/music/hisoreri.mp4" },
+  { title: "דמות עם צבע", audioSrc: "/music/dmut-im-tzeva.mp4" },
+  { title: "מיין טרייערעלע", audioSrc: "/music/mein-treireleh.mp4" },
+  { title: "ומרדכי ידע", audioSrc: "/music/u-mordechai-yada.mp4" },
 ];
 
 const TrackRow = ({ track, index }: { track: Track; index: number }) => {
