@@ -17,7 +17,7 @@ const tracks: Track[] = [
   { title: "תפילין (קאבר)", audioSrc: "/music/tefillin.mp3" },
   { title: "מיין טייערע לעכטעלע", audioSrc: "/music/mein-taiere-lechtele.mp3" },
   { title: "התעוררי (קאבר)", audioSrc: "/music/hisoreri.mp4" },
-  { title: "דמות עם צבע", audioSrc: "/music/dmut-im-tzeva.mp4" },
+  { title: "דמות עם צבע", audioSrc: "/music/dmut-im-tzeva.mp4", cover: "/covers/dmut-im-tzeva.jpg" },
   { title: "מיין טרייערעלע", audioSrc: "/music/mein-treireleh.mp4" },
   { title: "ומרדכי ידע", audioSrc: "/music/u-mordechai-yada.mp4" },
 ];
