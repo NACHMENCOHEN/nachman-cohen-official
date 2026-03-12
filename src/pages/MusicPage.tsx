@@ -81,6 +81,11 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     seekToPosition(e.clientX);
   };
 
+  const skip = (seconds: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = Math.max(0, Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + seconds));
+  };
+
   const formatTime = (t: number) => {
     const m = Math.floor(t / 60);
     const s = Math.floor(t % 60);
