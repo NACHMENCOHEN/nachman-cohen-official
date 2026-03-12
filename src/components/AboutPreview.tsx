@@ -82,11 +82,11 @@ const AboutPreview = () => {
             transition={spring}
             className="relative order-first md:order-last"
           >
-            <div className="rounded-2xl overflow-hidden img-frame">
+            <div className="rounded-2xl overflow-hidden img-frame -scale-x-100">
               <motion.img
                 src={aboutImg}
                 alt="Nachman Cohen"
-                className="w-full aspect-square object-cover object-top -scale-x-100"
+                className="w-full aspect-square object-cover object-top"
                 loading="lazy"
                 style={{ scale: imgScale, y: imgY }}
               />
