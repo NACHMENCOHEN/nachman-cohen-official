@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutImg from "@/assets/about-portrait.jpg";
+import aboutImg from "@/assets/about-cutout.png";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
