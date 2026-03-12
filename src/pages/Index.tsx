@@ -78,6 +78,7 @@ const Index = () => {
             className="font-hero-title text-[5rem] md:text-[9rem] lg:text-[12rem] xl:text-[14rem] text-foreground mb-10 gold-text uppercase whitespace-nowrap relative z-10 drop-shadow-[0_0_60px_hsla(38,70%,55%,0.25)]"
           >
             NACHMAN COHEN
+            <span className="block font-display text-[2rem] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5rem] mt-2 tracking-wide">נחמן כהן</span>
           </motion.h1>
 
           <motion.div
