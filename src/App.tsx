@@ -37,7 +37,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <main className="pt-[72px] name-watermark">
+      <main className="pt-[72px]">
         <AnimatedRoutes />
       </main>
       <Footer />
