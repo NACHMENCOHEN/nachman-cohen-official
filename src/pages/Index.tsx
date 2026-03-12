@@ -175,61 +175,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══════════════ 3. VIDEO PREVIEW ═══════════════ */}
-      <section className="py-20 md:py-28 border-t border-border">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={spring}
-            className="text-center mb-12"
-          >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">וידאו</p>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">צפו בקליפים</h2>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {featuredVideos.map((video, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ ...spring, delay: i * 0.08 }}
-                className="rounded-2xl overflow-hidden bg-card border border-border"
-              >
-                <video
-                  src={video.videoSrc}
-                  controls
-                  preload="metadata"
-                  className="w-full aspect-video object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="font-body text-foreground text-sm">{video.title}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ ...spring, delay: 0.3 }}
-            className="text-center mt-10"
-          >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="inline-block">
-              <Link
-                to="/videos"
-                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-full border border-foreground text-foreground"
-              >
-                כל הקליפים ←
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* ═══════════════ 4. NEW RELEASES ═══════════════ */}
       <section className="py-20 md:py-28 border-t border-border">
