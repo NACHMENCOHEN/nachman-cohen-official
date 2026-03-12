@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
 const inputClasses =
-  "w-full bg-transparent px-4 py-3 rounded-lg text-foreground font-body placeholder:text-muted-foreground shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] focus:shadow-[inset_0_0_0_1px_hsl(45_70%_70%),0_0_0_4px_hsla(45_70%_70%/0.15)] focus:outline-none transition-shadow";
+  "w-full bg-transparent px-4 py-3 rounded-lg text-foreground font-body placeholder:text-muted-foreground shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] focus:shadow-[inset_0_0_0_1px_hsl(45_70%_70%),0_0_0_4px_hsla(45_70%_70%/0.15)] focus:outline-none transition-shadow text-right";
 
 const ContactPage = () => {
   const [sending, setSending] = useState(false);
@@ -17,7 +17,7 @@ const ContactPage = () => {
     setSending(true);
     setTimeout(() => {
       setSending(false);
-      toast.success("Message sent! We'll get back to you soon.");
+      toast.success("ההודעה נשלחה! נחזור אליכם בהקדם.");
     }, 1000);
   };
 
@@ -25,8 +25,8 @@ const ContactPage = () => {
     <div className="pt-28 pb-24">
       <div className="container mx-auto px-6">
         <SectionHeading
-          title="Book Nachman"
-          subtitle="Fill out the form below and we'll get back to you within 24 hours"
+          title="הזמנת נחמן"
+          subtitle="מלאו את הטופס ונחזור אליכם תוך 24 שעות"
         />
 
         <div className="max-w-2xl mx-auto">
@@ -38,15 +38,15 @@ const ContactPage = () => {
             className="space-y-5"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <input type="text" placeholder="Full Name" required className={inputClasses} />
-              <input type="email" placeholder="Email Address" required className={inputClasses} />
-              <input type="tel" placeholder="Phone Number" className={inputClasses} />
-              <input type="text" placeholder="Event Type" className={inputClasses} />
-              <input type="text" placeholder="Event Date" className={inputClasses} />
-              <input type="text" placeholder="Location" className={inputClasses} />
+              <input type="text" placeholder="שם מלא" required className={inputClasses} />
+              <input type="email" placeholder="כתובת אימייל" required className={inputClasses} />
+              <input type="tel" placeholder="מספר טלפון" className={inputClasses} />
+              <input type="text" placeholder="סוג אירוע" className={inputClasses} />
+              <input type="text" placeholder="תאריך האירוע" className={inputClasses} />
+              <input type="text" placeholder="מיקום" className={inputClasses} />
             </div>
             <textarea
-              placeholder="Tell us about your event..."
+              placeholder="ספרו לנו על האירוע שלכם..."
               rows={5}
               className={inputClasses + " resize-none"}
             />
@@ -55,10 +55,10 @@ const ContactPage = () => {
               disabled={sending}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-primary text-primary-foreground font-ui text-xs px-8 py-3 rounded-lg flex items-center gap-2 disabled:opacity-50"
+              className="bg-primary text-primary-foreground font-body font-medium text-xs px-8 py-3 rounded-lg flex items-center gap-2 disabled:opacity-50"
             >
               <Send size={14} />
-              {sending ? "Sending..." : "Send Message"}
+              {sending ? "שולח..." : "שלח הודעה"}
             </motion.button>
           </motion.form>
 

@@ -4,13 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/music", label: "Music" },
-  { to: "/videos", label: "Videos" },
-  { to: "/shows", label: "Shows" },
-  { to: "/about", label: "About" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", label: "בית" },
+  { to: "/music", label: "מוזיקה" },
+  { to: "/videos", label: "וידאו" },
+  { to: "/shows", label: "הופעות" },
+  { to: "/about", label: "אודות" },
+  { to: "/gallery", label: "גלריה" },
+  { to: "/contact", label: "צור קשר" },
 ];
 
 const Navbar = () => {
@@ -21,16 +21,15 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel rounded-none border-x-0 border-t-0">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <Link to="/" className="font-display text-2xl tracking-tight text-foreground">
-          Nachman Cohen
+          נחמן כהן
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="relative font-ui text-xs text-muted-foreground hover:text-foreground transition-colors duration-300"
+              className="relative font-body text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               {link.label}
               {location.pathname === link.to && (
@@ -43,17 +42,15 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden text-foreground"
-          aria-label="Toggle menu"
+          aria-label="תפריט"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -68,7 +65,7 @@ const Navbar = () => {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className={`font-ui text-xs py-3 transition-colors ${
+                  className={`font-body text-xs font-medium py-3 transition-colors ${
                     location.pathname === link.to
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"

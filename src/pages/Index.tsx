@@ -13,7 +13,7 @@ const Index = () => {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImg}
-            alt="Nachman Cohen — professional portrait"
+            alt="נחמן כהן — תמונה מקצועית"
             className="w-full h-full object-cover object-[center_25%]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
@@ -26,16 +26,16 @@ const Index = () => {
             transition={{ ...spring, delay: 0.3 }}
             className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-4"
           >
-            Nachman Cohen
+            נחמן כהן
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.5 }}
-            className="font-ui text-sm md:text-base text-muted-foreground mb-10 tracking-widest"
+            className="font-body text-sm md:text-base text-muted-foreground mb-10 tracking-widest"
           >
-            Official Music Website
+            האתר הרשמי
           </motion.p>
 
           <motion.div
@@ -46,15 +46,14 @@ const Index = () => {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/music"
-                className="inline-block bg-primary text-primary-foreground font-ui text-xs px-8 py-4 rounded-lg"
+                className="inline-block bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-lg"
               >
-                Listen to Music
+                האזינו לשירים
               </Link>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Music player pinned to bottom of hero */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,21 +73,21 @@ const Index = () => {
             viewport={{ once: true }}
             transition={spring}
           >
-            <p className="font-ui text-xs text-primary mb-4">Featured</p>
+            <p className="font-body text-xs font-medium text-primary mb-4">מומלץ</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
-              Bringing Joy to Every Simcha
+              מביא שמחה לכל אירוע
             </h2>
             <p className="font-body text-muted-foreground max-w-xl mx-auto leading-relaxed mb-10">
-              From intimate weddings to grand concerts, Nachman Cohen delivers
-              powerful performances that elevate every celebration. With a repertoire
-              spanning traditional niggunim, contemporary hits, and original compositions.
+              מחתונות אינטימיות ועד קונצרטים גדולים, נחמן כהן מעניק הופעות
+              עוצמתיות שמרוממות כל חגיגה. עם רפרטואר הכולל ניגונים מסורתיים,
+              להיטים עכשוויים ויצירות מקוריות.
             </p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to="/about"
-                className="inline-block font-ui text-xs px-6 py-3 rounded-lg shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] text-foreground"
+                className="inline-block font-body font-medium text-xs px-6 py-3 rounded-lg shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] text-foreground"
               >
-                Learn More
+                קראו עוד
               </Link>
             </motion.div>
           </motion.div>
@@ -104,12 +103,12 @@ const Index = () => {
             viewport={{ once: true }}
             transition={spring}
           >
-            <p className="font-ui text-xs text-primary mb-8">Upcoming Shows</p>
+            <p className="font-body text-xs font-medium text-primary mb-8">הופעות קרובות</p>
             <div className="space-y-4">
               {[
-                { date: "MAR 28, 2026", venue: "Grand Ballroom, Brooklyn, NY", event: "Private Wedding" },
-                { date: "APR 15, 2026", venue: "Convention Center, Lakewood, NJ", event: "Community Concert" },
-                { date: "MAY 02, 2026", venue: "The Palace, Monsey, NY", event: "Gala Dinner" },
+                { date: "28 מרץ, 2026", venue: "אולם הגדול, ברוקלין", event: "חתונה פרטית" },
+                { date: "15 אפריל, 2026", venue: "מרכז הכנסים, לייקווד", event: "קונצרט קהילתי" },
+                { date: "2 מאי, 2026", venue: "הפאלאס, מונסי", event: "ערב גאלה" },
               ].map((show, i) => (
                 <motion.div
                   key={i}
@@ -119,15 +118,15 @@ const Index = () => {
                   transition={{ ...spring, delay: i * 0.07 }}
                   className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-border gap-2"
                 >
-                  <span className="font-ui text-xs text-primary">{show.date}</span>
+                  <span className="font-body text-xs font-medium text-primary">{show.date}</span>
                   <span className="text-foreground font-body">{show.venue}</span>
                   <span className="text-muted-foreground font-body text-sm">{show.event}</span>
                 </motion.div>
               ))}
             </div>
             <div className="mt-8">
-              <Link to="/shows" className="font-ui text-xs text-muted-foreground hover:text-foreground transition-colors">
-                View All Shows →
+              <Link to="/shows" className="font-body text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
+                ← כל ההופעות
               </Link>
             </div>
           </motion.div>
