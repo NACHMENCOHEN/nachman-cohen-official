@@ -208,7 +208,15 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
                 <span className="font-body text-xs ml-2 opacity-60">({track.title})</span>
               </div>
             </div>
-            <Play size={14} className={i === currentIndex ? "text-primary" : "opacity-40"} />
+            <a
+              href={track.audioSrc}
+              download
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label={`Download ${track.titleEn}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Download size={14} />
+            </a>
           </button>
         ))}
       </div>

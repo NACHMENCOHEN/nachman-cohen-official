@@ -175,9 +175,22 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
         </div>
       </div>
 
+      {/* Download Button */}
+      <div className="px-4 pb-3">
+        <a
+          href={track.audioSrc}
+          download
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+        >
+          <Download size={12} />
+          <span>Download</span>
+        </a>
+      </div>
+
       <audio
         ref={audioRef}
         src={track.audioSrc}
+        preload="metadata"
         onTimeUpdate={onTimeUpdate}
         onLoadedMetadata={onTimeUpdate}
         onEnded={() => setPlaying(false)}
