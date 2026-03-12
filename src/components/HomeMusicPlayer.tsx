@@ -109,18 +109,33 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
         {/* Progress Bar */}
         <div className="mb-4">
           <div
-            className="w-full h-1.5 bg-muted rounded-full cursor-pointer group"
-            onClick={seek}
+            ref={barRef}
+            className="w-full h-5 cursor-pointer group flex items-center touch-none select-none"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
           >
-            <div
-              className="h-full bg-primary rounded-full relative transition-all"
-              style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
-            >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="w-full h-1.5 bg-muted rounded-full relative">
+              <div
+                className="h-full bg-primary rounded-full pointer-events-none transition-all"
+                style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
+              />
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-md pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ left: duration ? `calc(${(progress / duration) * 100}% - 7px)` : "0" }}
+              />
             </div>
           </div>
-          <div className="flex justify-between mt-1.5">
+          <div className="flex items-center justify-between mt-1.5">
             <span className="font-body text-xs text-muted-foreground">{formatTime(progress)}</span>
+            <div className="flex items-center gap-3">
+              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Back 10s">
+                <RotateCcw size={14} />
+              </button>
+              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Forward 10s">
+                <RotateCw size={14} />
+              </button>
+            </div>
             <span className="font-body text-xs text-muted-foreground">{duration ? formatTime(duration) : "0:00"}</span>
           </div>
         </div>
