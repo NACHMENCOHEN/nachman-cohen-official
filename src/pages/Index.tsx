@@ -60,23 +60,23 @@ const Index = () => {
   return (
     <div>
       {/* ═══════════════ 1. HERO ═══════════════ */}
-      <section className="relative min-h-screen flex items-end justify-center overflow-hidden">
-        {/* Background image – full bleed */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0 bg-background" />
+
+        {/* Portrait image – contained, proportional */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...spring, duration: 1, delay: 0.1 }}
-          className="absolute inset-0 z-0"
+          className="relative z-[1] mt-24 mb-6 w-[280px] md:w-[340px] lg:w-[400px] rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
         >
           <img
             src={heroImg}
             alt="נחמן כהן"
-            className="w-full h-full object-cover object-[center_40%]"
+            className="w-full h-auto object-contain"
           />
-          {/* Gradient overlays to blend into background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-background/20" />
+          <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
         </motion.div>
 
         {/* Content */}
