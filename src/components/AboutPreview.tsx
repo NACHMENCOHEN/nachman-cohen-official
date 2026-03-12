@@ -40,7 +40,7 @@ const AboutPreview = () => {
               transition={{ ...spring, delay: 0.3 }}
               className="font-display text-4xl md:text-5xl text-foreground mb-6"
             >
-              Nachman Cohen <span className="block text-2xl md:text-3xl mt-1 text-muted-foreground">נחמן כהן</span>
+              Nachman Cohen
             </motion.h2>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
