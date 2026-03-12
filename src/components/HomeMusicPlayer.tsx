@@ -161,7 +161,15 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="Next">
             <SkipForward size={22} />
           </button>
-          <div className="w-[18px]" /> {/* spacer for symmetry */}
+          <a
+            href={current.audioSrc}
+            download
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Download"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Download size={18} />
+          </a>
         </div>
 
         <audio
