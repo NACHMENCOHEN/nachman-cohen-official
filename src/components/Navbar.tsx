@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { to: "/", label: "בית" },
-  { to: "/music", label: "מוזיקה" },
+  { to: "/music", label: "שירים" },
   { to: "/videos", label: "וידאו" },
   { to: "/shows", label: "הופעות" },
   { to: "/about", label: "אודות" },
