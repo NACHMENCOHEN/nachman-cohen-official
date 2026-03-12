@@ -49,12 +49,6 @@ const featuredTracks = [
   { title: "תפילין (קאבר)", audioSrc: "/music/tefillin.mp3" },
 ];
 
-const featuredVideos = [
-  { title: "דמות עם צבע", videoSrc: "/music/dmut-im-tzeva.mp4" },
-  { title: "מיין טייערע לעכטעלע", videoSrc: "/music/mein-taiere-lechtele.mp4" },
-  { title: "התעוררי", videoSrc: "/music/hisoreri.mp4" },
-];
-
 const latestReleases = [
   { title: "מיין טייערע לעכטעלע", type: "סינגל חדש" },
   { title: "תפילין", type: "סינגל חדש" },
