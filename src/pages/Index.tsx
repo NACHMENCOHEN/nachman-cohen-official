@@ -66,74 +66,80 @@ const Index = () => {
   return (
     <div>
       {/* ═══════════════ 1. HERO ═══════════════ */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-end justify-center overflow-hidden">
+        {/* Background image – full bleed */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ ...spring, delay: 0.2 }}
-          className="relative z-10 mt-24 mb-6"
+          transition={{ ...spring, duration: 1, delay: 0.1 }}
+          className="absolute inset-0 z-0"
         >
-          <div className="w-64 md:w-72 lg:w-80 mx-auto">
-            <img
-              src={heroImg}
-              alt="נחמן כהן"
-              className="w-full rounded-2xl shadow-2xl shadow-foreground/10 object-cover"
-            />
-          </div>
+          <img
+            src={heroImg}
+            alt="נחמן כהן"
+            className="w-full h-full object-cover object-[center_25%]"
+          />
+          {/* Gradient overlays to blend into background */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-background/20" />
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.5 }}
-          className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground mb-2 text-center"
-        >
-          נחמן כהן
-        </motion.h1>
+        {/* Content */}
+        <div className="relative z-10 text-center pb-16 md:pb-24 px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.5 }}
+            className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-3"
+          >
+            נחמן כהן
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.65 }}
-          className="font-body text-sm text-muted-foreground mb-10 tracking-widest"
-        >
-          זמר חסידי | האתר הרשמי
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.65 }}
+            className="font-body text-sm text-muted-foreground mb-10 tracking-widest"
+          >
+            זמר חסידי | האתר הרשמי
+          </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-3 mb-20 px-4"
-        >
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Link
-              to="/music"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-7 py-3.5 rounded-full"
-            >
-              <Music size={16} />
-              האזינו לשירים
-            </Link>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.8 }}
+            className="flex flex-wrap items-center justify-center gap-3"
+          >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/music"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-7 py-3.5 rounded-full"
+              >
+                <Music size={16} />
+                האזינו לשירים
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/videos"
+                className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground/30 text-foreground backdrop-blur-sm"
+              >
+                <Video size={16} />
+                צפו בקליפים
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground/30 text-foreground backdrop-blur-sm"
+              >
+                <Calendar size={16} />
+                הזמנת הופעה
+              </Link>
+            </motion.div>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Link
-              to="/videos"
-              className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground text-foreground"
-            >
-              <Video size={16} />
-              צפו בקליפים
-            </Link>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground text-foreground"
-            >
-              <Calendar size={16} />
-              הזמנת הופעה
-            </Link>
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ═══════════════ 2. MUSIC PREVIEW ═══════════════ */}
