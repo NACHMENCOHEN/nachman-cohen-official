@@ -20,7 +20,7 @@ const Index = () => {
             <img
               src={heroImg}
               alt="נחמן כהן — תמונה מקצועית"
-              className="w-full rounded-2xl shadow-2xl shadow-foreground/10 grayscale"
+              className="w-full rounded-2xl shadow-2xl shadow-foreground/10"
               style={{ filter: "grayscale(100%) contrast(1.05)" }}
             />
           </div>
@@ -71,7 +71,6 @@ const Index = () => {
             viewport={{ once: true }}
             transition={spring}
           >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest">מומלץ</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
               מביא שמחה לכל אירוע
             </h2>
@@ -88,45 +87,6 @@ const Index = () => {
                 קראו עוד
               </Link>
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Upcoming Shows Preview */}
-      <section className="py-16 border-t border-border">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={spring}
-          >
-            <p className="font-body text-xs font-medium text-muted-foreground mb-8 tracking-widest">הופעות קרובות</p>
-            <div className="space-y-4">
-              {[
-                { date: "28 מרץ, 2026", venue: "אולם הגדול, ברוקלין", event: "חתונה פרטית" },
-                { date: "15 אפריל, 2026", venue: "מרכז הכנסים, לייקווד", event: "קונצרט קהילתי" },
-                { date: "2 מאי, 2026", venue: "הפאלאס, מונסי", event: "ערב גאלה" },
-              ].map((show, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ ...spring, delay: i * 0.07 }}
-                  className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-border gap-2"
-                >
-                  <span className="font-body text-xs font-medium text-foreground">{show.date}</span>
-                  <span className="text-foreground font-body">{show.venue}</span>
-                  <span className="text-muted-foreground font-body text-sm">{show.event}</span>
-                </motion.div>
-              ))}
-            </div>
-            <div className="mt-8">
-              <Link to="/shows" className="font-body text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
-                ← כל ההופעות
-              </Link>
-            </div>
           </motion.div>
         </div>
       </section>

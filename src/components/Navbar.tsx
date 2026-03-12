@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Youtube } from "lucide-react";
 
 const navLinks = [
   { to: "/", label: "בית" },
   { to: "/music", label: "שירים" },
   { to: "/videos", label: "וידאו" },
-  { to: "/shows", label: "הופעות" },
   { to: "/about", label: "אודות" },
   { to: "/gallery", label: "גלריה" },
   { to: "/contact", label: "צור קשר" },
@@ -40,6 +39,15 @@ const Navbar = () => {
               )}
             </Link>
           ))}
+
+          <div className="flex items-center gap-4 mr-4 border-r border-border pr-4">
+            <a href="https://www.instagram.com/nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
+              <Instagram size={18} />
+            </a>
+            <a href="https://www.youtube.com/@Nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="YouTube">
+              <Youtube size={18} />
+            </a>
+          </div>
         </div>
 
         <button
@@ -74,6 +82,14 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              <div className="flex items-center gap-5 pt-3 border-t border-border mt-2">
+                <a href="https://www.instagram.com/nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
+                  <Instagram size={20} />
+                </a>
+                <a href="https://www.youtube.com/@Nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="YouTube">
+                  <Youtube size={20} />
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
