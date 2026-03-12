@@ -26,7 +26,7 @@ const AboutPage = () => (
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.15 }}
-          className="lg:pt-8"
+          className="lg:pt-8 order-2 lg:order-1"
         >
           <p className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest">ABOUT</p>
           <h1 className="font-display text-4xl md:text-5xl text-foreground mb-8">
