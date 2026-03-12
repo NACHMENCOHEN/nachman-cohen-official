@@ -50,7 +50,7 @@ const AboutPreview = () => (
             <img
               src={aboutImg}
               alt="Nachman Cohen"
-              className="w-full aspect-square object-cover object-top"
+              className="w-full aspect-square object-cover object-top -scale-x-100"
               loading="lazy"
             />
           </div>
