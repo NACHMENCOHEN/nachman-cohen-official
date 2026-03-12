@@ -56,11 +56,14 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   };
 
   const seekToPosition = (clientX: number) => {
-    if (!audioRef.current || !duration || !barRef.current) return;
+    if (!audioRef.current || !barRef.current) return;
+    const dur = audioRef.current.duration;
+    if (!dur || isNaN(dur)) return;
     const rect = barRef.current.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    audioRef.current.currentTime = ratio * duration;
-    setProgress(ratio * duration);
+    audioRef.current.currentTime = ratio * dur;
+    setProgress(ratio * dur);
+    setDuration(dur);
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
