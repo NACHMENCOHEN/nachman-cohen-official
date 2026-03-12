@@ -116,11 +116,11 @@ const Index = () => {
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Link
-                to="/videos"
+                to="/contact"
                 className="inline-flex items-center gap-2 font-body font-medium text-sm px-7 py-3.5 rounded-full border border-foreground/30 text-foreground backdrop-blur-sm"
               >
-                <Video size={16} />
-                צפו בקליפים
+                <Calendar size={16} />
+                הזמנת הופעה
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
