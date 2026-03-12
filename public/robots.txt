@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://nachman-cohen-official.lovable.app/sitemap.xml
+Sitemap: https://nachmancohen.com/sitemap.xml
