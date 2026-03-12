@@ -168,6 +168,7 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           ref={audioRef}
           src={current.audioSrc}
           muted={muted}
+          preload="metadata"
           onTimeUpdate={onTimeUpdate}
           onLoadedMetadata={onTimeUpdate}
           onEnded={next}
