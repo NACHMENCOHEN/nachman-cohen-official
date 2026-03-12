@@ -73,7 +73,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ ...spring, delay: 0.5, duration: 1 }}
-            className="font-hero-title text-[4.25rem] md:text-[8.5rem] lg:text-[11.5rem] xl:text-[13rem] text-foreground mb-10 gold-text uppercase whitespace-nowrap relative z-10 drop-shadow-[0_0_60px_hsla(38,70%,55%,0.25)]"
+            className="font-hero-title text-[5rem] md:text-[9rem] lg:text-[12rem] xl:text-[14rem] text-foreground mb-10 gold-text uppercase whitespace-nowrap relative z-10 drop-shadow-[0_0_60px_hsla(38,70%,55%,0.25)]"
           >
             NACHMAN COHEN
           </motion.h1>
