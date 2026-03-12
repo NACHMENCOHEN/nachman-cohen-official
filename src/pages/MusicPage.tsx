@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
 
@@ -24,19 +24,11 @@ const tracks: Track[] = [
   { title: "ומרדכי ידע", titleEn: "U'Mordechai Yada", audioSrc: "/music/u-mordechai-yada.mp4" },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 25, scale: 0.96 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { ...spring, delay: i * 0.06 },
-  }),
-};
-
-const TrackCard = ({ track, index }: { track: Track; index: number }) => {
+const TrackRow = ({ track, index }: { track: Track; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -45,57 +37,103 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     setPlaying(!playing);
   };
 
+  const onTimeUpdate = () => {
+    if (!audioRef.current) return;
+    setProgress(audioRef.current.currentTime);
+    setDuration(audioRef.current.duration || 0);
+  };
+
+  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    audioRef.current.currentTime = ratio * duration;
+  };
+
+  const formatTime = (t: number) => {
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
   return (
     <motion.div
-      custom={index}
-      variants={cardVariants}
-      whileHover={{ y: -6, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className="group relative aspect-square rounded-2xl overflow-hidden bg-card border border-border cursor-pointer hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all"
-      onClick={togglePlay}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ ...spring, delay: index * 0.05 }}
+      className="max-w-3xl mx-auto"
     >
-      {track.cover ? (
-        <motion.img
-          src={track.cover}
-          alt={track.titleEn}
-          className="w-full h-full object-cover"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.4 }}
-        />
-      ) : (
-        <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
-          <span className="font-display text-5xl text-muted-foreground/30 select-none">♪</span>
+      <div className="rounded-2xl bg-card border border-border overflow-hidden hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all">
+        {/* Cover Image */}
+        <div className="relative aspect-[16/9] md:aspect-[2.5/1] overflow-hidden cursor-pointer group" onClick={togglePlay}>
+          {track.cover ? (
+            <motion.img
+              src={track.cover}
+              alt={track.titleEn}
+              className="w-full h-full object-cover"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.4 }}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
+              <span className="font-display text-7xl text-muted-foreground/20 select-none">♪</span>
+            </div>
+          )}
+
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+
+          {/* Play button overlay */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className={`w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-all ${
+                playing
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-primary/90 text-primary-foreground opacity-0 group-hover:opacity-100"
+              }`}
+            >
+              {playing ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
+            </motion.div>
+          </div>
         </div>
-      )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent transition-opacity" />
+        {/* Player Controls */}
+        <div className="px-6 py-5">
+          {/* Title */}
+          <div className="mb-4">
+            <h3 className="font-display text-2xl md:text-3xl text-foreground">{track.titleEn}</h3>
+            <p className="font-body text-sm text-muted-foreground mt-1">{track.title}</p>
+          </div>
 
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <motion.div
-          initial={{ scale: 0.8 }}
-          whileHover={{ scale: 1 }}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg"
-        >
-          {playing ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
-        </motion.div>
+          {/* Progress Bar */}
+          <div
+            className="w-full h-1.5 bg-muted rounded-full cursor-pointer group/bar"
+            onClick={seek}
+          >
+            <div
+              className="h-full bg-primary rounded-full relative transition-all"
+              style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
+            >
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover/bar:opacity-100 transition-opacity" />
+            </div>
+          </div>
+          <div className="flex justify-between mt-1.5">
+            <span className="font-body text-xs text-muted-foreground">{formatTime(progress)}</span>
+            <span className="font-body text-xs text-muted-foreground">{duration ? formatTime(duration) : "0:00"}</span>
+          </div>
+        </div>
+
+        <audio
+          ref={audioRef}
+          src={track.audioSrc}
+          onTimeUpdate={onTimeUpdate}
+          onLoadedMetadata={onTimeUpdate}
+          onEnded={() => setPlaying(false)}
+        />
       </div>
-
-      {playing && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="absolute top-3 left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
-        >
-          <Pause size={12} />
-        </motion.div>
-      )}
-
-      <div className="absolute bottom-0 inset-x-0 p-4">
-        <p className="font-body text-foreground text-sm font-medium truncate">{track.titleEn}</p>
-        <p className="font-body text-muted-foreground text-xs mt-0.5 truncate">{track.title}</p>
-      </div>
-
-      <audio ref={audioRef} src={track.audioSrc} onEnded={() => setPlaying(false)} />
     </motion.div>
   );
 };
@@ -107,16 +145,11 @@ const MusicPage = () => {
         <div className="container mx-auto px-6">
           <SectionHeading title="Music" subtitle="Listen to Nachman Cohen's songs" />
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto"
-          >
+          <div className="space-y-8">
             {tracks.map((track, i) => (
-              <TrackCard key={i} track={track} index={i} />
+              <TrackRow key={i} track={track} index={i} />
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </PageTransition>
