@@ -50,12 +50,12 @@ const Index = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...spring, duration: 1.2, delay: 0.1 }}
           style={{ y: heroY, opacity: heroOpacity }}
-          className="absolute inset-0 z-[1] flex items-start justify-center"
+          className="absolute inset-0 z-[1] flex items-start justify-center -mt-12 md:mt-0"
         >
           <img
             src={heroImg}
             alt="Nachman Cohen"
-            className="h-full object-contain"
+            className="h-full object-contain object-top md:object-center"
           />
         </motion.div>
 
