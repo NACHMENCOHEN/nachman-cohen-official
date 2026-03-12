@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, RotateCcw, RotateCw } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
 
