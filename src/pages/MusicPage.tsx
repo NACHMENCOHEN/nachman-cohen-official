@@ -1,28 +1,24 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, Video } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
 interface Track {
   title: string;
-  audioSrc?: string;
-  videoSrc?: string;
+  audioSrc: string;
 }
 
 const tracks: Track[] = [
   { title: "רפואה", audioSrc: "/music/refua.m4a" },
   { title: "למעלה", audioSrc: "/music/lemala.mp3" },
   { title: "למצוא חן", audioSrc: "/music/limtzo-chen.mp3" },
-  { title: "דמות עם צבע", videoSrc: "/music/dmut-im-tzeva.mp4" },
-  { title: "מיין טייערע לעכטעלע", videoSrc: "/music/mein-taiere-lechtele.mp4" },
 ];
 
 const TrackRow = ({ track, index }: { track: Track; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -48,49 +44,20 @@ const TrackRow = ({ track, index }: { track: Track; index: number }) => {
           <span className="text-foreground font-body text-sm">{track.title}</span>
         </div>
 
-        <div className="flex items-center gap-3">
-          {track.videoSrc && (
-            <button
-              onClick={() => setShowVideo(!showVideo)}
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="הצג וידאו"
-            >
-              <Video size={18} />
-            </button>
-          )}
-          {track.audioSrc && (
-            <button
-              onClick={togglePlay}
-              className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity"
-              aria-label={playing ? "השהה" : "נגן"}
-            >
-              {playing ? <Pause size={14} /> : <Play size={14} className="mr-[-1px]" />}
-            </button>
-          )}
-        </div>
+        <button
+          onClick={togglePlay}
+          className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity"
+          aria-label={playing ? "השהה" : "נגן"}
+        >
+          {playing ? <Pause size={14} /> : <Play size={14} className="mr-[-1px]" />}
+        </button>
       </div>
 
-      {track.audioSrc && (
-        <audio
-          ref={audioRef}
-          src={track.audioSrc}
-          onEnded={() => setPlaying(false)}
-        />
-      )}
-
-      {showVideo && track.videoSrc && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="px-4 pb-4"
-        >
-          <video
-            src={track.videoSrc}
-            controls
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-        </motion.div>
-      )}
+      <audio
+        ref={audioRef}
+        src={track.audioSrc}
+        onEnded={() => setPlaying(false)}
+      />
     </motion.div>
   );
 };
@@ -99,7 +66,7 @@ const MusicPage = () => {
   return (
     <div className="pt-28 pb-24">
       <div className="container mx-auto px-6">
-        <SectionHeading title="מוזיקה" subtitle="השירים של נחמן כהן" />
+        <SectionHeading title="שירים" subtitle="האזינו לשירים של נחמן כהן" />
 
         <div className="max-w-3xl mx-auto">
           {tracks.map((track, i) => (
