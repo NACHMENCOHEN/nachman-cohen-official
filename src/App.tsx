@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -11,6 +12,21 @@ import ComingSoon from "@/pages/ComingSoon";
 
 const PUBLISHED_DOMAIN = "nachman-cohen-official.lovable.app";
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Index />} />
+        <Route path="/music" element={<MusicPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => {
   const isPublished = window.location.hostname === PUBLISHED_DOMAIN;
 
@@ -22,13 +38,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <main className="pt-[72px]">
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/music" element={<MusicPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </main>
       <Footer />
       <WhatsAppButton />
