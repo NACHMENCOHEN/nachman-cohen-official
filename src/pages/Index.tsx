@@ -329,10 +329,7 @@ const Index = () => {
             <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">אודות</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-8">נחמן כהן</h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-6">
-              נחמן כהן הוא אחד הזמרים החסידיים המבוקשים ביותר בעולם המוזיקה
-              היהודית כיום. עם קול המשלב רגש עמוק עם שליטה טכנית, הוא ריתק
-              קהלים במאות חתונות, קונצרטים ואירועים קהילתיים ברחבי
-              ארצות הברית ומעבר לה.
+              הביוגרפיה תתעדכן בקרוב.
             </p>
 
             <div className="grid grid-cols-3 gap-6 my-10 py-8 border-y border-border">
