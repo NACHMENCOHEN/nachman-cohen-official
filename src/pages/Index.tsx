@@ -328,22 +328,6 @@ const Index = () => {
           >
             <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">אודות</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-8">נחמן כהן</h2>
-            <p className="font-body text-muted-foreground leading-relaxed mb-6">
-              הביוגרפיה תתעדכן בקרוב.
-            </p>
-
-            <div className="grid grid-cols-3 gap-6 my-10 py-8 border-y border-border">
-              {[
-                { num: "500+", label: "אירועים" },
-                { num: "5", label: "שירים" },
-                { num: "10+", label: "שנים" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-display text-3xl text-foreground">{stat.num}</p>
-                  <p className="font-body text-xs text-muted-foreground mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
 
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className="inline-block">
               <Link
