@@ -20,7 +20,7 @@ const Index = () => {
             <img
               src={heroImg}
               alt="נחמן כהן — תמונה מקצועית"
-              className="w-full rounded-2xl shadow-2xl shadow-foreground/10"
+              className="w-full drop-shadow-2xl"
               style={{ filter: "grayscale(100%) contrast(1.05)" }}
             />
           </div>

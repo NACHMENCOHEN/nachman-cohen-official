@@ -15,7 +15,7 @@ const AboutPage = () => (
           <img
             src={aboutImg}
             alt="נחמן כהן"
-            className="w-full rounded-2xl shadow-lg shadow-foreground/5"
+            className="w-full drop-shadow-xl"
           />
         </motion.div>
 
