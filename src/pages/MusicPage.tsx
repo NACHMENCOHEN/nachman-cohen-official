@@ -14,6 +14,8 @@ const tracks: Track[] = [
   { title: "רפואה", audioSrc: "/music/refua.m4a" },
   { title: "למעלה", audioSrc: "/music/lemala.mp3" },
   { title: "למצוא חן", audioSrc: "/music/limtzo-chen.mp3" },
+  { title: "מיין טייערע לעכטעלע", audioSrc: "/music/mein-taiere-lechtele.mp3" },
+  { title: "תפילין", audioSrc: "/music/tefillin.mp3" },
 ];
 
 const TrackRow = ({ track, index }: { track: Track; index: number }) => {
