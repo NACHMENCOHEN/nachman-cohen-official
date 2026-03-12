@@ -55,7 +55,7 @@ const Index = () => {
           <img
             src={heroImg}
             alt="Nachman Cohen"
-            className="h-full object-contain"
+            className="h-full object-contain object-top md:object-center"
           />
         </motion.div>
 
