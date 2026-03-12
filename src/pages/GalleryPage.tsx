@@ -10,18 +10,18 @@ import gallery6 from "@/assets/gallery-6.jpg";
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
 const photos = [
-  { src: gallery1, alt: "Recording in the studio", span: "md:col-span-2" },
-  { src: gallery3, alt: "Close-up performance", span: "md:row-span-2" },
-  { src: gallery2, alt: "Live concert venue", span: "md:col-span-1" },
-  { src: gallery4, alt: "Stage setup with dramatic lighting", span: "md:col-span-1" },
-  { src: gallery5, alt: "Musical instruments", span: "md:col-span-1" },
-  { src: gallery6, alt: "Celebration and dancing", span: "md:col-span-1" },
+  { src: gallery1, alt: "הקלטה באולפן", span: "md:col-span-2" },
+  { src: gallery3, alt: "הופעה מקרוב", span: "md:row-span-2" },
+  { src: gallery2, alt: "קונצרט חי", span: "md:col-span-1" },
+  { src: gallery4, alt: "תאורה דרמטית על הבמה", span: "md:col-span-1" },
+  { src: gallery5, alt: "כלי נגינה", span: "md:col-span-1" },
+  { src: gallery6, alt: "חגיגה וריקודים", span: "md:col-span-1" },
 ];
 
 const GalleryPage = () => (
   <div className="pt-28 pb-24">
     <div className="container mx-auto px-6">
-      <SectionHeading title="Gallery" subtitle="Moments captured on and off stage" />
+      <SectionHeading title="גלריה" subtitle="רגעים מעל ומאחורי הבמה" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {photos.map((photo, i) => (
