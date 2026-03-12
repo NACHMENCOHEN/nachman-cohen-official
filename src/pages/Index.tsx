@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Play, Pause, Phone, MessageCircle, Music, Video, Calendar } from "lucide-react";
-import heroImg from "@/assets/hero-cutout.png";
+import heroImg from "@/assets/hero-portrait.jpg";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -77,8 +77,7 @@ const Index = () => {
             <img
               src={heroImg}
               alt="נחמן כהן"
-              className="w-full drop-shadow-2xl"
-              style={{ filter: "grayscale(100%) contrast(1.05)" }}
+              className="w-full rounded-2xl shadow-2xl shadow-foreground/10 object-cover"
             />
           </div>
         </motion.div>
@@ -330,10 +329,7 @@ const Index = () => {
             <p className="font-body text-xs font-medium text-muted-foreground mb-3 tracking-widest">אודות</p>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-8">נחמן כהן</h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-6">
-              נחמן כהן הוא אחד הזמרים החסידיים המבוקשים ביותר בעולם המוזיקה
-              היהודית כיום. עם קול המשלב רגש עמוק עם שליטה טכנית, הוא ריתק
-              קהלים במאות חתונות, קונצרטים ואירועים קהילתיים ברחבי
-              ארצות הברית ומעבר לה.
+              הביוגרפיה תתעדכן בקרוב.
             </p>
 
             <div className="grid grid-cols-3 gap-6 my-10 py-8 border-y border-border">
