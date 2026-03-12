@@ -8,9 +8,10 @@ const AboutPage = () => (
     <div className="container mx-auto px-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start lg:[direction:ltr]">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={spring}
+          className="order-1 lg:order-2"
         >
           <div className="aspect-square overflow-hidden rounded-2xl">
             <img
