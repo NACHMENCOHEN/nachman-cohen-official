@@ -8,6 +8,7 @@ const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 interface Track {
   title: string;
   audioSrc: string;
+  cover?: string;
 }
 
 const tracks: Track[] = [
@@ -21,48 +22,59 @@ const tracks: Track[] = [
   { title: "ומרדכי ידע", audioSrc: "/music/u-mordechai-yada.mp4" },
 ];
 
-const TrackRow = ({ track, index }: { track: Track; index: number }) => {
+const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
-    if (playing) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
+    if (playing) audioRef.current.pause();
+    else audioRef.current.play();
     setPlaying(!playing);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ ...spring, delay: index * 0.07 }}
-      className="border-b border-border"
+      transition={{ ...spring, delay: index * 0.06 }}
+      className="group relative aspect-square rounded-2xl overflow-hidden bg-card border border-border cursor-pointer"
+      onClick={togglePlay}
     >
-      <div className="flex items-center justify-between py-5 px-4 rounded-xl hover:bg-secondary/50 transition-colors gap-4">
-        <div className="flex items-center gap-4 flex-1">
-          <span className="font-body text-xs text-muted-foreground w-6">{index + 1}</span>
-          <span className="text-foreground font-body text-sm">{track.title}</span>
+      {/* Cover image or gradient placeholder */}
+      {track.cover ? (
+        <img src={track.cover} alt={track.title} className="w-full h-full object-cover" />
+      ) : (
+        <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
+          <span className="font-display text-5xl text-muted-foreground/30 select-none">♪</span>
         </div>
+      )}
 
-        <button
-          onClick={togglePlay}
-          className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-80 transition-opacity"
-          aria-label={playing ? "השהה" : "נגן"}
-        >
-          {playing ? <Pause size={14} /> : <Play size={14} className="mr-[-1px]" />}
-        </button>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent transition-opacity" />
+
+      {/* Play button */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg">
+          {playing ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
+        </div>
       </div>
 
-      <audio
-        ref={audioRef}
-        src={track.audioSrc}
-        onEnded={() => setPlaying(false)}
-      />
+      {/* Playing indicator */}
+      {playing && (
+        <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
+          <Pause size={12} />
+        </div>
+      )}
+
+      {/* Title */}
+      <div className="absolute bottom-0 inset-x-0 p-4">
+        <p className="font-body text-foreground text-sm font-medium truncate">{track.title}</p>
+        <p className="font-body text-muted-foreground text-xs mt-0.5">שיר {index + 1}</p>
+      </div>
+
+      <audio ref={audioRef} src={track.audioSrc} onEnded={() => setPlaying(false)} />
     </motion.div>
   );
 };
@@ -73,9 +85,9 @@ const MusicPage = () => {
       <div className="container mx-auto px-6">
         <SectionHeading title="שירים" subtitle="האזינו לשירים של נחמן כהן" />
 
-        <div className="max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
           {tracks.map((track, i) => (
-            <TrackRow key={i} track={track} index={i} />
+            <TrackCard key={i} track={track} index={i} />
           ))}
         </div>
       </div>
