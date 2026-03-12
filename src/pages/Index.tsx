@@ -62,7 +62,7 @@ const Index = () => {
             transition={{ ...spring, delay: 0.4 }}
             className="font-body text-xs text-primary mb-4 tracking-[0.25em] uppercase"
           >
-            Hasidic Singer
+            נחמן כהן – זמר חסידי
           </motion.p>
 
           <motion.h1
