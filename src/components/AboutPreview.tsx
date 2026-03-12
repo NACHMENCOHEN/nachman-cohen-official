@@ -50,14 +50,10 @@ const AboutPreview = () => {
               className="space-y-4 font-body text-muted-foreground leading-relaxed"
             >
               <p>
-                Nachman Cohen is a rising Hasidic singer whose soulful voice bridges tradition and modern expression. 
-                With roots deep in Jewish musical heritage, his performances blend heartfelt devotion with 
-                contemporary artistry.
+                Nachman Cohen is a Hasidic singer dedicated to authentic Hasidic music. His voice brings warmth, emotion, and a deep connection to traditional Jewish melodies.
               </p>
               <p>
-                From intimate wedding celebrations to grand concert stages, Nachman brings an authentic 
-                energy that moves audiences of all backgrounds. His original compositions and powerful covers 
-                have earned him a growing following across the Jewish music world.
+                He performs at weddings, bar mitzvahs, and special events, bringing authentic Hasidic joy and uplifting energy to every celebration.
               </p>
             </motion.div>
             <motion.a
