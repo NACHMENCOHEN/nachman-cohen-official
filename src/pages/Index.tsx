@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Play, Pause, Phone, MessageCircle, Music, Video, Calendar } from "lucide-react";
-import heroImg from "@/assets/hero-cutout.png";
+import heroImg from "@/assets/hero-portrait.jpg";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
