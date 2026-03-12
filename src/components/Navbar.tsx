@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Instagram, Youtube } from "lucide-react";
 
 const navLinks = [
-  { to: "/", label: "בית" },
-  { to: "/music", label: "שירים" },
-  { to: "/about", label: "אודות" },
-  { to: "/contact", label: "צור קשר" },
+  { to: "/", label: "Home" },
+  { to: "/music", label: "Music" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel rounded-none border-x-0 border-t-0">
       <div className="container mx-auto flex items-center justify-between px-6 py-5">
         <Link to="/" className="font-display text-2xl tracking-tight text-foreground">
-          נחמן כהן
+          Nachman Cohen
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
@@ -38,7 +38,7 @@ const Navbar = () => {
             </Link>
           ))}
 
-          <div className="flex items-center gap-4 mr-4 border-r border-border pr-4">
+          <div className="flex items-center gap-4 ml-4 border-l border-border pl-4">
             <a href="https://www.instagram.com/nachmencohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
               <Instagram size={18} />
             </a>
@@ -51,7 +51,7 @@ const Navbar = () => {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden text-foreground"
-          aria-label="תפריט"
+          aria-label="Menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
