@@ -77,8 +77,7 @@ const Index = () => {
             <img
               src={heroImg}
               alt="נחמן כהן"
-              className="w-full drop-shadow-2xl"
-              style={{ filter: "grayscale(100%) contrast(1.05)" }}
+              className="w-full rounded-2xl shadow-2xl shadow-foreground/10 object-cover"
             />
           </div>
         </motion.div>
