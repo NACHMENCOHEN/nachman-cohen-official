@@ -60,11 +60,10 @@ const AboutPage = () => {
 
               <div className="space-y-5 text-muted-foreground font-body leading-relaxed">
                 {[
-                  "Nachman Cohen is a Hasidic singer who brings a warm and moving voice, blending traditional Hasidic melodies with a contemporary style.",
-                  "He began his musical journey at a very young age. At just 15 years old, Nachman released his debut single \"Refua,\" and has since continued to create and release songs that express emotion, faith, and a deep connection to Jewish music.",
-                  "Over the years, Nachman has released several original songs and special covers of beloved melodies, with the central goal of bringing moving Hasidic music that speaks to the heart.",
-                  "Nachman performs at various events — weddings, bar mitzvahs, and special occasions — bringing an authentic Hasidic atmosphere alongside joy and energy that uplifts the audience.",
-                  "Today, Nachman continues to work on new songs and additional musical projects, driven by a desire to bring joyful, deep, and soulful Jewish music to the world.",
+                  "Nachman Cohen is a Hasidic singer dedicated to authentic Hasidic music. His voice brings warmth, emotion, and a deep connection to traditional Jewish melodies.",
+                  "Nachman began his musical journey at a young age. At just 15 years old, he released his debut single \"Refua,\" and since then has continued creating and performing music rooted in the spirit of classic Hasidic song.",
+                  "He performs at weddings, bar mitzvahs, and special events, bringing authentic Hasidic joy and uplifting energy to every celebration.",
+                  "Nachman's goal is to preserve and share the beauty of traditional Hasidic music with audiences around the world.",
                 ].map((text, i) => (
                   <motion.p
                     key={i}
