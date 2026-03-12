@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Figtree:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Figtree:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -77,6 +77,15 @@
 @layer components {
   .font-display {
     font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-hero-title {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+    transform: scaleX(0.82);
+    transform-origin: center;
   }
 
   .font-body {

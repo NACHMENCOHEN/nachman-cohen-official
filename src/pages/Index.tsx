@@ -66,20 +66,11 @@ const Index = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center pb-16 md:pb-24 px-4">
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.4 }}
-            className="font-body text-xs text-primary mb-4 tracking-[0.25em] uppercase"
-          >
-            נחמן כהן – זמר חסידי
-          </motion.p>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.55 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-10"
+            transition={{ ...spring, delay: 0.5 }}
+            className="font-hero-title text-8xl md:text-[10rem] lg:text-[13rem] text-foreground mb-10 gold-text"
           >
             נחמן כהן
           </motion.h1>
