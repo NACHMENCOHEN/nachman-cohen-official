@@ -133,4 +133,19 @@
     box-shadow: 0 0 80px 20px hsla(38, 70%, 55%, 0.08),
                 0 0 160px 60px hsla(30, 65%, 45%, 0.04);
   }
+
+  .name-watermark {
+    position: relative;
+  }
+
+  .name-watermark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='120'%3E%3Ctext x='0' y='90' font-family='League Gothic,sans-serif' font-size='100' font-weight='400' fill='%23d4a843' letter-spacing='8'%3ENACHMAN COHEN %C2%A0 NACHMAN COHEN %C2%A0 NACHMAN COHEN%3C/text%3E%3C/svg%3E");
+    background-size: 900px 120px;
+  }
 }
