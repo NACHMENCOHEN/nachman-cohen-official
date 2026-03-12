@@ -86,10 +86,10 @@
   }
 
   .glass-panel {
-    background: hsla(0, 0%, 9%, 0.88);
+    background: hsla(220, 25%, 7%, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid hsla(0, 0%, 20%, 0.5);
+    border-bottom: 1px solid hsla(220, 15%, 20%, 0.5);
   }
 
   .card-hover {
