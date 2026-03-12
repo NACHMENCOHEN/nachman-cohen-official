@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/hero-portrait.jpg";
+import heroImg from "@/assets/hero-cutout.png";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -20,7 +20,7 @@ const Index = () => {
             <img
               src={heroImg}
               alt="נחמן כהן — תמונה מקצועית"
-              className="w-full rounded-2xl shadow-2xl shadow-foreground/10"
+              className="w-full drop-shadow-2xl"
               style={{ filter: "grayscale(100%) contrast(1.05)" }}
             />
           </div>

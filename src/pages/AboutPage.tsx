@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutImg from "@/assets/about-portrait.jpg";
+import aboutImg from "@/assets/about-cutout.png";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
 
@@ -15,7 +15,7 @@ const AboutPage = () => (
           <img
             src={aboutImg}
             alt="נחמן כהן"
-            className="w-full rounded-2xl shadow-lg shadow-foreground/5"
+            className="w-full drop-shadow-xl"
           />
         </motion.div>
 
