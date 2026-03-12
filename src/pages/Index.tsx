@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/hero-portrait.jpg";
+import heroImg from "@/assets/nachman-portrait.jpg";
 import MusicPlayer from "@/components/MusicPlayer";
 
 const spring = { type: "spring" as const, duration: 0.4, bounce: 0 };
@@ -9,58 +9,60 @@ const Index = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-end pb-12 md:pb-24">
+      <section className="relative min-h-screen flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img
             src={heroImg}
-            alt="Nachman Cohen performing live on stage"
-            className="w-full h-full object-cover img-frame"
+            alt="Nachman Cohen — professional portrait"
+            className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+        <div className="relative z-10 container mx-auto px-6 text-center flex flex-col items-center pt-20">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.2 }}
-            className="max-w-2xl"
+            transition={{ ...spring, delay: 0.3 }}
+            className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-4"
           >
-            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-foreground mb-4">
-              Nachman<br />Cohen
-            </h1>
-            <p className="font-body text-lg md:text-xl text-muted-foreground mb-8 max-w-md">
-              Live music for unforgettable events
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  to="/contact"
-                  className="inline-block bg-primary text-primary-foreground font-ui text-xs px-6 py-3 rounded-lg"
-                >
-                  Book Nachman
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  to="/music"
-                  className="inline-block font-ui text-xs px-6 py-3 rounded-lg shadow-[inset_0_0_0_1px_hsl(210_10%_15%)] text-foreground"
-                >
-                  Listen Now
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
+            Nachman Cohen
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...spring, delay: 0.5 }}
+            className="font-ui text-sm md:text-base text-muted-foreground mb-10 tracking-widest"
+          >
+            Official Music Website
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.5 }}
-            className="mt-12"
+            transition={{ ...spring, delay: 0.7 }}
           >
-            <MusicPlayer />
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/music"
+                className="inline-block bg-primary text-primary-foreground font-ui text-xs px-8 py-4 rounded-lg"
+              >
+                Listen to Music
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Music player pinned to bottom of hero */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...spring, delay: 0.9 }}
+          className="absolute bottom-6 left-6 right-6 z-10 max-w-3xl mx-auto"
+        >
+          <MusicPlayer />
+        </motion.div>
       </section>
 
       {/* Featured section */}
