@@ -80,6 +80,8 @@ const AboutPage = () => {
               </div>
             </motion.div>
           </div>
+
+          <MediaPress />
         </div>
       </div>
     </PageTransition>
