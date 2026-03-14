@@ -6,6 +6,7 @@ import { Menu, X, Instagram, Youtube } from "lucide-react";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/music", label: "Music" },
+  { to: "/videos", label: "Videos" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
