@@ -9,6 +9,7 @@ import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
 import NotFound from "@/pages/NotFound";
 import ComingSoon from "@/pages/ComingSoon";
+import MusicVideosPage from "@/pages/MusicVideosPage";
 
 const PUBLISHED_DOMAIN = "nachman-cohen-official.lovable.app";
 
