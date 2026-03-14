@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, MessageCircle, Send } from "lucide-react";
+import { Phone, MessageCircle, Send, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
@@ -15,21 +17,37 @@ const inputVariants = {
 
 const BookingSection = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const text = encodeURIComponent(
-      `Hi, I'd like to book Nachman Cohen.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nMessage: ${form.message}`
-    );
-    window.open(`https://wa.me/447435952083?text=${text}`, "_blank");
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+          formType: "booking",
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success("Booking request sent! Check your email for confirmation.");
+      setForm({ name: "", phone: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("Something went wrong. Please try again or contact us directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
-      {/* Ambient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/30 to-background pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
@@ -89,7 +107,7 @@ const BookingSection = () => {
                 variants={inputVariants}
                 type={field.type}
                 placeholder={field.placeholder}
-                required
+                required={field.key !== "phone"}
                 maxLength={field.maxLength}
                 value={form[field.key as keyof typeof form]}
                 onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
@@ -111,12 +129,13 @@ const BookingSection = () => {
               custom={4}
               variants={inputVariants}
               type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-body font-semibold text-sm px-7 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-primary/20"
+              disabled={loading}
+              whileHover={{ scale: loading ? 1 : 1.02 }}
+              whileTap={{ scale: loading ? 1 : 0.98 }}
+              className="w-full inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-body font-semibold text-sm px-7 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-primary/20 disabled:opacity-70"
             >
-              <Send size={16} />
-              {submitted ? "Message Sent!" : "Send Booking Request"}
+              {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+              {loading ? "Sending..." : "Send Booking Request"}
             </motion.button>
           </motion.form>
 
