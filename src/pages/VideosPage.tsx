@@ -60,7 +60,7 @@ const VideosPage = () => {
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                    src={`https://img.youtube.com/vi/${video.id}/${video.thumbQuality || 'maxresdefault'}.jpg`}
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
