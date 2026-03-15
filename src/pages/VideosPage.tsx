@@ -10,6 +10,7 @@ interface YouTubeVideo {
   id: string;
   title: string;
   titleHe: string;
+  thumbQuality?: string;
 }
 
 const videos: YouTubeVideo[] = [
