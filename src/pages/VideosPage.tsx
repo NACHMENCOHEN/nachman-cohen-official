@@ -10,6 +10,7 @@ interface YouTubeVideo {
   id: string;
   title: string;
   titleHe: string;
+  thumbQuality?: string;
 }
 
 const videos: YouTubeVideo[] = [
@@ -19,7 +20,7 @@ const videos: YouTubeVideo[] = [
   { id: "HBP93mSaqg0", title: "Hisoreri", titleHe: "התעוררי" },
   { id: "KSp9emysPns", title: "Mein Taiere Lechtele", titleHe: "מיין טייערע לעכטעלע" },
   { id: "iUSjCJjVrg8", title: "Tefillin", titleHe: "תפילין" },
-  { id: "5HJVtOdDoW4", title: "Lemala", titleHe: "למעלה" },
+  { id: "5HJVtOdDoW4", title: "Lemala", titleHe: "למעלה", thumbQuality: "hqdefault" },
   { id: "kJYX_CN6XQg", title: "Refuah", titleHe: "רפואה" },
 ];
 
@@ -59,7 +60,7 @@ const VideosPage = () => {
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                    src={`https://img.youtube.com/vi/${video.id}/${video.thumbQuality || 'maxresdefault'}.jpg`}
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
