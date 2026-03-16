@@ -205,7 +205,8 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
         src={track.audioSrc}
         preload="metadata"
         onTimeUpdate={onTimeUpdate}
-        onLoadedMetadata={onTimeUpdate}
+        onLoadedMetadata={syncDuration}
+        onDurationChange={syncDuration}
         onEnded={() => setPlaying(false)}
       />
     </motion.div>
