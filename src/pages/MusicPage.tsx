@@ -50,24 +50,32 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     setPlaying(!playing);
   };
 
+  const syncDuration = () => {
+    if (!audioRef.current) return;
+    const dur = audioRef.current.duration;
+    if (dur && isFinite(dur)) setDuration(dur);
+  };
+
   const onTimeUpdate = () => {
     if (!audioRef.current || dragging) return;
     setProgress(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration || 0);
+    syncDuration();
   };
 
   const seekToPosition = (clientX: number) => {
     if (!audioRef.current || !barRef.current) return;
     const dur = audioRef.current.duration;
-    if (!dur || isNaN(dur)) return;
+    if (!dur || !isFinite(dur)) return;
     const rect = barRef.current.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    audioRef.current.currentTime = ratio * dur;
-    setProgress(ratio * dur);
+    const newTime = ratio * dur;
+    audioRef.current.currentTime = newTime;
+    setProgress(newTime);
     setDuration(dur);
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
     e.stopPropagation();
     e.currentTarget.setPointerCapture(e.pointerId);
     setDragging(true);
@@ -87,7 +95,11 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
 
   const skip = (seconds: number) => {
     if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(0, Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + seconds));
+    const dur = audioRef.current.duration;
+    if (!dur || !isFinite(dur)) return;
+    const newTime = Math.max(0, Math.min(dur, audioRef.current.currentTime + seconds));
+    audioRef.current.currentTime = newTime;
+    setProgress(newTime);
   };
 
   const formatTime = (t: number) => {
