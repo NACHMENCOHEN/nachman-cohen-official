@@ -46,10 +46,16 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
   const next = () => setCurrentIndex((i) => (i + 1) % tracks.length);
   const prev = () => setCurrentIndex((i) => (i - 1 + tracks.length) % tracks.length);
 
+  const syncDuration = () => {
+    if (!audioRef.current) return;
+    const dur = audioRef.current.duration;
+    if (dur && isFinite(dur)) setDuration(dur);
+  };
+
   const onTimeUpdate = () => {
     if (!audioRef.current || dragging) return;
     setProgress(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration || 0);
+    syncDuration();
   };
 
   const seekToPosition = (clientX: number) => {
@@ -178,7 +184,8 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           muted={muted}
           preload="metadata"
           onTimeUpdate={onTimeUpdate}
-          onLoadedMetadata={onTimeUpdate}
+          onLoadedMetadata={syncDuration}
+          onDurationChange={syncDuration}
           onEnded={next}
         />
       </div>
