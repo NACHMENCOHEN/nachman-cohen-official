@@ -184,7 +184,8 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           muted={muted}
           preload="metadata"
           onTimeUpdate={onTimeUpdate}
-          onLoadedMetadata={onTimeUpdate}
+          onLoadedMetadata={syncDuration}
+          onDurationChange={syncDuration}
           onEnded={next}
         />
       </div>
