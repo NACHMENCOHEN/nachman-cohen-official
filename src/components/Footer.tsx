@@ -25,9 +25,12 @@ const Footer = () => (
             <Youtube size={20} />
           </motion.a>
         </div>
-        <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Nachman Cohen. All rights reserved.
-        </p>
+        <div className="text-center md:text-right">
+          <p className="text-[10px] text-muted-foreground/60 mb-1">Nachman Cohen Official Website</p>
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Nachman Cohen. All rights reserved.
+          </p>
+        </div>
       </motion.div>
     </div>
   </footer>
