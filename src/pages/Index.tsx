@@ -13,7 +13,7 @@ import SEO from "@/components/SEO";
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
 const featuredTracks = [
-  { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.m4a" },
+  { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3" },
   { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3" },
   { title: "תפילין", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3" },
   { title: "למצוא חן", titleEn: "Limtzo Chen", audioSrc: "/music/limtzo-chen.mp3" },
