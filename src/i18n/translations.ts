@@ -134,11 +134,11 @@ export const translations = {
     },
 
     booking: {
-      label: "הזמנות",
-      title: "להזמנה לאירוע שלכם צרו קשר",
-      subtitle: "חתונות • בר מצווה • קונצרטים • אירועים פרטיים",
+      label: "הזמנות לאירועים",
+      title: "להזמנת הופעה לאירוע שלכם צרו קשר",
+      subtitle: "חתונות • בר מצוות • אירועים פרטיים • הופעות",
       contactDirectly: "צרו קשר ישירות",
-      callNow: "התקשרו עכשיו",
+      callNow: "חייג עכשיו",
       whatsapp: "WhatsApp",
     },
 
@@ -172,10 +172,10 @@ export const translations = {
     },
 
     contactPage: {
-      title: "הזמנת הופעה",
-      subtitle: "הזמינו את נחמן כהן להופעות חיות",
-      eventTypes: "חתונות • בר מצווה • אירועים פרטיים",
-      callNow: "התקשרו עכשיו",
+      title: "להזמנת הופעה",
+      subtitle: "הזמינו את נחמן כהן להופעה חיה בלתי נשכחת",
+      eventTypes: "חתונות • בר מצוות • אירועים פרטיים",
+      callNow: "חייג עכשיו",
       whatsapp: "WhatsApp",
     },
 
