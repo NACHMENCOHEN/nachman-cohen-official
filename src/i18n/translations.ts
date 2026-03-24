@@ -194,4 +194,9 @@ export const translations = {
   },
 } as const;
 
-export type Translations = typeof translations.en;
+// Deep writable type to unify literal types
+type DeepString<T> = {
+  [K in keyof T]: T[K] extends string ? string : DeepString<T[K]>;
+};
+
+export type Translations = DeepString<typeof translations.en>;
