@@ -18,6 +18,7 @@ const isWithinPromoPeriod = () => {
 };
 
 const shouldShowToday = () => {
+  if (PROMO_CONFIG.testMode) return true; // bypass for testing
   try {
     const last = localStorage.getItem(PROMO_CONFIG.storageKey);
     if (!last) return true;
