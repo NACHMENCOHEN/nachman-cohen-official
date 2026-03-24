@@ -10,6 +10,7 @@ import SocialSection from "@/components/SocialSection";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import { useLanguage } from "@/i18n/LanguageContext";
+import PromoVideoModal from "@/components/PromoVideoModal";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
