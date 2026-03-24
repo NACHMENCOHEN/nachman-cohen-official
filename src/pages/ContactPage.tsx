@@ -3,18 +3,21 @@ import { Phone, MessageCircle } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 const ContactPage = () => {
+  const { t } = useLanguage();
+
   return (
     <PageTransition>
       <SEO title="Contact – Nachman Cohen" description="Book Nachman Cohen for weddings, concerts and private events." />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
           <SectionHeading
-            title="Book a Show"
-            subtitle="Book Nachman Cohen for live performances"
+            title={t.contactPage.title}
+            subtitle={t.contactPage.subtitle}
           />
 
           <div className="max-w-2xl mx-auto">
@@ -25,7 +28,7 @@ const ContactPage = () => {
               className="text-center"
             >
               <p className="font-body text-xs text-muted-foreground mb-3 tracking-wider uppercase">
-                Weddings • Bar Mitzvah • Private Events
+                {t.contactPage.eventTypes}
               </p>
               <a
                 href="tel:+447435952083"
@@ -43,7 +46,7 @@ const ContactPage = () => {
                   className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-medium text-sm px-8 py-4 rounded-full transition-shadow hover:shadow-lg hover:shadow-primary/20"
                 >
                   <Phone size={18} />
-                  Call Now
+                  {t.contactPage.callNow}
                 </motion.a>
                 <motion.a
                   href="https://wa.me/447435952083"
@@ -54,7 +57,7 @@ const ContactPage = () => {
                   className="inline-flex items-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-full border border-foreground text-foreground hover:bg-primary/10 transition-all"
                 >
                   <MessageCircle size={18} />
-                  WhatsApp
+                  {t.contactPage.whatsapp}
                 </motion.a>
               </div>
             </motion.div>

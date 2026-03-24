@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
 const BookingSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/30 to-background pointer-events-none" />
@@ -23,7 +26,7 @@ const BookingSection = () => {
             transition={{ ...spring, delay: 0.1 }}
             className="font-body text-xs font-medium text-primary mb-3 tracking-widest uppercase"
           >
-            Booking
+            {t.booking.label}
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 15 }}
@@ -32,7 +35,7 @@ const BookingSection = () => {
             transition={{ ...spring, delay: 0.2 }}
             className="font-display text-4xl md:text-6xl text-foreground mb-4"
           >
-            Book Nachman Cohen
+            {t.booking.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -41,7 +44,7 @@ const BookingSection = () => {
             transition={{ ...spring, delay: 0.3 }}
             className="font-body text-muted-foreground max-w-md mx-auto"
           >
-            Weddings • Bar Mitzvah • Concerts • Private Events
+            {t.booking.subtitle}
           </motion.p>
         </motion.div>
 
@@ -57,7 +60,7 @@ const BookingSection = () => {
             transition={spring}
             className="rounded-2xl bg-card border border-border p-8 text-center hover:border-primary/20 transition-colors"
           >
-            <p className="font-body text-xs text-muted-foreground mb-4 tracking-wider uppercase">Contact directly</p>
+            <p className="font-body text-xs text-muted-foreground mb-4 tracking-wider uppercase">{t.booking.contactDirectly}</p>
             <a
               href="tel:+447435952083"
               className="block font-display text-3xl md:text-4xl text-foreground hover:text-primary transition-colors mb-8"
@@ -73,7 +76,7 @@ const BookingSection = () => {
                 className="inline-flex items-center gap-2 gold-gradient text-primary-foreground font-body font-medium text-sm px-6 py-3 rounded-full transition-shadow hover:shadow-lg hover:shadow-primary/20"
               >
                 <Phone size={16} />
-                Call Now
+                {t.booking.callNow}
               </motion.a>
               <motion.a
                 href="https://wa.me/447435952083"
@@ -84,7 +87,7 @@ const BookingSection = () => {
                 className="inline-flex items-center gap-2 font-body font-medium text-sm px-6 py-3 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all hover:border-primary/60"
               >
                 <MessageCircle size={16} />
-                WhatsApp
+                {t.booking.whatsapp}
               </motion.a>
             </div>
           </motion.div>

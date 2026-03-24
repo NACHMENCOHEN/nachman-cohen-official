@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -37,14 +38,16 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <main className="pt-[72px]">
-        <AnimatedRoutes />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Navbar />
+        <main className="pt-[72px]">
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </BrowserRouter>
+    </LanguageProvider>
   );
 };
 

@@ -2,18 +2,21 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Instagram, Youtube } from "lucide-react";
-
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/music", label: "Music" },
-  { to: "/videos", label: "Videos" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Navbar = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { to: "/", label: t.nav.home },
+    { to: "/music", label: t.nav.music },
+    { to: "/videos", label: t.nav.videos },
+    { to: "/about", label: t.nav.about },
+    { to: "/contact", label: t.nav.contact },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel rounded-none border-x-0 border-t-0">
@@ -39,7 +42,7 @@ const Navbar = () => {
             </Link>
           ))}
 
-          <div className="flex items-center gap-4 ml-4 border-l border-border pl-4">
+          <div className="flex items-center gap-4 border-s border-border ps-4">
             <a href="https://www.instagram.com/nachmencohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Instagram">
               <Instagram size={18} />
             </a>
@@ -47,15 +50,20 @@ const Navbar = () => {
               <Youtube size={18} />
             </a>
           </div>
+
+          <LanguageSwitcher />
         </div>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-foreground"
-          aria-label="Menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <LanguageSwitcher />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="text-foreground"
+            aria-label="Menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
