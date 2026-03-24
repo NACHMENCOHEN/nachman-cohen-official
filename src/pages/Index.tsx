@@ -10,6 +10,7 @@ import SocialSection from "@/components/SocialSection";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import { useLanguage } from "@/i18n/LanguageContext";
+import PromoVideoModal from "@/components/PromoVideoModal";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
@@ -33,6 +34,7 @@ const Index = () => {
 
   return (
     <PageTransition>
+      <PromoVideoModal />
       <SEO title="נחמן כהן - האתר הרשמי | Nachman Cohen" description="האתר הרשמי של נחמן כהן. מוזיקה, קליפים, שירים, הופעות, ועדכונים." />
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
