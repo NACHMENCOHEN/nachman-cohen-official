@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import aboutImg from "@/assets/about-portrait.jpg";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
 const AboutPreview = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -17,7 +19,6 @@ const AboutPreview = () => {
     <section ref={sectionRef} className="py-24 md:py-32 border-t border-border">
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-          {/* Text – LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -31,7 +32,7 @@ const AboutPreview = () => {
               transition={{ ...spring, delay: 0.2 }}
               className="font-body text-xs font-medium text-primary mb-3 tracking-widest uppercase"
             >
-              About
+              {t.aboutPreview.label}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 15 }}
@@ -40,7 +41,7 @@ const AboutPreview = () => {
               transition={{ ...spring, delay: 0.3 }}
               className="font-display text-4xl md:text-5xl text-foreground mb-6"
             >
-              Nachman Cohen
+              {t.aboutPreview.title}
             </motion.h2>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -49,12 +50,8 @@ const AboutPreview = () => {
               transition={{ ...spring, delay: 0.4 }}
               className="space-y-4 font-body text-muted-foreground leading-relaxed"
             >
-              <p>
-                Nachman Cohen is a Hasidic singer dedicated to authentic Hasidic music. His voice brings warmth, emotion, and a deep connection to traditional Jewish melodies.
-              </p>
-              <p>
-                He performs at weddings, bar mitzvahs, and special events, bringing authentic Hasidic joy and uplifting energy to every celebration.
-              </p>
+              <p>{t.aboutPreview.p1}</p>
+              <p>{t.aboutPreview.p2}</p>
             </motion.div>
             <motion.a
               href="/about"
@@ -66,11 +63,10 @@ const AboutPreview = () => {
               whileTap={{ scale: 0.97 }}
               className="inline-block font-body font-medium text-xs px-6 py-3 mt-8 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all hover:border-primary/60"
             >
-              Read Full Story →
+              {t.aboutPreview.readMore}
             </motion.a>
           </motion.div>
 
-          {/* Image – RIGHT, with parallax zoom */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -87,7 +83,6 @@ const AboutPreview = () => {
                 style={{ scale: imgScale, y: imgY }}
               />
             </div>
-            {/* Decorative glow */}
             <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-primary/10 blur-[60px] pointer-events-none" />
           </motion.div>
         </div>

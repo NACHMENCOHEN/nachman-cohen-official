@@ -4,10 +4,12 @@ import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import MediaPress from "@/components/MediaPress";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 const AboutPage = () => {
+  const { t } = useLanguage();
   const imgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: imgRef,
@@ -15,12 +17,14 @@ const AboutPage = () => {
   });
   const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.06, 1]);
 
+  const paragraphs = [t.aboutPage.p1, t.aboutPage.p2, t.aboutPage.p3, t.aboutPage.p4];
+
   return (
     <PageTransition>
       <SEO title="About – Nachman Cohen" description="Learn about Nachman Cohen, a Hasidic singer blending traditional melodies with contemporary style." />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start lg:[direction:ltr]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <motion.div
               ref={imgRef}
               initial={{ opacity: 0, x: 30 }}
@@ -50,7 +54,7 @@ const AboutPage = () => {
                 transition={{ ...spring, delay: 0.2 }}
                 className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest"
               >
-                ABOUT
+                {t.aboutPage.label}
               </motion.p>
               <motion.h1
                 initial={{ opacity: 0, y: 15 }}
@@ -58,16 +62,11 @@ const AboutPage = () => {
                 transition={{ ...spring, delay: 0.3 }}
                 className="font-display text-4xl md:text-5xl text-foreground mb-8"
               >
-                Nachman Cohen
+                {t.aboutPage.title}
               </motion.h1>
 
               <div className="space-y-5 text-muted-foreground font-body leading-relaxed">
-                {[
-                  "Nachman Cohen is a Hasidic singer dedicated to authentic Hasidic music. His voice brings warmth, emotion, and a deep connection to traditional Jewish melodies.",
-                  "Nachman began his musical journey at a young age. At just 15 years old, he released his debut single \"Refua,\" and since then has continued creating and performing music rooted in the spirit of classic Hasidic song.",
-                  "He performs at weddings, bar mitzvahs, and special events, bringing authentic Hasidic joy and uplifting energy to every celebration.",
-                  "Nachman's goal is to preserve and share the beauty of traditional Hasidic music with audiences around the world.",
-                ].map((text, i) => (
+                {paragraphs.map((text, i) => (
                   <motion.p
                     key={i}
                     initial={{ opacity: 0, y: 12 }}

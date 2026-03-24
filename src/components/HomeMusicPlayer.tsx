@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw, Download } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Track {
   title: string;
@@ -14,6 +15,7 @@ interface MusicPlayerProps {
 }
 
 const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
+  const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,11 +37,8 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
 
   const togglePlay = () => {
     if (!audioRef.current) return;
-    if (playing) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
+    if (playing) audioRef.current.pause();
+    else audioRef.current.play();
     setPlaying(!playing);
   };
 
@@ -106,16 +105,13 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
       transition={{ type: "spring", duration: 0.6, bounce: 0 }}
       className="max-w-2xl mx-auto"
     >
-      {/* Main Player Card */}
       <div className="rounded-2xl bg-card border border-border p-6 md:p-8 stage-glow">
-        {/* Now Playing */}
         <div className="text-center mb-6">
-          <p className="font-body text-xs text-primary tracking-widest uppercase mb-2">Now Playing</p>
+          <p className="font-body text-xs text-primary tracking-widest uppercase mb-2">{t.musicSection.nowPlaying}</p>
           <h3 className="font-display text-3xl md:text-4xl text-foreground">{current.titleEn}</h3>
           <p className="font-body text-sm text-muted-foreground mt-1">{current.title}</p>
         </div>
 
-        {/* Progress Bar */}
         <div className="mb-4">
           <div
             ref={barRef}
@@ -125,10 +121,7 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
             onPointerUp={handlePointerUp}
           >
             <div className="w-full h-1.5 bg-muted rounded-full relative">
-              <div
-                className="h-full bg-primary rounded-full pointer-events-none transition-all"
-                style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
-              />
+              <div className="h-full bg-primary rounded-full pointer-events-none transition-all" style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }} />
               <div
                 className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-md pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ left: duration ? `calc(${(progress / duration) * 100}% - 7px)` : "0" }}
@@ -149,7 +142,6 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           </div>
         </div>
 
-        {/* Controls */}
         <div className="flex items-center justify-center gap-6">
           <button onClick={() => setMuted(!muted)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label={muted ? "Unmute" : "Mute"}>
             {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
@@ -162,7 +154,7 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
             className="w-14 h-14 rounded-full gold-gradient text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
             aria-label={playing ? "Pause" : "Play"}
           >
-            {playing ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
+            {playing ? <Pause size={22} /> : <Play size={22} className="ms-0.5" />}
           </button>
           <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="Next">
             <SkipForward size={22} />
@@ -178,27 +170,15 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           </a>
         </div>
 
-        <audio
-          ref={audioRef}
-          src={current.audioSrc}
-          muted={muted}
-          preload="metadata"
-          onTimeUpdate={onTimeUpdate}
-          onLoadedMetadata={syncDuration}
-          onDurationChange={syncDuration}
-          onEnded={next}
-        />
+        <audio ref={audioRef} src={current.audioSrc} muted={muted} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={next} />
       </div>
 
-      {/* Track List */}
       <div className="mt-4 space-y-1">
         {tracks.map((track, i) => (
           <div
             key={i}
             className={`w-full flex items-center justify-between py-3.5 px-5 rounded-xl transition-all cursor-pointer ${
-              i === currentIndex
-                ? "bg-accent text-foreground"
-                : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+              i === currentIndex ? "bg-accent text-foreground" : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
             }`}
             onClick={() => setCurrentIndex(i)}
           >
@@ -210,9 +190,9 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
                   i + 1
                 )}
               </span>
-              <div className="text-left">
+              <div className="text-start">
                 <span className="font-body text-sm">{track.titleEn}</span>
-                <span className="font-body text-xs ml-2 opacity-60">({track.title})</span>
+                <span className="font-body text-xs ms-2 opacity-60">({track.title})</span>
               </div>
             </div>
             <a

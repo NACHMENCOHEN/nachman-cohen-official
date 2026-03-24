@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -27,21 +28,20 @@ const videos: YouTubeVideo[] = [
 const cardVariants = {
   hidden: { opacity: 0, y: 25, scale: 0.97 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
+    opacity: 1, y: 0, scale: 1,
     transition: { ...spring, delay: i * 0.08 },
   }),
 };
 
 const VideosPage = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   return (
     <PageTransition>
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
-          <SectionHeading title="Videos" subtitle="Watch Nachman Cohen's music videos" />
+          <SectionHeading title={t.videosPage.title} subtitle={t.videosPage.subtitle} />
 
           <motion.div
             initial="hidden"
@@ -67,7 +67,7 @@ const VideosPage = () => {
                   />
                   <div className="absolute inset-0 bg-background/30 group-hover:bg-background/10 transition-colors flex items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <Play size={28} className="text-primary-foreground ml-1" fill="currentColor" />
+                      <Play size={28} className="text-primary-foreground ms-1" fill="currentColor" />
                     </div>
                   </div>
                 </div>
@@ -81,7 +81,6 @@ const VideosPage = () => {
         </div>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {activeVideo && (
           <motion.div
@@ -108,7 +107,7 @@ const VideosPage = () => {
               />
               <button
                 onClick={() => setActiveVideo(null)}
-                className="absolute top-3 right-3 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                className="absolute top-3 end-3 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
                 aria-label="Close video"
               >
                 <X size={20} />
