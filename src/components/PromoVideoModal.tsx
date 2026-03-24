@@ -5,10 +5,11 @@ import { useLanguage } from "@/i18n/LanguageContext";
 // ── Promo config ──
 const PROMO_CONFIG = {
   videoSrc: "/videos/promo.mp4",
-  startDate: new Date("2025-03-24"),
-  endDate: new Date("2025-04-07"),
+  startDate: new Date("2026-03-24"),
+  endDate: new Date("2026-04-07"),
   storageKey: "promo-video-last-shown",
   frequencyMs: 24 * 60 * 60 * 1000, // once per day
+  testMode: true, // ← set to false to restore once-per-day behavior
 };
 
 const isWithinPromoPeriod = () => {
