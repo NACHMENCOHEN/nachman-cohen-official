@@ -135,7 +135,7 @@ export const translations = {
 
     booking: {
       label: "הזמנות",
-      title: "הזמינו את נחמן כהן",
+      title: "להזמנה לאירוע שלכם צרו קשר",
       subtitle: "חתונות • בר מצווה • קונצרטים • אירועים פרטיים",
       contactDirectly: "צרו קשר ישירות",
       callNow: "התקשרו עכשיו",
