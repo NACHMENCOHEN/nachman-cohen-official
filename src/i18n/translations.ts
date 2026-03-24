@@ -119,7 +119,7 @@ export const translations = {
 
     musicSection: {
       label: "מוזיקה",
-      title: "שירים אחרונים",
+      title: "רשימת סינגלים",
       viewAll: "← צפו בכל השירים",
       nowPlaying: "מתנגן כעת",
       download: "הורדה",
