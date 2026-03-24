@@ -34,6 +34,7 @@ const Index = () => {
 
   return (
     <PageTransition>
+      <PromoVideoModal />
       <SEO title="נחמן כהן - האתר הרשמי | Nachman Cohen" description="האתר הרשמי של נחמן כהן. מוזיקה, קליפים, שירים, הופעות, ועדכונים." />
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
