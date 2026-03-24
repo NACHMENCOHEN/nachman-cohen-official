@@ -134,11 +134,11 @@ export const translations = {
     },
 
     booking: {
-      label: "הזמנות",
-      title: "להזמנה לאירוע שלכם צרו קשר",
-      subtitle: "חתונות • בר מצווה • קונצרטים • אירועים פרטיים",
+      label: "הזמנות לאירועים",
+      title: "להזמנת הופעה לאירוע שלכם צרו קשר",
+      subtitle: "חתונות • בר מצוות • אירועים פרטיים • הופעות",
       contactDirectly: "צרו קשר ישירות",
-      callNow: "התקשרו עכשיו",
+      callNow: "חייג עכשיו",
       whatsapp: "WhatsApp",
     },
 
