@@ -15,12 +15,8 @@ interface YouTubeVideo {
 }
 
 const videos: YouTubeVideo[] = [
-  { id: "6je9lysaUCg", title: "U'Mordechai Yada", titleHe: "ומרדכי ידע" },
   { id: "IP8vxbsuQu8", title: "Mein Treireleh", titleHe: "מיין טרערעלע" },
-  { id: "OKDfi4QH9QE", title: "Dmut Im Tzeva", titleHe: "דמות עם צבע" },
-  { id: "HBP93mSaqg0", title: "Hisoreri", titleHe: "התעוררי" },
-  { id: "KSp9emysPns", title: "Mein Taiere Lechtele", titleHe: "מיין טייערע לעכטעלע" },
-  { id: "iUSjCJjVrg8", title: "Tefillin", titleHe: "תפילין" },
+
   { id: "5HJVtOdDoW4", title: "Lemala", titleHe: "למעלה", thumbQuality: "hqdefault" },
   { id: "kJYX_CN6XQg", title: "Refuah", titleHe: "רפואה" },
 ];
@@ -28,7 +24,9 @@ const videos: YouTubeVideo[] = [
 const cardVariants = {
   hidden: { opacity: 0, y: 25, scale: 0.97 },
   visible: (i: number) => ({
-    opacity: 1, y: 0, scale: 1,
+    opacity: 1,
+    y: 0,
+    scale: 1,
     transition: { ...spring, delay: i * 0.08 },
   }),
 };
@@ -60,7 +58,7 @@ const VideosPage = () => {
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={`https://img.youtube.com/vi/${video.id}/${video.thumbQuality || 'maxresdefault'}.jpg`}
+                    src={`https://img.youtube.com/vi/${video.id}/${video.thumbQuality || "maxresdefault"}.jpg`}
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
