@@ -12,14 +12,7 @@ interface YouTubeVideo {
   titleHe: string;
 }
 
-const videos: YouTubeVideo[] = [
-  { id: "6je9lysaUCg", title: "U'Mordechai Yada", titleHe: "ומרדכי ידע" },
-  { id: "IP8vxbsuQu8", title: "Mein Treireleh", titleHe: "מיין טרערעלע" },
-  { id: "OKDfi4QH9QE", title: "Dmut Im Tzeva", titleHe: "דמות עם צבע" },
-  { id: "HBP93mSaqg0", title: "Hisoreri", titleHe: "התעוררי" },
-  { id: "KSp9emysPns", title: "Mein Taiere Lechtele", titleHe: "מיין טייערע לעכטעלע" },
-  { id: "iUSjCJjVrg8", title: "Tefillin", titleHe: "תפילין" },
-];
+const videos: YouTubeVideo[] = [{ id: "IP8vxbsuQu8", title: "Mein Treireleh", titleHe: "מיין טרערעלע" }];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 25, scale: 0.97 },
