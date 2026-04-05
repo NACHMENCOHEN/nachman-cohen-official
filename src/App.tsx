@@ -1,18 +1,15 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { LanguageProvider } from "@/i18n/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingSocial from "@/components/FloatingSocial";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "@/pages/Index";
 import MusicPage from "@/pages/MusicPage";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
-import NotFound from "@/pages/NotFound";
-import ComingSoon from "@/pages/ComingSoon";
 import VideosPage from "@/pages/VideosPage";
-
-const PUBLISHED_DOMAIN = "nachman-cohen-official.lovable.app";
+import NotFound from "@/pages/NotFound";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -31,23 +28,16 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  const isPublished = window.location.hostname === PUBLISHED_DOMAIN;
-
-  if (isPublished) {
-    return <ComingSoon />;
-  }
-
   return (
-    <LanguageProvider>
-      <BrowserRouter>
-        <Navbar />
-        <main className="pt-[72px]">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </BrowserRouter>
-    </LanguageProvider>
+    <BrowserRouter>
+      <Navbar />
+      <main className="pt-[72px]">
+        <AnimatedRoutes />
+      </main>
+      <Footer />
+      <FloatingSocial />
+      <WhatsAppButton />
+    </BrowserRouter>
   );
 };
 

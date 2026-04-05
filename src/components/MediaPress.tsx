@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -17,17 +16,15 @@ const articles = [
 ];
 
 const MediaPress = () => {
-  const { t } = useLanguage();
-
   return (
     <section className="mt-20 pt-16 border-t border-border">
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...spring, delay: 0.1 }}
-        className="font-body text-xs font-medium text-muted-foreground mb-4 tracking-widest"
+        className="font-body text-xs font-medium text-primary mb-4 tracking-widest"
       >
-        {t.aboutPage.mediaLabel}
+        תקשורת ועיתונות
       </motion.p>
       <motion.h2
         initial={{ opacity: 0, y: 15 }}
@@ -35,7 +32,7 @@ const MediaPress = () => {
         transition={{ ...spring, delay: 0.2 }}
         className="font-display text-3xl md:text-4xl text-foreground mb-8"
       >
-        {t.aboutPage.mediaTitle}
+        בתקשורת
       </motion.h2>
 
       <div className="space-y-3">
