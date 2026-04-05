@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, RotateCcw, RotateCw, Download } from "lucide-react";
-import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Track {
   title: string;
@@ -15,7 +14,6 @@ interface MusicPlayerProps {
 }
 
 const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
-  const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -107,9 +105,9 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
     >
       <div className="rounded-2xl bg-card border border-border p-6 md:p-8 stage-glow">
         <div className="text-center mb-6">
-          <p className="font-body text-xs text-primary tracking-widest uppercase mb-2">{t.musicSection.nowPlaying}</p>
-          <h3 className="font-display text-3xl md:text-4xl text-foreground">{current.titleEn}</h3>
-          <p className="font-body text-sm text-muted-foreground mt-1">{current.title}</p>
+          <p className="font-body text-xs text-primary tracking-widest mb-2">מתנגן כעת</p>
+          <h3 className="font-display text-3xl md:text-4xl text-foreground">{current.title}</h3>
+          <p className="font-body text-sm text-muted-foreground mt-1">נחמן כהן</p>
         </div>
 
         <div className="mb-4">
@@ -131,10 +129,10 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           <div className="flex items-center justify-between mt-1.5">
             <span className="font-body text-xs text-muted-foreground">{formatTime(progress)}</span>
             <div className="flex items-center gap-3">
-              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Back 10s">
+              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="אחורה 10 שניות">
                 <RotateCcw size={14} />
               </button>
-              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Forward 10s">
+              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="קדימה 10 שניות">
                 <RotateCw size={14} />
               </button>
             </div>
@@ -143,29 +141,23 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
         </div>
 
         <div className="flex items-center justify-center gap-6">
-          <button onClick={() => setMuted(!muted)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label={muted ? "Unmute" : "Mute"}>
+          <button onClick={() => setMuted(!muted)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label={muted ? "הפעל קול" : "השתק"}>
             {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
-          <button onClick={prev} className="text-foreground hover:text-primary transition-colors" aria-label="Previous">
+          <button onClick={prev} className="text-foreground hover:text-primary transition-colors" aria-label="הקודם">
             <SkipBack size={22} />
           </button>
           <button
             onClick={togglePlay}
             className="w-14 h-14 rounded-full gold-gradient text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
-            aria-label={playing ? "Pause" : "Play"}
+            aria-label={playing ? "השהה" : "נגן"}
           >
             {playing ? <Pause size={22} /> : <Play size={22} className="ms-0.5" />}
           </button>
-          <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="Next">
+          <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="הבא">
             <SkipForward size={22} />
           </button>
-          <a
-            href={current.audioSrc}
-            download
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Download"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <a href={current.audioSrc} download className="text-muted-foreground hover:text-foreground transition-colors" aria-label="הורדה" onClick={(e) => e.stopPropagation()}>
             <Download size={18} />
           </a>
         </div>
@@ -190,16 +182,13 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
                   i + 1
                 )}
               </span>
-              <div className="text-start">
-                <span className="font-body text-sm">{track.titleEn}</span>
-                <span className="font-body text-xs ms-2 opacity-60">({track.title})</span>
-              </div>
+              <span className="font-body text-sm">{track.title}</span>
             </div>
             <a
               href={track.audioSrc}
               download
               className="text-muted-foreground hover:text-primary transition-colors p-1"
-              aria-label={`Download ${track.titleEn}`}
+              aria-label={`הורדת ${track.title}`}
               onClick={(e) => e.stopPropagation()}
             >
               <Download size={14} />

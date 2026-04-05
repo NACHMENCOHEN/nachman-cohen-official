@@ -1,10 +1,8 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, RotateCcw, RotateCw, Download } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
-import { useLanguage } from "@/i18n/LanguageContext";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -35,7 +33,6 @@ const cardVariants = {
 };
 
 const TrackCard = ({ track, index }: { track: Track; index: number }) => {
-  const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -117,7 +114,7 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     >
       <div className="relative aspect-square overflow-hidden cursor-pointer group" onClick={togglePlay}>
         {track.cover ? (
-          <motion.img src={track.cover} alt={track.titleEn} className="w-full h-full object-cover" whileHover={{ scale: 1.04 }} transition={{ duration: 0.4 }} />
+          <motion.img src={track.cover} alt={track.title} className="w-full h-full object-cover" whileHover={{ scale: 1.04 }} transition={{ duration: 0.4 }} />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
             <span className="font-display text-5xl text-muted-foreground/20 select-none">♪</span>
@@ -138,8 +135,8 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
       </div>
 
       <div className="px-4 py-3.5">
-        <h3 className="font-body text-sm font-medium text-foreground truncate">{track.titleEn}</h3>
-        <p className="font-body text-xs text-muted-foreground mt-0.5 truncate">{track.title}</p>
+        <h3 className="font-body text-sm font-medium text-foreground truncate">{track.title}</h3>
+        <p className="font-body text-xs text-muted-foreground mt-0.5 truncate">נחמן כהן</p>
 
         <div className="mt-3">
           <div
@@ -160,10 +157,10 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
           <div className="flex items-center justify-between mt-1.5">
             <span className="font-body text-[10px] text-muted-foreground">{formatTime(progress)}</span>
             <div className="flex items-center gap-2">
-              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Back 10s">
+              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="אחורה 10 שניות">
                 <RotateCcw size={12} />
               </button>
-              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Forward 10s">
+              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="קדימה 10 שניות">
                 <RotateCw size={12} />
               </button>
             </div>
@@ -175,7 +172,7 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
       <div className="px-4 pb-3">
         <a href={track.audioSrc} download className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
           <Download size={12} />
-          <span>{t.musicSection.download}</span>
+          <span>הורדה</span>
         </a>
       </div>
 
@@ -185,14 +182,26 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
 };
 
 const MusicPage = () => {
-  const { t } = useLanguage();
-
   return (
     <PageTransition>
-      <SEO title="Music – Nachman Cohen" description="Listen to Nachman Cohen's latest Hasidic songs. Stream and download music." />
+      <SEO
+        title="מוזיקה של נחמן כהן | זמר חסידי"
+        description="האזינו לשירים של נחמן כהן. אוסף השירים עם מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה."
+      />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
-          <SectionHeading title={t.musicPage.title} subtitle={t.musicPage.subtitle} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={spring}
+            className="text-center mb-16"
+          >
+            <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">מוזיקה</h1>
+            <p className="text-muted-foreground font-body max-w-lg mx-auto mb-2">האזינו לשירים של נחמן כהן</p>
+            <p className="text-muted-foreground/70 font-body text-sm max-w-xl mx-auto">
+              אוסף השירים של נחמן כהן עם מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה, רגש וחיבור אמיתי.
+            </p>
+          </motion.div>
 
           <motion.div
             initial="hidden"

@@ -1,45 +1,54 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
-import { useLanguage } from "@/i18n/LanguageContext";
+import SEO from "@/components/SEO";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 interface YouTubeVideo {
   id: string;
   title: string;
-  titleHe: string;
   thumbQuality?: string;
 }
 
 const videos: YouTubeVideo[] = [
-  { id: "IP8vxbsuQu8", title: "Mein Treireleh", titleHe: "מיין טרערעלע" },
-
-  { id: "5HJVtOdDoW4", title: "Lemala", titleHe: "למעלה", thumbQuality: "hqdefault" },
-  { id: "kJYX_CN6XQg", title: "Refuah", titleHe: "רפואה" },
+  { id: "IP8vxbsuQu8", title: "מיין טרערעלע" },
+  { id: "5HJVtOdDoW4", title: "למעלה", thumbQuality: "hqdefault" },
+  { id: "kJYX_CN6XQg", title: "רפואה" },
 ];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 25, scale: 0.97 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
+    opacity: 1, y: 0, scale: 1,
     transition: { ...spring, delay: i * 0.08 },
   }),
 };
 
 const VideosPage = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
-  const { t } = useLanguage();
 
   return (
     <PageTransition>
+      <SEO
+        title="קליפים והופעות של נחמן כהן | זמר חסידי"
+        description="צפו בקליפים ובהופעות של נחמן כהן. קליפים, הופעות ורגעים מוזיקליים מיוחדים."
+      />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
-          <SectionHeading title={t.videosPage.title} subtitle={t.videosPage.subtitle} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={spring}
+            className="text-center mb-16"
+          >
+            <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">וידאו</h1>
+            <p className="text-muted-foreground font-body max-w-lg mx-auto mb-2">צפו בקליפים ובהופעות של נחמן כהן</p>
+            <p className="text-muted-foreground/70 font-body text-sm max-w-xl mx-auto">
+              קליפים, הופעות ורגעים מוזיקליים מיוחדים מתוך הדרך והעשייה של נחמן כהן.
+            </p>
+          </motion.div>
 
           <motion.div
             initial="hidden"
@@ -71,7 +80,7 @@ const VideosPage = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="font-body text-foreground text-sm">{video.title}</h3>
-                  <p className="font-body text-muted-foreground text-xs mt-0.5">{video.titleHe}</p>
+                  <p className="font-body text-muted-foreground text-xs mt-0.5">נחמן כהן</p>
                 </div>
               </motion.div>
             ))}
@@ -98,15 +107,15 @@ const VideosPage = () => {
             >
               <iframe
                 src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0`}
-                title="YouTube video player"
+                title="נגן וידאו"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
               />
               <button
                 onClick={() => setActiveVideo(null)}
-                className="absolute top-3 end-3 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
-                aria-label="Close video"
+                className="absolute top-3 start-3 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                aria-label="סגור"
               >
                 <X size={20} />
               </button>
