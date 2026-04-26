@@ -1,13 +1,8 @@
 import { motion } from "framer-motion";
-import { Phone, MessageCircle, Mail, Instagram, Youtube } from "lucide-react";
+import { Phone, MessageCircle, Mail } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
-
-const TikTokIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.3z" />
-  </svg>
-);
+import { socialLinks } from "@/components/social-icons";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -87,37 +82,20 @@ const ContactPage = () => {
                 ניתן ליצור קשר גם דרך אינסטגרם, יוטיוב וטיקטוק
               </p>
 
-              <div className="flex items-center justify-center gap-5">
-                <motion.a
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  href="https://www.instagram.com/nachmencohen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
-                  aria-label="Instagram"
-                >
-                  <Instagram size={22} />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  href="https://www.youtube.com/@Nachmen_cohen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
-                  aria-label="YouTube"
-                >
-                  <Youtube size={22} />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  href="https://www.tiktok.com/@nachman_cohen_music?_r=1&_t=ZN-94co99vL1bK"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
-                  aria-label="TikTok"
-                >
-                  <TikTokIcon size={20} />
-                </motion.a>
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                {socialLinks.map((s) => (
+                  <motion.a
+                    key={s.name}
+                    whileHover={{ scale: 1.15, y: -2 }}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground ${s.hoverColorClass} hover:border-primary/30 transition-all`}
+                    aria-label={s.name}
+                  >
+                    <s.Icon size={22} />
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
           </div>
