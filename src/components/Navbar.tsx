@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Instagram, Youtube } from "lucide-react";
-
-const TikTokIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.3z" />
-  </svg>
-);
+import { Menu, X } from "lucide-react";
+import { socialLinks } from "./social-icons";
 
 const navLinks = [
   { to: "/", label: "דף הבית" },
@@ -50,15 +45,18 @@ const Navbar = () => {
           ))}
 
           <div className="flex items-center gap-4 border-e border-border pe-4">
-            <a href="https://www.instagram.com/nachmencohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-              <Instagram size={18} />
-            </a>
-            <a href="https://www.youtube.com/@Nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
-              <Youtube size={18} />
-            </a>
-            <a href="https://www.tiktok.com/@nachman_cohen_music" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
-              <TikTokIcon size={16} />
-            </a>
+            {socialLinks.map((s) => (
+              <a
+                key={s.name}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-muted-foreground ${s.hoverColorClass} transition-colors`}
+                aria-label={s.name}
+              >
+                <s.Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
@@ -94,16 +92,19 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex items-center gap-5 pt-3 border-t border-border mt-2">
-                <a href="https://www.instagram.com/nachmencohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
-                  <Instagram size={20} />
-                </a>
-                <a href="https://www.youtube.com/@Nachmen_cohen" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="YouTube">
-                  <Youtube size={20} />
-                </a>
-                <a href="https://www.tiktok.com/@nachman_cohen_music" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="TikTok">
-                  <TikTokIcon size={18} />
-                </a>
+              <div className="flex items-center gap-5 pt-3 border-t border-border mt-2 flex-wrap">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-muted-foreground ${s.hoverColorClass} transition-colors`}
+                    aria-label={s.name}
+                  >
+                    <s.Icon size={20} />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
