@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Instagram } from "lucide-react";
 import { socialLinks } from "./social-icons";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
@@ -56,9 +57,29 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="border-t border-border pt-6">
-            <p className="text-xs text-muted-foreground/60">
+          <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground/60 order-2 md:order-1">
               © כל הזכויות שמורות לנחמן כהן
+            </p>
+            <p className="text-xs text-muted-foreground/60 order-1 md:order-2 flex items-center gap-1.5">
+              <span>Website designed by</span>
+              <a
+                href="https://www.instagram.com/ncgraphics.design?igsh=MXhzNWJzcTUycGdheA%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                NC Graphics
+              </a>
+              <a
+                href="https://www.instagram.com/ncgraphics.design?igsh=MXhzNWJzcTUycGdheA%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="NC Graphics Instagram"
+                className="hover:text-primary transition-colors inline-flex"
+              >
+                <Instagram size={13} />
+              </a>
             </p>
           </div>
         </motion.div>
