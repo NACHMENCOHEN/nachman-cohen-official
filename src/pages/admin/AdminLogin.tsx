@@ -29,7 +29,7 @@ const AdminLogin = () => {
 
   return (
     <PageTransition>
-      <SEO title="כניסת מנהל | נחמן כהן" description="כניסת מנהל" noindex />
+      <SEO title="כניסת מנהל | נחמן כהן" description="כניסת מנהל" />
       <section dir="rtl" className="min-h-[70vh] flex items-center justify-center px-6 py-20">
         <form onSubmit={onSubmit} className="w-full max-w-md bg-card/40 border border-border rounded-2xl p-8 space-y-5 text-right">
           <h1 className="font-display text-3xl text-foreground text-center">כניסת מנהל</h1>
