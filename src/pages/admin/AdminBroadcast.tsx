@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Send, CheckCircle2, FlaskConical } from "lucide-react";
+import { Send, CheckCircle2, FlaskConical, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface LogRow {
@@ -16,6 +16,8 @@ const AdminBroadcast = () => {
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
   const [buttonText, setButtonText] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [busy, setBusy] = useState(false);
   const [testBusy, setTestBusy] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -45,13 +47,13 @@ const AdminBroadcast = () => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim() },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim() },
       });
       if (error) throw error;
       const d = data as { sent: number; total: number; errors: number; error?: string };
       if (d?.error) throw new Error(d.error);
       setResult(`נשלח ל-${d.sent} מתוך ${d.total} נרשמים${d.errors ? ` · ${d.errors} כשלים` : ""}`);
-      setTitle(""); setDescription(""); setLink(""); setButtonText("");
+      setTitle(""); setDescription(""); setLink(""); setButtonText(""); setImageUrl("");
       loadLogs();
     } catch (e) {
       setError(e instanceof Error ? e.message : "שגיאה");
@@ -70,7 +72,7 @@ const AdminBroadcast = () => {
     setTestBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), test: true },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), test: true },
       });
       if (error) throw error;
       const d = data as { sent: number; errors: number; error?: string };
@@ -81,6 +83,26 @@ const AdminBroadcast = () => {
       setError(e instanceof Error ? e.message : "שגיאה");
     } finally {
       setTestBusy(false);
+    }
+  };
+
+  const onUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setError(null);
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() || "jpg";
+      const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("broadcast-images").upload(path, file, { cacheControl: "3600", upsert: false, contentType: file.type });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("broadcast-images").getPublicUrl(path);
+      setImageUrl(data.publicUrl);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "שגיאת העלאה");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
     }
   };
 
@@ -96,9 +118,25 @@ const AdminBroadcast = () => {
           <label className="block text-sm text-muted-foreground mb-2">תיאור קצר</label>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} maxLength={2000} rows={5} className="w-full bg-background/60 border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/60 resize-y" />
         </div>
+        <div>
+          <label className="block text-sm text-muted-foreground mb-2">תמונת קאבר / קישור לתמונה</label>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://..." dir="ltr" className="flex-1 bg-background/60 border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/60" />
+            <label className="inline-flex items-center justify-center gap-2 border border-border hover:border-primary/60 rounded-lg px-4 py-3 cursor-pointer text-sm text-foreground whitespace-nowrap">
+              <Upload size={16} />
+              {uploading ? "מעלה..." : "העלאת תמונה"}
+              <input type="file" accept="image/*" className="hidden" onChange={onUploadImage} disabled={uploading} />
+            </label>
+          </div>
+          {imageUrl && (
+            <div className="mt-3">
+              <img src={imageUrl} alt="תצוגה מקדימה" className="max-h-48 rounded-lg border border-border" />
+            </div>
+          )}
+        </div>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-muted-foreground mb-2">קישור</label>
+            <label className="block text-sm text-muted-foreground mb-2">קישור להאזנה / צפייה</label>
             <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="https://..." dir="ltr" className="w-full bg-background/60 border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/60" />
           </div>
           <div>
