@@ -28,7 +28,7 @@ interface SocialLinks {
 
 const DEFAULT_SOCIAL: Required<SocialLinks> = {
   website: "https://nachmancohen.com",
-  youtube: "https://www.youtube.com/@Nachmen_cohen",
+  youtube: "https://youtube.com/@nachman_cohen",
   instagram: "https://www.instagram.com/nachmencohen",
   tiktok: "https://www.tiktok.com/@nachman_cohen_music",
   spotify: "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
@@ -47,13 +47,20 @@ function socialIconsHtml(s: SocialLinks) {
   if (s.appleMusic) items.push({ url: s.appleMusic, icon: `${iconBase}/apple-music.png`, label: "Apple Music" });
   if (s.telegram) items.push({ url: s.telegram, icon: `${iconBase}/telegram-app.png`, label: "Telegram" });
   if (items.length === 0) return "";
-  const cells = items
+  const iconCells = items
     .map(
       (i) =>
-        `<td style="padding:0 8px;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;" target="_blank"><img src="${i.icon}" width="32" height="32" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:32px;height:32px;" /></a></td>`,
+        `<td style="padding:0 8px;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;color:#D6B37A;font-family:Arial,Heebo,sans-serif;font-size:13px;font-weight:700;" target="_blank"><img src="${i.icon}" width="32" height="32" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:32px;height:32px;margin:0 auto 6px;" /><span style="color:#D6B37A;">${escapeHtml(i.label)}</span></a></td>`,
     )
     .join("");
-  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:24px auto 8px;"><tr>${cells}</tr></table>`;
+  const textLinks = items
+    .map(
+      (i) =>
+        `<a href="${escapeHtml(i.url)}" style="color:#D6B37A;text-decoration:none;font-family:Arial,Heebo,sans-serif;font-size:13px;font-weight:700;margin:0 6px;" target="_blank">${escapeHtml(i.label)}</a>`,
+    )
+    .join('<span style="color:#5a5147;">|</span>');
+  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:28px auto 8px;"><tr>${iconCells}</tr></table>
+  <p style="text-align:center;margin:8px 0 0;line-height:1.9;">${textLinks}</p>`;
 }
 
 function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string; social: SocialLinks }) {
@@ -154,6 +161,17 @@ Deno.serve(async (req) => {
       appleMusic: safeUrl(appleMusicUrl) || DEFAULT_SOCIAL.appleMusic,
       telegram: safeUrl(telegramUrl) || DEFAULT_SOCIAL.telegram,
     };
+    const socialSource: Record<string, "custom" | "default" | "none"> = {
+      website: safeUrl(websiteUrl) ? "custom" : DEFAULT_SOCIAL.website ? "default" : "none",
+      youtube: safeUrl(youtubeUrl) ? "custom" : DEFAULT_SOCIAL.youtube ? "default" : "none",
+      instagram: safeUrl(instagramUrl) ? "custom" : DEFAULT_SOCIAL.instagram ? "default" : "none",
+      tiktok: safeUrl(tiktokUrl) ? "custom" : DEFAULT_SOCIAL.tiktok ? "default" : "none",
+      spotify: safeUrl(spotifyUrl) ? "custom" : DEFAULT_SOCIAL.spotify ? "default" : "none",
+      appleMusic: safeUrl(appleMusicUrl) ? "custom" : DEFAULT_SOCIAL.appleMusic ? "default" : "none",
+      telegram: safeUrl(telegramUrl) ? "custom" : DEFAULT_SOCIAL.telegram ? "default" : "none",
+    };
+    const socialRowIncluded = Object.values(social).some((v) => !!v);
+    console.log("social row included:", socialRowIncluded, "sources:", socialSource);
 
     let subs: { email: string; name: string; unsubscribe_token: string }[];
     if (test) {
