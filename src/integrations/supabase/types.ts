@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      broadcast_logs: {
+        Row: {
+          button_text: string | null
+          description: string | null
+          error_message: string | null
+          id: string
+          link: string | null
+          recipients_count: number
+          sent_at: string
+          sent_by: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          button_text?: string | null
+          description?: string | null
+          error_message?: string | null
+          id?: string
+          link?: string | null
+          recipients_count?: number
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          button_text?: string | null
+          description?: string | null
+          error_message?: string | null
+          id?: string
+          link?: string | null
+          recipients_count?: number
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -44,15 +83,72 @@ export type Database = {
         }
         Relationships: []
       }
+      subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          status: string
+          subscribed_at: string
+          unsubscribe_token: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          status?: string
+          subscribed_at?: string
+          unsubscribe_token?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          status?: string
+          subscribed_at?: string
+          unsubscribe_token?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -179,6 +275,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

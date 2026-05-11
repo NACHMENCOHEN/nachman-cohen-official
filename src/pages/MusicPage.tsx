@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Play, Pause, RotateCcw, RotateCw, Download } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -215,6 +216,7 @@ const MusicPage = () => {
           </motion.div>
         </div>
       </div>
+      <NewsletterSubscribe />
     </PageTransition>
   );
 };
