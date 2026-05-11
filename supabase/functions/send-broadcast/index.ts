@@ -42,21 +42,23 @@ function broadcastHtml(opts: { title: string; description: string; link: string;
 }
 
 async function sendBrevo(payload: unknown) {
-  const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY")!;
-  const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
-  const res = await fetch("https://connector-gateway.lovable.dev/brevo/smtp/email", {
+  const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
+  if (!BREVO_API_KEY) throw new Error("BREVO_API_KEY is not configured");
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      "X-Connection-Api-Key": BREVO_API_KEY,
+      "Accept": "application/json",
+      "api-key": BREVO_API_KEY,
     },
     body: JSON.stringify(payload),
   });
+  const text = await res.text();
   if (!res.ok) {
-    const t = await res.text();
-    throw new Error(`Brevo ${res.status}: ${t}`);
+    console.error("Brevo error:", res.status, text);
+    throw new Error(`Brevo ${res.status}: ${text}`);
   }
+  console.log("Brevo OK:", text);
 }
 
 Deno.serve(async (req) => {
