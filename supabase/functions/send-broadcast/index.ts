@@ -161,6 +161,17 @@ Deno.serve(async (req) => {
       appleMusic: safeUrl(appleMusicUrl) || DEFAULT_SOCIAL.appleMusic,
       telegram: safeUrl(telegramUrl) || DEFAULT_SOCIAL.telegram,
     };
+    const socialSource: Record<string, "custom" | "default" | "none"> = {
+      website: safeUrl(websiteUrl) ? "custom" : DEFAULT_SOCIAL.website ? "default" : "none",
+      youtube: safeUrl(youtubeUrl) ? "custom" : DEFAULT_SOCIAL.youtube ? "default" : "none",
+      instagram: safeUrl(instagramUrl) ? "custom" : DEFAULT_SOCIAL.instagram ? "default" : "none",
+      tiktok: safeUrl(tiktokUrl) ? "custom" : DEFAULT_SOCIAL.tiktok ? "default" : "none",
+      spotify: safeUrl(spotifyUrl) ? "custom" : DEFAULT_SOCIAL.spotify ? "default" : "none",
+      appleMusic: safeUrl(appleMusicUrl) ? "custom" : DEFAULT_SOCIAL.appleMusic ? "default" : "none",
+      telegram: safeUrl(telegramUrl) ? "custom" : DEFAULT_SOCIAL.telegram ? "default" : "none",
+    };
+    const socialRowIncluded = Object.values(social).some((v) => !!v);
+    console.log("social row included:", socialRowIncluded, "sources:", socialSource);
 
     let subs: { email: string; name: string; unsubscribe_token: string }[];
     if (test) {
