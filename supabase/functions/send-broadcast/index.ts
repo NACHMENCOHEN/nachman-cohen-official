@@ -50,10 +50,10 @@ function socialIconsHtml(s: SocialLinks) {
   const iconCells = items
     .map(
       (i) =>
-        `<td style="padding:0 6px;vertical-align:top;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;color:#D6B37A;font-family:Arial,Heebo,sans-serif;font-size:11px;font-weight:700;" target="_blank"><img src="${i.icon}" width="28" height="28" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:28px;height:28px;margin:0 auto 4px;" /><span style="color:#D6B37A;white-space:nowrap;">${escapeHtml(i.label)}</span></a></td>`,
+        `<td style="padding:0 6px;vertical-align:top;" align="center"><a href="${escapeHtml(i.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;text-decoration:none;color:#D6B37A;font-family:Arial,Heebo,sans-serif;font-size:11px;font-weight:700;"><img src="${i.icon}" width="28" height="28" alt="${escapeHtml(i.label)}" border="0" style="display:block;border:0;outline:none;width:28px;height:28px;margin:0 auto 4px;" /><span style="color:#D6B37A;white-space:nowrap;text-decoration:none;">${escapeHtml(i.label)}</span></a></td>`,
     )
     .join("");
-  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:28px auto 8px;table-layout:fixed;"><tr>${iconCells}</tr></table>`;
+  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:28px auto 8px;"><tr>${iconCells}</tr></table>`;
 }
 
 function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string; social: SocialLinks }) {
