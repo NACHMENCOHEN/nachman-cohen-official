@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Loader2, Send, CheckCircle2 } from "lucide-react";
+import { Loader2, Send, CheckCircle2, FlaskConical } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface LogRow {
@@ -17,6 +17,7 @@ const AdminBroadcast = () => {
   const [link, setLink] = useState("");
   const [buttonText, setButtonText] = useState("");
   const [busy, setBusy] = useState(false);
+  const [testBusy, setTestBusy] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [logs, setLogs] = useState<LogRow[]>([]);
@@ -59,6 +60,30 @@ const AdminBroadcast = () => {
     }
   };
 
+  const onTest = async () => {
+    setError(null);
+    setResult(null);
+    if (!title.trim()) {
+      setError("כותרת חובה גם לבדיקה");
+      return;
+    }
+    setTestBusy(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-broadcast", {
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), test: true },
+      });
+      if (error) throw error;
+      const d = data as { sent: number; errors: number; error?: string };
+      if (d?.error) throw new Error(d.error);
+      setResult(`מייל בדיקה נשלח ל-ncgraphics2023@gmail.com${d.errors ? ` · ${d.errors} כשלים` : ""}`);
+      loadLogs();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "שגיאה");
+    } finally {
+      setTestBusy(false);
+    }
+  };
+
   return (
     <div dir="rtl" className="grid lg:grid-cols-3 gap-8">
       <form onSubmit={onSubmit} className="lg:col-span-2 space-y-5 bg-card/30 border border-border rounded-2xl p-6">
@@ -87,10 +112,19 @@ const AdminBroadcast = () => {
             <CheckCircle2 size={16} /> {result}
           </div>
         )}
-        <button disabled={busy} type="submit" className="inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-semibold px-8 py-3 rounded-full disabled:opacity-60">
-          {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-          {busy ? "שולח..." : "שלח עדכון לנרשמים"}
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button disabled={busy || testBusy} type="submit" className="inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-semibold px-8 py-3 rounded-full disabled:opacity-60">
+            {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            {busy ? "שולח..." : "שלח עדכון לנרשמים"}
+          </button>
+          <button disabled={busy || testBusy} type="button" onClick={onTest} className="inline-flex items-center justify-center gap-2 border border-primary/60 text-primary font-semibold px-8 py-3 rounded-full disabled:opacity-60 hover:bg-primary/10 transition-colors">
+            {testBusy ? <Loader2 size={16} className="animate-spin" /> : <FlaskConical size={16} />}
+            {testBusy ? "שולח בדיקה..." : "שלח מייל בדיקה"}
+          </button>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          השליחה תהיה משם: <span dir="ltr" className="text-foreground">Nachman Cohen Music &lt;updates@nachmancohen.com&gt;</span> · תגובות יישלחו ל־<span dir="ltr" className="text-foreground">ncgraphics2023@gmail.com</span>
+        </p>
       </form>
 
       <div className="bg-card/30 border border-border rounded-2xl p-6">
