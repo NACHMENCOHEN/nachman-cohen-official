@@ -15,10 +15,7 @@ export function useAdminAuth() {
       if (cancelled) return;
       const newId = s?.user.id ?? null;
       // Skip if same user as last applied (prevents re-render loops on token refresh)
-      if (lastUserIdRef.current === newId) {
-        setSession(s);
-        return;
-      }
+      if (lastUserIdRef.current === newId) return;
       lastUserIdRef.current = newId;
       setSession(s);
       if (!newId) {
