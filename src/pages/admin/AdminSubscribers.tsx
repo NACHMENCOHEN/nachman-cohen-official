@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Loader2, Search, Trash2, Download } from "lucide-react";
+import { Search, Trash2, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Subscriber {
@@ -100,7 +100,7 @@ const AdminSubscribers = () => {
 
       <div className="rounded-2xl border border-border overflow-hidden bg-card/30">
         {loading ? (
-          <div className="p-10 flex justify-center"><Loader2 className="animate-spin text-primary" /></div>
+          <div className="p-10 text-center text-muted-foreground text-sm">טוען...</div>
         ) : filtered.length === 0 ? (
           <div className="p-10 text-center text-muted-foreground text-sm">אין נרשמים להצגה</div>
         ) : (
@@ -117,7 +117,7 @@ const AdminSubscribers = () => {
               </thead>
               <tbody>
                 {filtered.map((r) => (
-                  <tr key={r.id} className="border-t border-border hover:bg-background/30">
+                  <tr key={r.id} className="border-t border-border">
                     <td className="px-4 py-3 text-foreground">{r.name}</td>
                     <td className="px-4 py-3 text-foreground" dir="ltr">{r.email}</td>
                     <td className="px-4 py-3">
