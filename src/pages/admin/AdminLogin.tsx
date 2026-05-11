@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, LogIn, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import SEO from "@/components/SEO";
@@ -14,9 +13,11 @@ const AdminLogin = () => {
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [info, setInfo] = useState<string | null>(null);
+  const redirectedRef = useRef(false);
 
   useEffect(() => {
-    if (!loading && session && isAdmin) {
+    if (!loading && session && isAdmin && !redirectedRef.current) {
+      redirectedRef.current = true;
       navigate("/admin/broadcast", { replace: true });
     }
   }, [session, isAdmin, loading, navigate]);
@@ -57,12 +58,12 @@ const AdminLogin = () => {
       <SEO title="כניסת מנהל | נחמן כהן" description="כניסת מנהל" />
       <main
         dir="rtl"
-        className="min-h-[100svh] w-full flex items-start sm:items-center justify-center bg-background px-4 py-10 sm:py-16 overflow-y-auto"
+        className="min-h-screen w-full flex items-start sm:items-center justify-center bg-background px-4 py-10 sm:py-16"
       >
         <div className="w-full max-w-md">
           <form
             onSubmit={onSubmit}
-            className="w-full bg-card/40 border border-border rounded-2xl p-6 sm:p-8 space-y-5 text-right shadow-xl"
+            className="w-full bg-card/40 border border-border rounded-2xl p-6 sm:p-8 space-y-5 text-right"
           >
             <h1 className="font-display text-2xl sm:text-3xl text-foreground text-center">
               כניסת מנהל
@@ -72,10 +73,10 @@ const AdminLogin = () => {
               <button
                 type="button"
                 onClick={() => switchMode("signin")}
-                className={`py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`py-2 rounded-full text-sm font-medium ${
                   mode === "signin"
                     ? "gold-gradient text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 התחברות
@@ -83,10 +84,10 @@ const AdminLogin = () => {
               <button
                 type="button"
                 onClick={() => switchMode("signup")}
-                className={`py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`py-2 rounded-full text-sm font-medium ${
                   mode === "signup"
                     ? "gold-gradient text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 יצירת חשבון
@@ -141,14 +142,7 @@ const AdminLogin = () => {
               type="submit"
               className="w-full inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-semibold px-6 h-12 rounded-full disabled:opacity-60"
             >
-              {busy ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : mode === "signin" ? (
-                <LogIn size={16} />
-              ) : (
-                <UserPlus size={16} />
-              )}
-              {mode === "signin" ? "התחברות" : "יצירת חשבון"}
+              {busy ? "טוען..." : mode === "signin" ? "התחברות" : "יצירת חשבון"}
             </button>
 
             <p className="text-center text-xs text-muted-foreground">
@@ -156,7 +150,7 @@ const AdminLogin = () => {
               <button
                 type="button"
                 onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-                className="text-primary hover:underline"
+                className="text-primary"
               >
                 {mode === "signin" ? "צרו חשבון" : "התחברו"}
               </button>
