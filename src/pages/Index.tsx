@@ -313,6 +313,8 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+
+      <NewsletterSubscribe />
     </PageTransition>
   );
 };
