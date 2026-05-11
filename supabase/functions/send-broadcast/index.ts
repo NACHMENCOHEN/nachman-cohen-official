@@ -6,8 +6,11 @@ const corsHeaders = {
 };
 
 const SITE_URL = "https://nachmancohen.com";
-const FROM_EMAIL = "ncgraphics2023@gmail.com";
-const FROM_NAME = "נחמן כהן";
+const FROM_EMAIL = "updates@nachmancohen.com";
+const FROM_NAME = "Nachman Cohen Music";
+const REPLY_TO_EMAIL = "ncgraphics2023@gmail.com";
+const REPLY_TO_NAME = "Nachman Cohen";
+const TEST_EMAIL = "ncgraphics2023@gmail.com";
 
 function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
@@ -75,7 +78,7 @@ Deno.serve(async (req) => {
   if (!roleRow) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   try {
-    const { title, description, link, buttonText } = await req.json();
+    const { title, description, link, buttonText, test } = await req.json();
     if (!title || typeof title !== "string") {
       return new Response(JSON.stringify({ error: "כותרת חסרה" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -84,18 +87,25 @@ Deno.serve(async (req) => {
     const cleanLink = (link || "").toString().trim().slice(0, 500);
     const cleanBtn = (buttonText || "").toString().trim().slice(0, 60);
 
-    const { data: subs, error } = await admin.from("subscribers").select("email, name, unsubscribe_token").eq("status", "active");
-    if (error) throw error;
+    let subs: { email: string; name: string; unsubscribe_token: string }[];
+    if (test) {
+      subs = [{ email: TEST_EMAIL, name: "Test", unsubscribe_token: "test-token" }];
+    } else {
+      const { data, error } = await admin.from("subscribers").select("email, name, unsubscribe_token").eq("status", "active");
+      if (error) throw error;
+      subs = (data || []) as typeof subs;
+    }
 
     let sent = 0;
     const errors: string[] = [];
-    for (const s of subs || []) {
+    for (const s of subs) {
       const unsubUrl = `${SITE_URL}/unsubscribe?token=${s.unsubscribe_token}`;
       try {
         await sendBrevo({
           sender: { name: FROM_NAME, email: FROM_EMAIL },
+          replyTo: { email: REPLY_TO_EMAIL, name: REPLY_TO_NAME },
           to: [{ email: s.email, name: s.name }],
-          subject: cleanTitle,
+          subject: test ? `[בדיקה] ${cleanTitle}` : cleanTitle,
           htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, unsubUrl }),
         });
         sent++;
@@ -107,7 +117,7 @@ Deno.serve(async (req) => {
 
     const status = errors.length === 0 ? "sent" : sent > 0 ? "partial" : "failed";
     await admin.from("broadcast_logs").insert({
-      title: cleanTitle,
+      title: test ? `[בדיקה] ${cleanTitle}` : cleanTitle,
       description: cleanDesc,
       link: cleanLink,
       button_text: cleanBtn,
@@ -117,7 +127,7 @@ Deno.serve(async (req) => {
       sent_by: user.id,
     });
 
-    return new Response(JSON.stringify({ success: true, sent, total: subs?.length ?? 0, errors: errors.length }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ success: true, sent, total: subs.length, errors: errors.length, test: !!test }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Unknown";
     console.error(e);
