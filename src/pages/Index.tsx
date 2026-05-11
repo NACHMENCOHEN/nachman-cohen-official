@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Music, Play, Phone, MessageCircle, Mail } from "lucide-react";
 import heroImg from "@/assets/hero-portrait.jpg";
