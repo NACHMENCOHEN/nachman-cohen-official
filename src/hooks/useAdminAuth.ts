@@ -6,16 +6,17 @@ export function useAdminAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const lastUserIdRef = useRef<string | null>(null);
+  const lastUserIdRef = useRef<string | null | undefined>(undefined);
 
   useEffect(() => {
     let cancelled = false;
 
-    const applySession = (s: Session | null) => {
+    const apply = (s: Session | null) => {
       if (cancelled) return;
       const newId = s?.user.id ?? null;
-      // Only update state when the user actually changes, to avoid re-render loops on token refresh
-      if (newId === lastUserIdRef.current && session !== null === (s !== null)) {
+      // Skip if same user as last applied (prevents re-render loops on token refresh)
+      if (lastUserIdRef.current === newId) {
+        setSession(s);
         return;
       }
       lastUserIdRef.current = newId;
@@ -39,14 +40,13 @@ export function useAdminAuth() {
         });
     };
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => applySession(s));
-    supabase.auth.getSession().then(({ data }) => applySession(data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => apply(s));
+    supabase.auth.getSession().then(({ data }) => apply(data.session));
 
     return () => {
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { session, isAdmin, loading };
