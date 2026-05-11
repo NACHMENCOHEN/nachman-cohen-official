@@ -18,6 +18,12 @@ const AdminBroadcast = () => {
   const [buttonText, setButtonText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [youtube, setYoutube] = useState("");
+  const [spotify, setSpotify] = useState("");
+  const [appleMusic, setAppleMusic] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [telegram, setTelegram] = useState("");
+  const [website, setWebsite] = useState("");
   const [busy, setBusy] = useState(false);
   const [testBusy, setTestBusy] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -47,13 +53,14 @@ const AdminBroadcast = () => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim() },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim() },
       });
       if (error) throw error;
       const d = data as { sent: number; total: number; errors: number; error?: string };
       if (d?.error) throw new Error(d.error);
       setResult(`נשלח ל-${d.sent} מתוך ${d.total} נרשמים${d.errors ? ` · ${d.errors} כשלים` : ""}`);
       setTitle(""); setDescription(""); setLink(""); setButtonText(""); setImageUrl("");
+      setYoutube(""); setSpotify(""); setAppleMusic(""); setInstagram(""); setTelegram(""); setWebsite("");
       loadLogs();
     } catch (e) {
       setError(e instanceof Error ? e.message : "שגיאה");
@@ -72,7 +79,7 @@ const AdminBroadcast = () => {
     setTestBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), test: true },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim(), test: true },
       });
       if (error) throw error;
       const d = data as { sent: number; errors: number; error?: string };
@@ -142,6 +149,24 @@ const AdminBroadcast = () => {
           <div>
             <label className="block text-sm text-muted-foreground mb-2">טקסט לכפתור</label>
             <input value={buttonText} onChange={(e) => setButtonText(e.target.value)} maxLength={60} placeholder="להאזנה" className="w-full bg-background/60 border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/60" />
+          </div>
+        </div>
+        <div className="border-t border-border pt-5">
+          <h3 className="text-sm text-muted-foreground mb-3">קישורי פלטפורמות (אופציונלי)</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { label: "YouTube", value: youtube, set: setYoutube },
+              { label: "Spotify", value: spotify, set: setSpotify },
+              { label: "Apple Music", value: appleMusic, set: setAppleMusic },
+              { label: "Instagram", value: instagram, set: setInstagram },
+              { label: "Telegram", value: telegram, set: setTelegram },
+              { label: "Website", value: website, set: setWebsite },
+            ].map((f) => (
+              <div key={f.label}>
+                <label className="block text-xs text-muted-foreground mb-2">{f.label}</label>
+                <input value={f.value} onChange={(e) => f.set(e.target.value)} placeholder="https://..." dir="ltr" className="w-full bg-background/60 border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:border-primary/60 text-sm" />
+              </div>
+            ))}
           </div>
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
