@@ -30,6 +30,17 @@ const Index = () => {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  useEffect(() => {
+    if (window.location.hash === "#subscribe") {
+      const el = document.getElementById("subscribe");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 300);
+      }
+    }
+  }, []);
+
   return (
     <PageTransition>
       <PromoVideoModal />
