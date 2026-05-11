@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Loader2, Send, CheckCircle2, FlaskConical } from "lucide-react";
+import { Send, CheckCircle2, FlaskConical } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface LogRow {
@@ -114,11 +114,11 @@ const AdminBroadcast = () => {
         )}
         <div className="flex flex-wrap gap-3">
           <button disabled={busy || testBusy} type="submit" className="inline-flex items-center justify-center gap-2 gold-gradient text-primary-foreground font-semibold px-8 py-3 rounded-full disabled:opacity-60">
-            {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            <Send size={16} />
             {busy ? "שולח..." : "שלח עדכון לנרשמים"}
           </button>
-          <button disabled={busy || testBusy} type="button" onClick={onTest} className="inline-flex items-center justify-center gap-2 border border-primary/60 text-primary font-semibold px-8 py-3 rounded-full disabled:opacity-60 hover:bg-primary/10 transition-colors">
-            {testBusy ? <Loader2 size={16} className="animate-spin" /> : <FlaskConical size={16} />}
+          <button disabled={busy || testBusy} type="button" onClick={onTest} className="inline-flex items-center justify-center gap-2 border border-primary/60 text-primary font-semibold px-8 py-3 rounded-full disabled:opacity-60">
+            <FlaskConical size={16} />
             {testBusy ? "שולח בדיקה..." : "שלח מייל בדיקה"}
           </button>
         </div>
