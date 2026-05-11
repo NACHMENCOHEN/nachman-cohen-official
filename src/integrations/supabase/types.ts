@@ -20,6 +20,7 @@ export type Database = {
           description: string | null
           error_message: string | null
           id: string
+          image_url: string | null
           link: string | null
           recipients_count: number
           sent_at: string
@@ -32,6 +33,7 @@ export type Database = {
           description?: string | null
           error_message?: string | null
           id?: string
+          image_url?: string | null
           link?: string | null
           recipients_count?: number
           sent_at?: string
@@ -44,6 +46,7 @@ export type Database = {
           description?: string | null
           error_message?: string | null
           id?: string
+          image_url?: string | null
           link?: string | null
           recipients_count?: number
           sent_at?: string
