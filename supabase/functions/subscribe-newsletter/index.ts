@@ -6,8 +6,10 @@ const corsHeaders = {
 };
 
 const SITE_URL = "https://nachmancohen.com";
-const FROM_EMAIL = "ncgraphics2023@gmail.com";
-const FROM_NAME = "נחמן כהן";
+const FROM_EMAIL = "updates@nachmancohen.com";
+const FROM_NAME = "Nachman Cohen Music";
+const REPLY_TO_EMAIL = "ncgraphics2023@gmail.com";
+const REPLY_TO_NAME = "Nachman Cohen";
 
 function isEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
@@ -90,6 +92,7 @@ Deno.serve(async (req) => {
     try {
       await sendBrevo({
         sender: { name: FROM_NAME, email: FROM_EMAIL },
+        replyTo: { email: REPLY_TO_EMAIL, name: REPLY_TO_NAME },
         to: [{ email: cleanEmail, name: cleanName }],
         subject: "נרשמתם לעדכונים של נחמן כהן",
         htmlContent: confirmationHtml(cleanName, unsubUrl),
