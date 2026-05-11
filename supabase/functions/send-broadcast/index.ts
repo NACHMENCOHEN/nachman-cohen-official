@@ -44,23 +44,16 @@ function socialIconsHtml(s: SocialLinks) {
   if (s.instagram) items.push({ url: s.instagram, icon: `${iconBase}/instagram-new.png`, label: "Instagram" });
   if (s.tiktok) items.push({ url: s.tiktok, icon: `${iconBase}/tiktok.png`, label: "TikTok" });
   if (s.spotify) items.push({ url: s.spotify, icon: `${iconBase}/spotify.png`, label: "Spotify" });
-  if (s.appleMusic) items.push({ url: s.appleMusic, icon: `${iconBase}/apple-music.png`, label: "Apple Music" });
+  if (s.appleMusic) items.push({ url: s.appleMusic, icon: `${iconBase}/apple-music.png`, label: "Apple" });
   if (s.telegram) items.push({ url: s.telegram, icon: `${iconBase}/telegram-app.png`, label: "Telegram" });
   if (items.length === 0) return "";
   const iconCells = items
     .map(
       (i) =>
-        `<td style="padding:0 8px;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;color:#D6B37A;font-family:Arial,Heebo,sans-serif;font-size:13px;font-weight:700;" target="_blank"><img src="${i.icon}" width="32" height="32" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:32px;height:32px;margin:0 auto 6px;" /><span style="color:#D6B37A;">${escapeHtml(i.label)}</span></a></td>`,
+        `<td style="padding:0 6px;vertical-align:top;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;color:#D6B37A;font-family:Arial,Heebo,sans-serif;font-size:11px;font-weight:700;" target="_blank"><img src="${i.icon}" width="28" height="28" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:28px;height:28px;margin:0 auto 4px;" /><span style="color:#D6B37A;white-space:nowrap;">${escapeHtml(i.label)}</span></a></td>`,
     )
     .join("");
-  const textLinks = items
-    .map(
-      (i) =>
-        `<a href="${escapeHtml(i.url)}" style="color:#D6B37A;text-decoration:none;font-family:Arial,Heebo,sans-serif;font-size:13px;font-weight:700;margin:0 6px;" target="_blank">${escapeHtml(i.label)}</a>`,
-    )
-    .join('<span style="color:#5a5147;">|</span>');
-  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:28px auto 8px;"><tr>${iconCells}</tr></table>
-  <p style="text-align:center;margin:8px 0 0;line-height:1.9;">${textLinks}</p>`;
+  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:28px auto 8px;table-layout:fixed;"><tr>${iconCells}</tr></table>`;
 }
 
 function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string; social: SocialLinks }) {
