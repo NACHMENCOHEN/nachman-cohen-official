@@ -152,15 +152,17 @@ const AdminBroadcast = () => {
           </div>
         </div>
         <div className="border-t border-border pt-5">
-          <h3 className="text-sm text-muted-foreground mb-3">קישורי פלטפורמות (אופציונלי)</h3>
+          <h3 className="text-sm text-muted-foreground mb-1">קישורי פלטפורמות (אופציונלי)</h3>
+          <p className="text-xs text-muted-foreground mb-3">אם תשאיר ריק - ישלחו אוטומטית הקישורים הרשמיים של נחמן כהן.</p>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
+              { label: "Website", value: website, set: setWebsite },
               { label: "YouTube", value: youtube, set: setYoutube },
+              { label: "Instagram", value: instagram, set: setInstagram },
+              { label: "TikTok", value: tiktok, set: setTiktok },
               { label: "Spotify", value: spotify, set: setSpotify },
               { label: "Apple Music", value: appleMusic, set: setAppleMusic },
-              { label: "Instagram", value: instagram, set: setInstagram },
               { label: "Telegram", value: telegram, set: setTelegram },
-              { label: "Website", value: website, set: setWebsite },
             ].map((f) => (
               <div key={f.label}>
                 <label className="block text-xs text-muted-foreground mb-2">{f.label}</label>
