@@ -16,14 +16,43 @@ function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 }
 
-function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string }) {
-  const { title, description, link, buttonText, imageUrl, unsubUrl } = opts;
+interface SocialLinks {
+  youtube?: string;
+  spotify?: string;
+  appleMusic?: string;
+  instagram?: string;
+  telegram?: string;
+  website?: string;
+}
+
+function socialIconsHtml(s: SocialLinks) {
+  const iconBase = "https://img.icons8.com/ios-filled/64/D6B37A";
+  const items: { url: string; icon: string; label: string }[] = [];
+  if (s.youtube) items.push({ url: s.youtube, icon: `${iconBase}/youtube-play.png`, label: "YouTube" });
+  if (s.spotify) items.push({ url: s.spotify, icon: `${iconBase}/spotify.png`, label: "Spotify" });
+  if (s.appleMusic) items.push({ url: s.appleMusic, icon: `${iconBase}/apple-music.png`, label: "Apple Music" });
+  if (s.instagram) items.push({ url: s.instagram, icon: `${iconBase}/instagram-new.png`, label: "Instagram" });
+  if (s.telegram) items.push({ url: s.telegram, icon: `${iconBase}/telegram-app.png`, label: "Telegram" });
+  if (s.website) items.push({ url: s.website, icon: `${iconBase}/domain.png`, label: "Website" });
+  if (items.length === 0) return "";
+  const cells = items
+    .map(
+      (i) =>
+        `<td style="padding:0 8px;" align="center"><a href="${escapeHtml(i.url)}" style="text-decoration:none;" target="_blank"><img src="${i.icon}" width="32" height="32" alt="${escapeHtml(i.label)}" style="display:block;border:0;outline:none;width:32px;height:32px;" /></a></td>`,
+    )
+    .join("");
+  return `<table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:24px auto 8px;"><tr>${cells}</tr></table>`;
+}
+
+function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string; social: SocialLinks }) {
+  const { title, description, link, buttonText, imageUrl, unsubUrl, social } = opts;
   const button = link && buttonText
     ? `<p style="text-align:center;margin:28px 0;"><a href="${escapeHtml(link)}" style="display:inline-block;background:linear-gradient(135deg,#D6B37A,#b8954f);color:#0B0B0B;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:999px;font-size:15px;">${escapeHtml(buttonText)}</a></p>`
     : "";
   const cover = imageUrl
     ? `<p style="margin:0 0 24px;text-align:center;"><img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(title)}" style="display:block;width:100%;max-width:600px;height:auto;border-radius:12px;border:0;outline:none;text-decoration:none;margin:0 auto;" /></p>`
     : "";
+  const icons = socialIconsHtml(social);
   return `<!doctype html><html lang="he" dir="rtl"><body style="margin:0;padding:0;background:#0B0B0B;font-family:Arial,Heebo,sans-serif;color:#EDEDED;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#0B0B0B;padding:40px 16px;">
     <tr><td align="center">
@@ -38,6 +67,7 @@ function broadcastHtml(opts: { title: string; description: string; link: string;
           <h1 style="font-family:Georgia,serif;color:#EDEDED;font-size:26px;margin:0 0 18px;line-height:1.4;">${escapeHtml(title)}</h1>
           <p style="font-size:15px;line-height:1.9;margin:0;color:#cfcfcf;white-space:pre-wrap;">${escapeHtml(description)}</p>
           ${button}
+          ${icons}
           <hr style="border:none;border-top:1px solid #2a2520;margin:28px 0;"/>
           <p style="font-size:12px;color:#8a8a8a;line-height:1.7;text-align:center;">
             קיבלתם את המייל הזה כי נרשמתם לעדכונים באתר של נחמן כהן.<br/>
@@ -89,7 +119,7 @@ Deno.serve(async (req) => {
   if (!roleRow) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   try {
-    const { title, description, link, buttonText, imageUrl, test } = await req.json();
+    const { title, description, link, buttonText, imageUrl, youtubeUrl, spotifyUrl, appleMusicUrl, instagramUrl, telegramUrl, websiteUrl, test } = await req.json();
     if (!title || typeof title !== "string") {
       return new Response(JSON.stringify({ error: "כותרת חסרה" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -99,6 +129,18 @@ Deno.serve(async (req) => {
     const cleanBtn = (buttonText || "").toString().trim().slice(0, 60);
     const cleanImage = (imageUrl || "").toString().trim().slice(0, 800);
     const safeImage = /^https:\/\//i.test(cleanImage) ? cleanImage : "";
+    const safeUrl = (v: unknown) => {
+      const s = (v || "").toString().trim().slice(0, 800);
+      return /^https?:\/\//i.test(s) ? s : "";
+    };
+    const social: SocialLinks = {
+      youtube: safeUrl(youtubeUrl),
+      spotify: safeUrl(spotifyUrl),
+      appleMusic: safeUrl(appleMusicUrl),
+      instagram: safeUrl(instagramUrl),
+      telegram: safeUrl(telegramUrl),
+      website: safeUrl(websiteUrl),
+    };
 
     let subs: { email: string; name: string; unsubscribe_token: string }[];
     if (test) {
@@ -119,7 +161,7 @@ Deno.serve(async (req) => {
           replyTo: { email: REPLY_TO_EMAIL, name: REPLY_TO_NAME },
           to: [{ email: s.email, name: s.name }],
           subject: test ? `[בדיקה] ${cleanTitle}` : cleanTitle,
-          htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, imageUrl: safeImage, unsubUrl }),
+          htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, imageUrl: safeImage, unsubUrl, social }),
         });
         sent++;
       } catch (e) {
@@ -135,6 +177,12 @@ Deno.serve(async (req) => {
       link: cleanLink,
       button_text: cleanBtn,
       image_url: safeImage || null,
+      youtube_url: social.youtube || null,
+      spotify_url: social.spotify || null,
+      apple_music_url: social.appleMusic || null,
+      instagram_url: social.instagram || null,
+      telegram_url: social.telegram || null,
+      website_url: social.website || null,
       recipients_count: sent,
       status,
       error_message: errors.slice(0, 20).join("\n") || null,
