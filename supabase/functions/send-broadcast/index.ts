@@ -1,0 +1,126 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+const SITE_URL = "https://nachmancohen.com";
+const FROM_EMAIL = "ncgraphics2023@gmail.com";
+const FROM_NAME = "נחמן כהן";
+
+function escapeHtml(s: string) {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+}
+
+function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; unsubUrl: string }) {
+  const { title, description, link, buttonText, unsubUrl } = opts;
+  const button = link && buttonText
+    ? `<p style="text-align:center;margin:28px 0;"><a href="${escapeHtml(link)}" style="display:inline-block;background:linear-gradient(135deg,#D6B37A,#b8954f);color:#0B0B0B;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:999px;font-size:15px;">${escapeHtml(buttonText)}</a></p>`
+    : "";
+  return `<!doctype html><html lang="he" dir="rtl"><body style="margin:0;padding:0;background:#0B0B0B;font-family:Arial,Heebo,sans-serif;color:#EDEDED;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0B0B0B;padding:40px 16px;">
+    <tr><td align="center">
+      <table width="100%" style="max-width:600px;background:#141414;border:1px solid #2a2520;border-radius:14px;padding:36px 28px;text-align:right;">
+        <tr><td>
+          <p style="font-family:Georgia,serif;color:#D6B37A;font-size:13px;letter-spacing:2px;margin:0 0 10px;">נחמן כהן</p>
+          <h1 style="font-family:Georgia,serif;color:#EDEDED;font-size:26px;margin:0 0 18px;line-height:1.4;">${escapeHtml(title)}</h1>
+          <p style="font-size:15px;line-height:1.9;margin:0;color:#cfcfcf;white-space:pre-wrap;">${escapeHtml(description)}</p>
+          ${button}
+          <hr style="border:none;border-top:1px solid #2a2520;margin:28px 0;"/>
+          <p style="font-size:12px;color:#8a8a8a;line-height:1.7;">
+            קיבלתם את המייל הזה כי נרשמתם לעדכונים באתר של נחמן כהן.<br/>
+            <a href="${unsubUrl}" style="color:#D6B37A;text-decoration:underline;">להסרה מרשימת התפוצה לחצו כאן</a>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table></body></html>`;
+}
+
+async function sendBrevo(payload: unknown) {
+  const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY")!;
+  const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
+  const res = await fetch("https://connector-gateway.lovable.dev/brevo/smtp/email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${LOVABLE_API_KEY}`,
+      "X-Connection-Api-Key": BREVO_API_KEY,
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`Brevo ${res.status}: ${t}`);
+  }
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+
+  // Verify caller is admin
+  const authHeader = req.headers.get("Authorization") || "";
+  const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } });
+  const { data: userRes } = await userClient.auth.getUser();
+  const user = userRes?.user;
+  if (!user) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+
+  const admin = createClient(supabaseUrl, serviceKey);
+  const { data: roleRow } = await admin.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").maybeSingle();
+  if (!roleRow) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+
+  try {
+    const { title, description, link, buttonText } = await req.json();
+    if (!title || typeof title !== "string") {
+      return new Response(JSON.stringify({ error: "כותרת חסרה" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+    const cleanTitle = title.trim().slice(0, 200);
+    const cleanDesc = (description || "").toString().trim().slice(0, 2000);
+    const cleanLink = (link || "").toString().trim().slice(0, 500);
+    const cleanBtn = (buttonText || "").toString().trim().slice(0, 60);
+
+    const { data: subs, error } = await admin.from("subscribers").select("email, name, unsubscribe_token").eq("status", "active");
+    if (error) throw error;
+
+    let sent = 0;
+    const errors: string[] = [];
+    for (const s of subs || []) {
+      const unsubUrl = `${SITE_URL}/unsubscribe?token=${s.unsubscribe_token}`;
+      try {
+        await sendBrevo({
+          sender: { name: FROM_NAME, email: FROM_EMAIL },
+          to: [{ email: s.email, name: s.name }],
+          subject: cleanTitle,
+          htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, unsubUrl }),
+        });
+        sent++;
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : "err";
+        errors.push(`${s.email}: ${msg}`);
+      }
+    }
+
+    const status = errors.length === 0 ? "sent" : sent > 0 ? "partial" : "failed";
+    await admin.from("broadcast_logs").insert({
+      title: cleanTitle,
+      description: cleanDesc,
+      link: cleanLink,
+      button_text: cleanBtn,
+      recipients_count: sent,
+      status,
+      error_message: errors.slice(0, 20).join("\n") || null,
+      sent_by: user.id,
+    });
+
+    return new Response(JSON.stringify({ success: true, sent, total: subs?.length ?? 0, errors: errors.length }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unknown";
+    console.error(e);
+    return new Response(JSON.stringify({ error: msg }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  }
+});
