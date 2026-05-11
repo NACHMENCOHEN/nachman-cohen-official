@@ -31,14 +31,27 @@ const Index = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
-    if (window.location.hash === "#subscribe") {
+    const scrollToSubscribe = () => {
       const el = document.getElementById("subscribe");
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 300);
-      }
-    }
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    };
+    const handleHash = () => {
+      if (window.location.hash !== "#subscribe") return;
+      const timers = [
+        setTimeout(scrollToSubscribe, 300),
+        setTimeout(scrollToSubscribe, 800),
+        setTimeout(scrollToSubscribe, 1500),
+      ];
+      return () => timers.forEach(clearTimeout);
+    };
+    const cleanup = handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => {
+      cleanup?.();
+      window.removeEventListener("hashchange", handleHash);
+    };
   }, []);
 
   return (
