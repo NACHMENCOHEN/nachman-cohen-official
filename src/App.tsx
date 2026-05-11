@@ -16,7 +16,7 @@ import AdminLayout from "@/pages/admin/AdminLayout";
 import AdminSubscribers from "@/pages/admin/AdminSubscribers";
 import AdminBroadcast from "@/pages/admin/AdminBroadcast";
 
-const AnimatedRoutes = () => {
+const PublicRoutes = () => {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
@@ -27,27 +27,45 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="subscribers" element={<AdminSubscribers />} />
-          <Route path="broadcast" element={<AdminBroadcast />} />
-        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
 };
 
-const App = () => {
+const Shell = () => {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  if (isAdmin) {
+    return (
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="subscribers" element={<AdminSubscribers />} />
+          <Route path="broadcast" element={<AdminBroadcast />} />
+        </Route>
+      </Routes>
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <main className="pt-[72px]">
-        <AnimatedRoutes />
+        <PublicRoutes />
       </main>
       <Footer />
       <FloatingSocial />
       <WhatsAppButton />
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Shell />
     </BrowserRouter>
   );
 };
