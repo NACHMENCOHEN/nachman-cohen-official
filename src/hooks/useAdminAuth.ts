@@ -8,31 +8,40 @@ export function useAdminAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setSession(s);
+      if (!cancelled) setSession(s);
     });
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    return () => sub.subscription.unsubscribe();
+    supabase.auth.getSession().then(({ data }) => {
+      if (!cancelled) setSession(data.session);
+    });
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
+  const userId = session?.user.id;
   useEffect(() => {
-    if (!session) {
+    if (!userId) {
       setIsAdmin(false);
       setLoading(false);
       return;
     }
-    setLoading(true);
+    let cancelled = false;
     supabase
       .from("user_roles")
       .select("role")
-      .eq("user_id", session.user.id)
+      .eq("user_id", userId)
       .eq("role", "admin")
       .maybeSingle()
       .then(({ data }) => {
+        if (cancelled) return;
         setIsAdmin(!!data);
         setLoading(false);
       });
-  }, [session]);
+    return () => { cancelled = true; };
+  }, [userId]);
 
   return { session, isAdmin, loading };
 }
