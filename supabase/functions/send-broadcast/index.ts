@@ -16,25 +16,34 @@ function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 }
 
-function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; unsubUrl: string }) {
-  const { title, description, link, buttonText, unsubUrl } = opts;
+function broadcastHtml(opts: { title: string; description: string; link: string; buttonText: string; imageUrl: string; unsubUrl: string }) {
+  const { title, description, link, buttonText, imageUrl, unsubUrl } = opts;
   const button = link && buttonText
     ? `<p style="text-align:center;margin:28px 0;"><a href="${escapeHtml(link)}" style="display:inline-block;background:linear-gradient(135deg,#D6B37A,#b8954f);color:#0B0B0B;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:999px;font-size:15px;">${escapeHtml(buttonText)}</a></p>`
+    : "";
+  const cover = imageUrl
+    ? `<p style="margin:0 0 24px;text-align:center;"><img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(title)}" style="display:block;width:100%;max-width:600px;height:auto;border-radius:12px;border:0;outline:none;text-decoration:none;margin:0 auto;" /></p>`
     : "";
   return `<!doctype html><html lang="he" dir="rtl"><body style="margin:0;padding:0;background:#0B0B0B;font-family:Arial,Heebo,sans-serif;color:#EDEDED;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#0B0B0B;padding:40px 16px;">
     <tr><td align="center">
-      <table width="100%" style="max-width:600px;background:#141414;border:1px solid #2a2520;border-radius:14px;padding:36px 28px;text-align:right;">
+      <table width="100%" style="max-width:600px;background:#141414;border:1px solid #2a2520;border-radius:14px;overflow:hidden;text-align:right;">
         <tr><td>
-          <p style="font-family:Georgia,serif;color:#D6B37A;font-size:13px;letter-spacing:2px;margin:0 0 10px;">נחמן כהן</p>
+          <div style="background:linear-gradient(135deg,#1a1410,#0B0B0B);padding:24px 28px;border-bottom:1px solid #2a2520;text-align:center;">
+            <p style="font-family:Georgia,serif;color:#D6B37A;font-size:12px;letter-spacing:3px;margin:0;text-transform:uppercase;">Nachman Cohen Music</p>
+            <p style="font-family:Georgia,serif;color:#EDEDED;font-size:18px;margin:6px 0 0;">נחמן כהן</p>
+          </div>
+          <div style="padding:32px 28px;">
+          ${cover}
           <h1 style="font-family:Georgia,serif;color:#EDEDED;font-size:26px;margin:0 0 18px;line-height:1.4;">${escapeHtml(title)}</h1>
           <p style="font-size:15px;line-height:1.9;margin:0;color:#cfcfcf;white-space:pre-wrap;">${escapeHtml(description)}</p>
           ${button}
           <hr style="border:none;border-top:1px solid #2a2520;margin:28px 0;"/>
-          <p style="font-size:12px;color:#8a8a8a;line-height:1.7;">
+          <p style="font-size:12px;color:#8a8a8a;line-height:1.7;text-align:center;">
             קיבלתם את המייל הזה כי נרשמתם לעדכונים באתר של נחמן כהן.<br/>
             <a href="${unsubUrl}" style="color:#D6B37A;text-decoration:underline;">להסרה מרשימת התפוצה לחצו כאן</a>
           </p>
+          </div>
         </td></tr>
       </table>
     </td></tr>
@@ -80,7 +89,7 @@ Deno.serve(async (req) => {
   if (!roleRow) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   try {
-    const { title, description, link, buttonText, test } = await req.json();
+    const { title, description, link, buttonText, imageUrl, test } = await req.json();
     if (!title || typeof title !== "string") {
       return new Response(JSON.stringify({ error: "כותרת חסרה" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -88,6 +97,8 @@ Deno.serve(async (req) => {
     const cleanDesc = (description || "").toString().trim().slice(0, 2000);
     const cleanLink = (link || "").toString().trim().slice(0, 500);
     const cleanBtn = (buttonText || "").toString().trim().slice(0, 60);
+    const cleanImage = (imageUrl || "").toString().trim().slice(0, 800);
+    const safeImage = /^https:\/\//i.test(cleanImage) ? cleanImage : "";
 
     let subs: { email: string; name: string; unsubscribe_token: string }[];
     if (test) {
@@ -108,7 +119,7 @@ Deno.serve(async (req) => {
           replyTo: { email: REPLY_TO_EMAIL, name: REPLY_TO_NAME },
           to: [{ email: s.email, name: s.name }],
           subject: test ? `[בדיקה] ${cleanTitle}` : cleanTitle,
-          htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, unsubUrl }),
+          htmlContent: broadcastHtml({ title: cleanTitle, description: cleanDesc, link: cleanLink, buttonText: cleanBtn, imageUrl: safeImage, unsubUrl }),
         });
         sent++;
       } catch (e) {
@@ -123,6 +134,7 @@ Deno.serve(async (req) => {
       description: cleanDesc,
       link: cleanLink,
       button_text: cleanBtn,
+      image_url: safeImage || null,
       recipients_count: sent,
       status,
       error_message: errors.slice(0, 20).join("\n") || null,
