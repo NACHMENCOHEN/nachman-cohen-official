@@ -35,7 +35,7 @@ const NewsletterSubscribe = () => {
   };
 
   return (
-    <section dir="rtl" className="py-20 md:py-28 border-t border-border relative overflow-hidden">
+    <section id="subscribe" dir="rtl" className="py-20 md:py-28 border-t border-border relative overflow-hidden scroll-mt-24 md:scroll-mt-32">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/10 to-background pointer-events-none" />
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
