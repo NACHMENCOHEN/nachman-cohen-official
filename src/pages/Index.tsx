@@ -9,6 +9,7 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import PromoVideoModal from "@/components/PromoVideoModal";
 import { socialLinks } from "@/components/social-icons";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
