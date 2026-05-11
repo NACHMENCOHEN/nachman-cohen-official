@@ -24,6 +24,7 @@ const AdminBroadcast = () => {
   const [instagram, setInstagram] = useState("");
   const [telegram, setTelegram] = useState("");
   const [website, setWebsite] = useState("");
+  const [tiktok, setTiktok] = useState("");
   const [busy, setBusy] = useState(false);
   const [testBusy, setTestBusy] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -53,14 +54,14 @@ const AdminBroadcast = () => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim() },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim(), tiktokUrl: tiktok.trim() },
       });
       if (error) throw error;
       const d = data as { sent: number; total: number; errors: number; error?: string };
       if (d?.error) throw new Error(d.error);
       setResult(`נשלח ל-${d.sent} מתוך ${d.total} נרשמים${d.errors ? ` · ${d.errors} כשלים` : ""}`);
       setTitle(""); setDescription(""); setLink(""); setButtonText(""); setImageUrl("");
-      setYoutube(""); setSpotify(""); setAppleMusic(""); setInstagram(""); setTelegram(""); setWebsite("");
+      setYoutube(""); setSpotify(""); setAppleMusic(""); setInstagram(""); setTelegram(""); setWebsite(""); setTiktok("");
       loadLogs();
     } catch (e) {
       setError(e instanceof Error ? e.message : "שגיאה");
@@ -79,7 +80,7 @@ const AdminBroadcast = () => {
     setTestBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("send-broadcast", {
-        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim(), test: true },
+        body: { title: title.trim(), description: description.trim(), link: link.trim(), buttonText: buttonText.trim(), imageUrl: imageUrl.trim(), youtubeUrl: youtube.trim(), spotifyUrl: spotify.trim(), appleMusicUrl: appleMusic.trim(), instagramUrl: instagram.trim(), telegramUrl: telegram.trim(), websiteUrl: website.trim(), tiktokUrl: tiktok.trim(), test: true },
       });
       if (error) throw error;
       const d = data as { sent: number; errors: number; error?: string };
@@ -152,15 +153,17 @@ const AdminBroadcast = () => {
           </div>
         </div>
         <div className="border-t border-border pt-5">
-          <h3 className="text-sm text-muted-foreground mb-3">קישורי פלטפורמות (אופציונלי)</h3>
+          <h3 className="text-sm text-muted-foreground mb-1">קישורי פלטפורמות (אופציונלי)</h3>
+          <p className="text-xs text-muted-foreground mb-3">אם תשאיר ריק - ישלחו אוטומטית הקישורים הרשמיים של נחמן כהן.</p>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
+              { label: "Website", value: website, set: setWebsite },
               { label: "YouTube", value: youtube, set: setYoutube },
+              { label: "Instagram", value: instagram, set: setInstagram },
+              { label: "TikTok", value: tiktok, set: setTiktok },
               { label: "Spotify", value: spotify, set: setSpotify },
               { label: "Apple Music", value: appleMusic, set: setAppleMusic },
-              { label: "Instagram", value: instagram, set: setInstagram },
               { label: "Telegram", value: telegram, set: setTelegram },
-              { label: "Website", value: website, set: setWebsite },
             ].map((f) => (
               <div key={f.label}>
                 <label className="block text-xs text-muted-foreground mb-2">{f.label}</label>
