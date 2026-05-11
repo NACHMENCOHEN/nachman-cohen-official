@@ -113,6 +113,9 @@ export type Database = {
           status: string
           subscribed_at: string
           unsubscribe_token: string
+          welcome_email_error: string | null
+          welcome_email_sent_at: string | null
+          welcome_email_status: string
         }
         Insert: {
           created_at?: string
@@ -122,6 +125,9 @@ export type Database = {
           status?: string
           subscribed_at?: string
           unsubscribe_token?: string
+          welcome_email_error?: string | null
+          welcome_email_sent_at?: string | null
+          welcome_email_status?: string
         }
         Update: {
           created_at?: string
@@ -131,6 +137,9 @@ export type Database = {
           status?: string
           subscribed_at?: string
           unsubscribe_token?: string
+          welcome_email_error?: string | null
+          welcome_email_sent_at?: string | null
+          welcome_email_status?: string
         }
         Relationships: []
       }
