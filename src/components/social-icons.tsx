@@ -37,7 +37,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "YouTube",
-    url: "https://www.youtube.com/@Nachmen_cohen",
+    url: "https://youtube.com/@nachman_cohen",
     Icon: ({ size = 18 }) => <Youtube size={size} />,
     hoverColorClass: "hover:text-primary",
   },
