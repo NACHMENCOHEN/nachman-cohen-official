@@ -31,6 +31,25 @@ const AdminBroadcast = () => {
   const [error, setError] = useState<string | null>(null);
   const [logs, setLogs] = useState<LogRow[]>([]);
 
+  const DEFAULT_SOCIAL = {
+    website: "https://nachmancohen.com",
+    youtube: "https://youtube.com/@nachman_cohen",
+    instagram: "https://www.instagram.com/nachmencohen",
+    tiktok: "https://www.tiktok.com/@nachman_cohen_music",
+    spotify: "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
+    appleMusic: "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943",
+    telegram: "",
+  };
+  const previewLinks = [
+    { label: "Website", url: website.trim() || DEFAULT_SOCIAL.website },
+    { label: "YouTube", url: youtube.trim() || DEFAULT_SOCIAL.youtube },
+    { label: "Instagram", url: instagram.trim() || DEFAULT_SOCIAL.instagram },
+    { label: "TikTok", url: tiktok.trim() || DEFAULT_SOCIAL.tiktok },
+    { label: "Spotify", url: spotify.trim() || DEFAULT_SOCIAL.spotify },
+    { label: "Apple Music", url: appleMusic.trim() || DEFAULT_SOCIAL.appleMusic },
+    { label: "Telegram", url: telegram.trim() || DEFAULT_SOCIAL.telegram },
+  ].filter((l) => !!l.url);
+
   const loadLogs = async () => {
     const { data } = await supabase
       .from("broadcast_logs")
@@ -173,6 +192,17 @@ const AdminBroadcast = () => {
           </div>
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
+        <div className="border border-border rounded-xl p-4 bg-background/40">
+          <p className="text-xs text-muted-foreground mb-3">תצוגה מקדימה של שורת הקישורים שתופיע במייל:</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm">
+            {previewLinks.map((l, i) => (
+              <span key={l.label} className="flex items-center gap-3">
+                <a href={l.url} target="_blank" rel="noreferrer" className="text-primary font-semibold hover:underline">{l.label}</a>
+                {i < previewLinks.length - 1 && <span className="text-muted-foreground">|</span>}
+              </span>
+            ))}
+          </div>
+        </div>
         {result && (
           <div className="flex items-center gap-2 text-primary text-sm">
             <CheckCircle2 size={16} /> {result}
