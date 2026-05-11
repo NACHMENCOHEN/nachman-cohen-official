@@ -16,43 +16,61 @@ export type Database = {
     Tables: {
       broadcast_logs: {
         Row: {
+          apple_music_url: string | null
           button_text: string | null
           description: string | null
           error_message: string | null
           id: string
           image_url: string | null
+          instagram_url: string | null
           link: string | null
           recipients_count: number
           sent_at: string
           sent_by: string | null
+          spotify_url: string | null
           status: string
+          telegram_url: string | null
           title: string
+          website_url: string | null
+          youtube_url: string | null
         }
         Insert: {
+          apple_music_url?: string | null
           button_text?: string | null
           description?: string | null
           error_message?: string | null
           id?: string
           image_url?: string | null
+          instagram_url?: string | null
           link?: string | null
           recipients_count?: number
           sent_at?: string
           sent_by?: string | null
+          spotify_url?: string | null
           status?: string
+          telegram_url?: string | null
           title: string
+          website_url?: string | null
+          youtube_url?: string | null
         }
         Update: {
+          apple_music_url?: string | null
           button_text?: string | null
           description?: string | null
           error_message?: string | null
           id?: string
           image_url?: string | null
+          instagram_url?: string | null
           link?: string | null
           recipients_count?: number
           sent_at?: string
           sent_by?: string | null
+          spotify_url?: string | null
           status?: string
+          telegram_url?: string | null
           title?: string
+          website_url?: string | null
+          youtube_url?: string | null
         }
         Relationships: []
       }
