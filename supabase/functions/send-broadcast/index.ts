@@ -23,17 +23,29 @@ interface SocialLinks {
   instagram?: string;
   telegram?: string;
   website?: string;
+  tiktok?: string;
 }
+
+const DEFAULT_SOCIAL: Required<SocialLinks> = {
+  website: "https://nachmancohen.com",
+  youtube: "https://www.youtube.com/@Nachmen_cohen",
+  instagram: "https://www.instagram.com/nachmencohen",
+  tiktok: "https://www.tiktok.com/@nachman_cohen_music",
+  spotify: "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
+  appleMusic: "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943",
+  telegram: "",
+};
 
 function socialIconsHtml(s: SocialLinks) {
   const iconBase = "https://img.icons8.com/ios-filled/64/D6B37A";
   const items: { url: string; icon: string; label: string }[] = [];
+  if (s.website) items.push({ url: s.website, icon: `${iconBase}/domain.png`, label: "Website" });
   if (s.youtube) items.push({ url: s.youtube, icon: `${iconBase}/youtube-play.png`, label: "YouTube" });
+  if (s.instagram) items.push({ url: s.instagram, icon: `${iconBase}/instagram-new.png`, label: "Instagram" });
+  if (s.tiktok) items.push({ url: s.tiktok, icon: `${iconBase}/tiktok.png`, label: "TikTok" });
   if (s.spotify) items.push({ url: s.spotify, icon: `${iconBase}/spotify.png`, label: "Spotify" });
   if (s.appleMusic) items.push({ url: s.appleMusic, icon: `${iconBase}/apple-music.png`, label: "Apple Music" });
-  if (s.instagram) items.push({ url: s.instagram, icon: `${iconBase}/instagram-new.png`, label: "Instagram" });
   if (s.telegram) items.push({ url: s.telegram, icon: `${iconBase}/telegram-app.png`, label: "Telegram" });
-  if (s.website) items.push({ url: s.website, icon: `${iconBase}/domain.png`, label: "Website" });
   if (items.length === 0) return "";
   const cells = items
     .map(
@@ -119,7 +131,7 @@ Deno.serve(async (req) => {
   if (!roleRow) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   try {
-    const { title, description, link, buttonText, imageUrl, youtubeUrl, spotifyUrl, appleMusicUrl, instagramUrl, telegramUrl, websiteUrl, test } = await req.json();
+    const { title, description, link, buttonText, imageUrl, youtubeUrl, spotifyUrl, appleMusicUrl, instagramUrl, telegramUrl, websiteUrl, tiktokUrl, test } = await req.json();
     if (!title || typeof title !== "string") {
       return new Response(JSON.stringify({ error: "כותרת חסרה" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
@@ -134,12 +146,13 @@ Deno.serve(async (req) => {
       return /^https?:\/\//i.test(s) ? s : "";
     };
     const social: SocialLinks = {
-      youtube: safeUrl(youtubeUrl),
-      spotify: safeUrl(spotifyUrl),
-      appleMusic: safeUrl(appleMusicUrl),
-      instagram: safeUrl(instagramUrl),
-      telegram: safeUrl(telegramUrl),
-      website: safeUrl(websiteUrl),
+      website: safeUrl(websiteUrl) || DEFAULT_SOCIAL.website,
+      youtube: safeUrl(youtubeUrl) || DEFAULT_SOCIAL.youtube,
+      instagram: safeUrl(instagramUrl) || DEFAULT_SOCIAL.instagram,
+      tiktok: safeUrl(tiktokUrl) || DEFAULT_SOCIAL.tiktok,
+      spotify: safeUrl(spotifyUrl) || DEFAULT_SOCIAL.spotify,
+      appleMusic: safeUrl(appleMusicUrl) || DEFAULT_SOCIAL.appleMusic,
+      telegram: safeUrl(telegramUrl) || DEFAULT_SOCIAL.telegram,
     };
 
     let subs: { email: string; name: string; unsubscribe_token: string }[];
