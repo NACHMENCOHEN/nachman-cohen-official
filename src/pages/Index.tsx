@@ -172,7 +172,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══════════════ LIVE UPDATES (STORIES) ═══════════════ */}
+      <LiveUpdates />
+
       {/* ═══════════════ MUSIC SECTION ═══════════════ */}
+
       <section className="py-24 md:py-32 border-t border-border">
         <div className="container mx-auto px-6">
           <motion.div
