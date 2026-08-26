@@ -15,6 +15,8 @@ import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminLayout from "@/pages/admin/AdminLayout";
 import AdminSubscribers from "@/pages/admin/AdminSubscribers";
 import AdminBroadcast from "@/pages/admin/AdminBroadcast";
+import AdminStories from "@/pages/admin/AdminStories";
+import { Toaster } from "@/components/ui/toaster";
 
 const PublicRoutes = () => {
   const location = useLocation();
@@ -39,13 +41,17 @@ const Shell = () => {
 
   if (isAdmin) {
     return (
+      <>
+      <Toaster />
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="subscribers" element={<AdminSubscribers />} />
           <Route path="broadcast" element={<AdminBroadcast />} />
+          <Route path="stories" element={<AdminStories />} />
         </Route>
       </Routes>
+      </>
     );
   }
 

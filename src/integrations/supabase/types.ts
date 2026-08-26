@@ -104,6 +104,51 @@ export type Database = {
         }
         Relationships: []
       }
+      stories: {
+        Row: {
+          caption: string | null
+          created_at: string
+          created_by: string | null
+          duration_ms: number
+          event_title: string | null
+          expires_at: string
+          id: string
+          is_active: boolean
+          media_type: string
+          media_url: string
+          storage_path: string
+          views_count: number
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_ms?: number
+          event_title?: string | null
+          expires_at?: string
+          id?: string
+          is_active?: boolean
+          media_type: string
+          media_url: string
+          storage_path: string
+          views_count?: number
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_ms?: number
+          event_title?: string | null
+          expires_at?: string
+          id?: string
+          is_active?: boolean
+          media_type?: string
+          media_url?: string
+          storage_path?: string
+          views_count?: number
+        }
+        Relationships: []
+      }
       subscribers: {
         Row: {
           created_at: string
