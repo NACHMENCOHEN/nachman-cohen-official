@@ -60,8 +60,9 @@ const Index = () => {
     <PageTransition>
       <PromoVideoModal />
       <SEO
-        title="נחמן כהן האתר הרשמי | זמר חסידי"
-        description="האתר הרשמי של נחמן כהן. מוזיקה, קליפים, הופעות ויצירת קשר. זמר חסידי עם מוזיקה מרגשת, קול מלא נשמה וחיבור עמוק לעולם המוזיקה היהודית."
+        title="נחמן כהן | Nachman Cohen – זמר ומלחין חסידי"
+        description="האתר הרשמי של הזמר והמלחין נחמן כהן. מוזיקה חסידית, שירים חדשים, קליפים, הופעות ועדכונים. Official website of Jewish singer and composer Nachman Cohen."
+        path="/"
       />
 
       {/* ═══════════════ HERO ═══════════════ */}

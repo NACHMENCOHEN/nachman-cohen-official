@@ -2,22 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nachmancohen.com/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-09-28</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://nachmancohen.com/music</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-09-28</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://nachmancohen.com/videos</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://nachmancohen.com/about</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-28</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nachmancohen.com/contact</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-28</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/asher-bachar-banu</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/refua</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/lemala</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/tefillin</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/mein-taiere-lechtele</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/hisoreri</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/dmut-im-tzeva</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/mein-treireleh</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nachmancohen.com/music/u-mordechai-yada</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>

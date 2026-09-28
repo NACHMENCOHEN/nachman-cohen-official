@@ -12,6 +12,7 @@ const ContactPage = () => {
       <SEO
         title="יצירת קשר עם נחמן כהן | זמר חסידי"
         description="צרו קשר עם נחמן כהן להופעות, בירורים ושיתופי פעולה. טלפון, וואטסאפ ואימייל."
+        path="/contact"
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
