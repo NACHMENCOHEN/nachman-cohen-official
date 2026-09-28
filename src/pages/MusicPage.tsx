@@ -15,6 +15,7 @@ interface Track {
 }
 
 const tracks: Track[] = [
+  { title: "אשר בחר בנו", titleEn: "Asher Bachar Banu", audioSrc: "/music/asher-bachar-banu.mp3", cover: "/covers/asher-bachar-banu.jpg" },
   { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3", cover: "/covers/refua.jpg" },
   { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3", cover: "/covers/lemala.jpg" },
   { title: "תפילין (קאבר)", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3", cover: "/covers/tefillin.jpg" },
