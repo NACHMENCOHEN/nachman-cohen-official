@@ -15,6 +15,7 @@ import LiveUpdates from "@/components/LiveUpdates";
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
 const featuredTracks = [
+  { title: "אשר בחר בנו", titleEn: "Asher Bachar Banu", audioSrc: "/music/asher-bachar-banu.mp3" },
   { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3" },
   { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3" },
   { title: "תפילין", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3" },
@@ -187,10 +188,34 @@ const Index = () => {
             className="text-center mb-14"
           >
             <p className="font-body text-xs font-medium text-primary mb-3 tracking-widest">מוזיקה</p>
-            <h2 className="font-display text-4xl md:text-6xl text-foreground mb-4">השירים האחרונים</h2>
+            <h2 className="font-display text-4xl md:text-6xl text-foreground mb-2">מוזיקה חדשה</h2>
+            <p className="font-body text-xs text-muted-foreground/70 tracking-widest mb-4" dir="ltr">Latest Releases</p>
             <p className="font-body text-muted-foreground max-w-lg mx-auto">
               האזינו לשירים של נחמן כהן ולצלילים שמביאים רגש, עומק וחיבור אמיתי.
             </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={spring}
+            className="max-w-2xl mx-auto mb-12 flex items-center gap-5 p-4 rounded-2xl bg-card border border-primary/20"
+          >
+            <Link to="/music/asher-bachar-banu" className="shrink-0">
+              <img src="/covers/asher-bachar-banu.jpg" alt="נחמן כהן – אשר בחר בנו – עטיפת השיר" className="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover" loading="lazy" />
+            </Link>
+            <div className="flex-1 min-w-0">
+              <span className="inline-block font-body text-[10px] font-semibold tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground mb-1.5">NEW RELEASE · חדש</span>
+              <h3 className="font-display text-xl md:text-2xl text-foreground truncate">
+                <Link to="/music/asher-bachar-banu" className="hover:text-primary transition-colors">אשר בחר בנו</Link>
+              </h3>
+              <p className="font-body text-sm text-muted-foreground">נחמן כהן</p>
+              <p className="font-body text-xs text-muted-foreground/70 truncate" dir="ltr" style={{ textAlign: "right" }}>Nachman Cohen – Asher Bachar Banu</p>
+            </div>
+            <Link to="/music/asher-bachar-banu" className="shrink-0 inline-flex items-center gap-1.5 font-body font-medium text-sm px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+              <Play size={14} />צפו עכשיו
+            </Link>
           </motion.div>
 
           <HomeMusicPlayer tracks={featuredTracks} />
@@ -261,7 +286,9 @@ const Index = () => {
               transition={spring}
             >
               <p className="font-body text-xs font-medium text-primary mb-3 tracking-widest">אודות</p>
-              <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">נחמן כהן</h2>
+              <h2 className="font-display text-4xl md:text-5xl text-foreground mb-2">נחמן כהן | Nachman Cohen</h2>
+              <p className="font-body text-sm text-primary mb-1">זמר ומלחין חסידי</p>
+              <p className="font-body text-xs text-muted-foreground/70 mb-6" dir="ltr" style={{ textAlign: "right" }}>Jewish &amp; Hasidic Singer and Composer · London, UK</p>
               <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                 <p>נחמן כהן הוא זמר חסידי בעל קול חם, מרגש ומלא נשמה, המביא איתו חיבור עמוק למוזיקה יהודית וחסידית.</p>
                 <p>בהופעותיו הוא יוצר אווירה מיוחדת של רגש, שמחה ועומק, ומעניק חוויה מוזיקלית בלתי נשכחת.</p>

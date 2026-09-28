@@ -4,27 +4,13 @@ import { Play, Pause, RotateCcw, RotateCw, Download } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
+import { Link } from "react-router-dom";
+import { releases, type Release } from "@/data/releases";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
-interface Track {
-  title: string;
-  titleEn: string;
-  audioSrc: string;
-  cover?: string;
-}
-
-const tracks: Track[] = [
-  { title: "אשר בחר בנו", titleEn: "Asher Bachar Banu", audioSrc: "/music/asher-bachar-banu.mp3", cover: "/covers/asher-bachar-banu.jpg" },
-  { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3", cover: "/covers/refua.jpg" },
-  { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3", cover: "/covers/lemala.jpg" },
-  { title: "תפילין (קאבר)", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3", cover: "/covers/tefillin.jpg" },
-  { title: "מיין טייערע לעכטעלע", titleEn: "Mein Taiere Lechtele", audioSrc: "/music/mein-taiere-lechtele.mp3", cover: "/covers/mein-taiere-lechtele.jpg" },
-  { title: "התעוררי (קאבר)", titleEn: "Hisoreri (Cover)", audioSrc: "/music/hisoreri.mp4" },
-  { title: "דמות עם צבע", titleEn: "Dmut Im Tzeva", audioSrc: "/music/dmut-im-tzeva.mp3", cover: "/covers/dmut-im-tzeva.jpg" },
-  { title: "מיין טרייערעלע", titleEn: "Mein Treireleh", audioSrc: "/music/mein-treireleh.mp4", cover: "/covers/mein-treireleh.jpg" },
-  { title: "ומרדכי ידע", titleEn: "U'Mordechai Yada", audioSrc: "/music/u-mordechai-yada.mp4", cover: "/covers/u-mordechai-yada.jpg" },
-];
+type Track = Release;
+const tracks = releases;
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.97 },
@@ -116,13 +102,14 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     >
       <div className="relative aspect-square overflow-hidden cursor-pointer group" onClick={togglePlay}>
         {track.cover ? (
-          <motion.img src={track.cover} alt={track.title} className="w-full h-full object-cover" whileHover={{ scale: 1.04 }} transition={{ duration: 0.4 }} />
+          <motion.img src={track.cover} alt={`נחמן כהן – ${track.title} – עטיפת השיר`} className="w-full h-full object-cover" whileHover={{ scale: 1.04 }} transition={{ duration: 0.4 }} />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
             <span className="font-display text-5xl text-muted-foreground/20 select-none">♪</span>
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+        {track.isNew && <span className="absolute top-2 right-2 z-10 font-body text-[10px] font-semibold tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">חדש / NEW</span>}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             whileHover={{ scale: 1.1 }}
@@ -137,7 +124,7 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
       </div>
 
       <div className="px-4 py-3.5">
-        <h3 className="font-body text-sm font-medium text-foreground truncate">{track.title}</h3>
+        <h3 className="font-body text-sm font-medium text-foreground truncate"><Link to={`/music/${track.slug}`} className="hover:text-primary transition-colors">{track.title}</Link></h3>
         <p className="font-body text-xs text-muted-foreground mt-0.5 truncate">נחמן כהן</p>
 
         <div className="mt-3">
@@ -189,6 +176,7 @@ const MusicPage = () => {
       <SEO
         title="מוזיקה של נחמן כהן | זמר חסידי"
         description="האזינו לשירים של נחמן כהן. אוסף השירים עם מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה."
+        path="/music"
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
@@ -212,7 +200,7 @@ const MusicPage = () => {
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-5xl mx-auto"
           >
             {tracks.map((track, i) => (
-              <TrackCard key={i} track={track} index={i} />
+              <TrackCard key={track.slug} track={track} index={i} />
             ))}
           </motion.div>
         </div>

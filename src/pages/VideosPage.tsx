@@ -9,11 +9,12 @@ const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 interface YouTubeVideo {
   id: string;
   title: string;
+  titleEn?: string;
   thumbQuality?: string;
 }
 
 const videos: YouTubeVideo[] = [
-  { id: "E0sWm7bJUEs", title: "אשר בחר בנו", thumbQuality: "hqdefault" },
+  { id: "E0sWm7bJUEs", title: "נחמן כהן – אשר בחר בנו | LIVE", titleEn: "Nachman Cohen – Asher Bachar Banu | LIVE", thumbQuality: "hqdefault" },
   { id: "IP8vxbsuQu8", title: "מיין טרערעלע" },
   { id: "5HJVtOdDoW4", title: "למעלה", thumbQuality: "hqdefault" },
   { id: "kJYX_CN6XQg", title: "רפואה" },
@@ -35,6 +36,8 @@ const VideosPage = () => {
       <SEO
         title="קליפים והופעות של נחמן כהן | זמר חסידי"
         description="צפו בקליפים ובהופעות של נחמן כהן. קליפים, הופעות ורגעים מוזיקליים מיוחדים."
+        path="/videos"
+        jsonLd={videos.map((v) => ({ "@context": "https://schema.org", "@type": "VideoObject", name: v.title, description: `${v.title} – נחמן כהן`, thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`, embedUrl: `https://www.youtube.com/embed/${v.id}`, contentUrl: `https://www.youtube.com/watch?v=${v.id}` }))}
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
@@ -81,6 +84,7 @@ const VideosPage = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="font-body text-foreground text-sm">{video.title}</h3>
+                  {video.titleEn && <p className="font-body text-muted-foreground text-xs mt-0.5" dir="ltr">{video.titleEn}</p>}
                   <p className="font-body text-muted-foreground text-xs mt-0.5">נחמן כהן</p>
                 </div>
               </motion.div>
