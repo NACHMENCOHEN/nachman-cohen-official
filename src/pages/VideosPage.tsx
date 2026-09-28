@@ -13,6 +13,7 @@ interface YouTubeVideo {
 }
 
 const videos: YouTubeVideo[] = [
+  { id: "E0sWm7bJUEs", title: "אשר בחר בנו", thumbQuality: "hqdefault" },
   { id: "IP8vxbsuQu8", title: "מיין טרערעלע" },
   { id: "5HJVtOdDoW4", title: "למעלה", thumbQuality: "hqdefault" },
   { id: "kJYX_CN6XQg", title: "רפואה" },
