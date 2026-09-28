@@ -29,6 +29,7 @@ const AboutPage = () => {
       <SEO
         title="אודות נחמן כהן | האתר הרשמי של נחמן כהן"
         description="נחמן כהן הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. קראו את הסיפור המלא."
+        path="/about"
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">

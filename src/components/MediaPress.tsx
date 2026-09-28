@@ -32,7 +32,8 @@ const MediaPress = () => {
         transition={{ ...spring, delay: 0.2 }}
         className="font-display text-3xl md:text-4xl text-foreground mb-8"
       >
-        בתקשורת
+        נחמן כהן בתקשורת ובעיתונות
+        <span className="block font-body text-sm text-muted-foreground mt-2">Nachman Cohen – Press &amp; Media</span>
       </motion.h2>
 
       <div className="space-y-3">

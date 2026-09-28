@@ -6,6 +6,7 @@ import FloatingSocial from "@/components/FloatingSocial";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "@/pages/Index";
 import MusicPage from "@/pages/MusicPage";
+import ReleasePage from "@/pages/ReleasePage";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
 import VideosPage from "@/pages/VideosPage";
@@ -25,6 +26,7 @@ const PublicRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Index />} />
         <Route path="/music" element={<MusicPage />} />
+        <Route path="/music/:slug" element={<ReleasePage />} />
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
