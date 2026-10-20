@@ -5,6 +5,7 @@ import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import MediaPress from "@/components/MediaPress";
+import { ARTIST_ID, SITE_URL } from "@/lib/artist-seo";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -30,6 +31,7 @@ const AboutPage = () => {
         title="אודות נחמן כהן | האתר הרשמי של נחמן כהן"
         description="נחמן כהן הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. קראו את הסיפור המלא."
         path="/about"
+        jsonLd={{ "@context": "https://schema.org", "@type": "AboutPage", "@id": `${SITE_URL}/about#page`, url: `${SITE_URL}/about`, mainEntity: { "@id": ARTIST_ID } }}
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
