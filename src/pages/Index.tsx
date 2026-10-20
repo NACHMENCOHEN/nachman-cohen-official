@@ -67,17 +67,13 @@ const Index = () => {
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-end justify-center overflow-hidden">
-        {/* Background blur */}
-        <motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
-          <img src={heroImg} alt="" aria-hidden="true" className="w-full h-full object-cover object-top scale-110 blur-2xl brightness-[0.3]" />
-        </motion.div>
-
-        {/* Oversized background name for depth */}
-        <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden">
-          <span className="font-display text-[20vw] font-black text-foreground/[0.03] whitespace-nowrap">
-            נחמן כהן
-          </span>
-        </div>
+       {/* Clean dark background */}
+<motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
+  <div className="absolute inset-0 bg-black" />
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(26,120,120,0.28),transparent_40%)]" />
+  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black" />
+</motion.div>
+ 
 
         {/* Main portrait */}
         <motion.div
