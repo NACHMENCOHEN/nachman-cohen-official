@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
+import { videoPublicationDates } from "@/data/video-publication";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -37,7 +38,7 @@ const VideosPage = () => {
         title="קליפים והופעות של נחמן כהן | זמר חסידי"
         description="צפו בקליפים ובהופעות של נחמן כהן. קליפים, הופעות ורגעים מוזיקליים מיוחדים."
         path="/videos"
-        jsonLd={videos.map((v) => ({ "@context": "https://schema.org", "@type": "VideoObject", name: v.title, description: `${v.title} – נחמן כהן`, thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`, embedUrl: `https://www.youtube.com/embed/${v.id}`, contentUrl: `https://www.youtube.com/watch?v=${v.id}` }))}
+        jsonLd={videos.map((v) => ({ "@context": "https://schema.org", "@type": "VideoObject", name: v.title, description: `${v.title} – נחמן כהן`, thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`, embedUrl: `https://www.youtube.com/embed/${v.id}`, contentUrl: `https://www.youtube.com/watch?v=${v.id}`, uploadDate: videoPublicationDates[v.id] }))}
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
