@@ -2,11 +2,16 @@ import { readFileSync, existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { ARTIST_ID, artistReference, getPageSEO, SITE_URL } from "@/lib/artist-seo";
 import { releases } from "@/data/releases";
+import { videoPublicationDates } from "@/data/video-publication";
 
 const html = readFileSync("index.html", "utf8");
 const schemas = Array.from(html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g), (match) => JSON.parse(match[1]));
 
 describe("artist identity", () => {
+  it("uses YouTube's actual upload timestamp without inventing a song release date", () => {
+    expect(videoPublicationDates.E0sWm7bJUEs).toBe("2026-09-28T06:47:25-07:00");
+    expect(releases.find((release) => release.slug === "asher-bachar-banu")?.releaseDate).toBeUndefined();
+  });
   it("defines exactly one solo Person and no conflicting band identity", () => {
     expect(schemas.filter((item) => item["@type"] === "Person")).toHaveLength(1);
     expect(schemas.some((item) => item["@type"] === "MusicGroup")).toBe(false);

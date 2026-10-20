@@ -8,6 +8,7 @@ import NotFound from "@/pages/NotFound";
 import { socialLinks } from "@/components/social-icons";
 import { ARTIST, ARTIST_EN, SITE_URL, getRelease, releases } from "@/data/releases";
 import { artistReference } from "@/lib/artist-seo";
+import { videoPublicationDates } from "@/data/video-publication";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 const artistLink = (name: string) => socialLinks.find((s) => s.name === name)?.url;
@@ -51,7 +52,7 @@ const ReleasePage = () => {
         thumbnailUrl: `https://i.ytimg.com/vi/${release.youtubeId}/hqdefault.jpg`,
         embedUrl: `https://www.youtube.com/embed/${release.youtubeId}`,
         contentUrl: `https://www.youtube.com/watch?v=${release.youtubeId}`,
-        ...(release.releaseDate && { uploadDate: release.releaseDate }),
+        ...(videoPublicationDates[release.youtubeId] && { uploadDate: videoPublicationDates[release.youtubeId] }),
       });
     }
     return data;
