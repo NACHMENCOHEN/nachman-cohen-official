@@ -1,7 +1,7 @@
 export const SITE_URL = "https://nachmancohen.com";
 export const ARTIST_ID = `${SITE_URL}/#artist`;
 export const ARTIST_IMAGE = `${SITE_URL}/nachman-artist-profile.png.png`;
-export const SHARE_IMAGE = `${SITE_URL}/artist-share.jpg`;
+export const SHARE_IMAGE = `${SITE_URL}/nachman-social-preview.jpg`;
 export const SITE_NAME = "נחמן כהן • Nachman Cohen";
 
 export const artistReference = { "@id": ARTIST_ID };
