@@ -15,14 +15,13 @@
       name="keywords"
       content="נחמן כהן, Nachman Cohen, זמר חסידי, מוזיקה חסידית, מוזיקה יהודית, הופעות, קליפים, שירים, האתר הרשמי"
     />
-    <link rel="canonical" href="https://nachmancohen.com/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nachmancohen.com/" />
     <meta property="og:title" content="נחמן כהן | Nachman Cohen – זמר ומלחין חסידי" />
     <meta property="og:description" content="האתר הרשמי של הזמר והמלחין נחמן כהן. מוזיקה חסידית, שירים חדשים, קליפים, הופעות ועדכונים. Official website of Jewish singer and composer Nachman Cohen." />
-    <meta property="og:image" content="https://nachmancohen.com/hero-portrait.jpg" />
+    <meta property="og:image" content="https://nachmancohen.com/artist-share.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="he_IL" />
@@ -32,13 +31,14 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="נחמן כהן | Nachman Cohen – זמר ומלחין חסידי" />
     <meta name="twitter:description" content="האתר הרשמי של הזמר והמלחין נחמן כהן. מוזיקה חסידית, שירים חדשים, קליפים, הופעות ועדכונים. Official website of Jewish singer and composer Nachman Cohen." />
-    <meta name="twitter:image" content="https://nachmancohen.com/hero-portrait.jpg" />
+    <meta name="twitter:image" content="https://nachmancohen.com/artist-share.jpg" />
 
-    <!-- Structured Data - MusicArtist Schema -->
+    <!-- One stable solo-artist identity, referenced by every music page -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "MusicGroup",
+        "@type": "Person",
+        "@id": "https://nachmancohen.com/#artist",
         "name": "נחמן כהן",
         "alternateName": "Nachman Cohen",
         "url": "https://nachmancohen.com/",
@@ -51,30 +51,10 @@
           "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
           "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943"
         ],
-        "genre": ["Hasidic Music", "Jewish Music", "מוזיקה חסידית"]
-      }
-    </script>
-
-    <!-- Structured Data - Person Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Nachman Cohen",
-        "alternateName": "נחמן כהן",
-        "genre": ["Jewish Music", "Hasidic Music"],
         "homeLocation": { "@type": "Place", "name": "London, UK" },
-        "url": "https://nachmancohen.com/",
-        "description": "זמר חסידי עם מוזיקה מרגשת, קול מלא נשמה וחיבור עמוק לעולם המוזיקה היהודית",
-        "image": "https://nachmancohen.com/hero-portrait.jpg",
         "jobTitle": "Singer and Composer",
-        "sameAs": [
-          "https://www.instagram.com/nachmencohen",
-          "https://youtube.com/@nachman_cohen",
-          "https://www.tiktok.com/@nachman_cohen_music",
-          "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
-          "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943"
-        ]
+        "knowsAbout": ["Hasidic Music", "Jewish Music", "מוזיקה חסידית"],
+        "mainEntityOfPage": "https://nachmancohen.com/about"
       }
     </script>
 
@@ -83,10 +63,13 @@
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
+        "@id": "https://nachmancohen.com/#website",
         "url": "https://nachmancohen.com/",
         "name": "נחמן כהן • Nachman Cohen",
         "alternateName": "Nachman Cohen",
-        "inLanguage": "he"
+        "inLanguage": "he",
+        "about": { "@id": "https://nachmancohen.com/#artist" },
+        "publisher": { "@id": "https://nachmancohen.com/#artist" }
       }
     </script>
 
@@ -99,10 +82,8 @@
     <!-- Noindex for lovable.app subdomain -->
     <script>
       if (window.location.hostname.includes('lovable.app')) {
-        const meta = document.createElement('meta');
-        meta.name = 'robots';
-        meta.content = 'noindex, nofollow';
-        document.head.appendChild(meta);
+        const meta = document.querySelector('meta[name="robots"]');
+        if (meta) meta.content = 'noindex, nofollow';
       }
     </script>
   </head>

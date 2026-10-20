@@ -7,6 +7,7 @@ import SEO from "@/components/SEO";
 import NotFound from "@/pages/NotFound";
 import { socialLinks } from "@/components/social-icons";
 import { ARTIST, ARTIST_EN, SITE_URL, getRelease, releases } from "@/data/releases";
+import { artistReference } from "@/lib/artist-seo";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 const artistLink = (name: string) => socialLinks.find((s) => s.name === name)?.url;
@@ -25,7 +26,7 @@ const ReleasePage = () => {
         "@type": "MusicRecording",
         name: release.title,
         alternateName: release.titleEn,
-        byArtist: { "@type": "Person", name: ARTIST_EN, alternateName: ARTIST },
+        byArtist: artistReference,
         url,
         inLanguage: "he",
         ...(release.cover && { image: `${SITE_URL}${release.cover}` }),

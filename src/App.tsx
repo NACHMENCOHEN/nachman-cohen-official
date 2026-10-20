@@ -18,6 +18,7 @@ import AdminSubscribers from "@/pages/admin/AdminSubscribers";
 import AdminBroadcast from "@/pages/admin/AdminBroadcast";
 import AdminStories from "@/pages/admin/AdminStories";
 import { Toaster } from "@/components/ui/toaster";
+import SEO from "@/components/SEO";
 
 const PublicRoutes = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const Shell = () => {
   if (isAdmin) {
     return (
       <>
+      <SEO title="ניהול | נחמן כהן" description="ניהול האתר" noindex />
       <Toaster />
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
