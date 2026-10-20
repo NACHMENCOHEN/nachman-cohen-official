@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Music, Play, Phone, MessageCircle, Mail } from "lucide-react";
-import heroImg from "@/assets/hero-portrait.jpg";
+import heroImg from "@/assets/nachman-hero.webp";
 import aboutImg from "@/assets/about-portrait.jpg";
 import HomeMusicPlayer from "@/components/HomeMusicPlayer";
 import PageTransition from "@/components/PageTransition";
