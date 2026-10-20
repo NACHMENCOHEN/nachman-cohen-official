@@ -107,6 +107,17 @@ const AboutPage = () => {
             </motion.div>
           </div>
 
+<div className="my-8 text-center">
+  <a
+    href="https://musicbrainz.org/artist/b15ff3e7-467f-49cb-892b-ce2ca4ece6b5"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-primary underline underline-offset-4"
+  >
+    רשומת האמן ב־MusicBrainz
+  </a>
+</div>
+
           <MediaPress />
         </div>
       </div>
