@@ -17,6 +17,7 @@ import AdminLayout from "@/pages/admin/AdminLayout";
 import AdminSubscribers from "@/pages/admin/AdminSubscribers";
 import AdminBroadcast from "@/pages/admin/AdminBroadcast";
 import AdminStories from "@/pages/admin/AdminStories";
+import AdminMusic from "@/pages/admin/AdminMusic";
 import { Toaster } from "@/components/ui/toaster";
 import SEO from "@/components/SEO";
 
@@ -53,6 +54,7 @@ const Shell = () => {
           <Route path="subscribers" element={<AdminSubscribers />} />
           <Route path="broadcast" element={<AdminBroadcast />} />
           <Route path="stories" element={<AdminStories />} />
+          <Route path="music" element={<AdminMusic />} />
         </Route>
       </Routes>
       </>

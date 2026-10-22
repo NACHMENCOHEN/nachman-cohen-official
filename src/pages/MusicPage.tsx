@@ -5,12 +5,12 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import { Link } from "react-router-dom";
-import { releases, type Release } from "@/data/releases";
+import { type Release } from "@/data/releases";
+import { usePublishedMusic } from "@/hooks/usePublishedMusic";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
 type Track = Release;
-const tracks = releases;
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.97 },
@@ -158,19 +158,22 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
         </div>
       </div>
 
-      <div className="px-4 pb-3">
-        <a href={track.audioSrc} download className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
-          <Download size={12} />
-          <span>הורדה</span>
-        </a>
-      </div>
+      {track.downloadable !== false && (
+        <div className="px-4 pb-3">
+          <a href={track.audioSrc} download className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
+            <Download size={12} />
+            <span>הורדה</span>
+          </a>
+        </div>
+      )}
 
-      <audio ref={audioRef} src={track.audioSrc} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={() => setPlaying(false)} />
+      <audio ref={audioRef} src={track.audioSrc} controlsList={track.downloadable === false ? "nodownload" : undefined} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={() => setPlaying(false)} />
     </motion.div>
   );
 };
 
 const MusicPage = () => {
+  const { tracks } = usePublishedMusic();
   return (
     <PageTransition>
       <SEO

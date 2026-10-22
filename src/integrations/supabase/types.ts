@@ -14,6 +14,12 @@ export type Database = {
   }
   public: {
     Tables: {
+      music_releases: {
+        Row: { id: string; slug: string; title: string; title_en: string; audio_path: string; cover_path: string; youtube_id: string | null; release_date: string | null; is_published: boolean; created_at: string }
+        Insert: { id?: string; slug: string; title: string; title_en: string; audio_path: string; cover_path: string; youtube_id?: string | null; release_date?: string | null; is_published?: boolean; created_at?: string }
+        Update: { id?: string; slug?: string; title?: string; title_en?: string; audio_path?: string; cover_path?: string; youtube_id?: string | null; release_date?: string | null; is_published?: boolean; created_at?: string }
+        Relationships: []
+      }
       broadcast_logs: {
         Row: {
           apple_music_url: string | null

@@ -6,6 +6,7 @@ interface Track {
   title: string;
   titleEn: string;
   audioSrc: string;
+  downloadable?: boolean;
   cover?: string;
 }
 
@@ -157,12 +158,14 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
           <button onClick={next} className="text-foreground hover:text-primary transition-colors" aria-label="הבא">
             <SkipForward size={22} />
           </button>
-          <a href={current.audioSrc} download className="text-muted-foreground hover:text-foreground transition-colors" aria-label="הורדה" onClick={(e) => e.stopPropagation()}>
-            <Download size={18} />
-          </a>
+          {current.downloadable !== false && (
+            <a href={current.audioSrc} download className="text-muted-foreground hover:text-foreground transition-colors" aria-label="הורדה" onClick={(e) => e.stopPropagation()}>
+              <Download size={18} />
+            </a>
+          )}
         </div>
 
-        <audio ref={audioRef} src={current.audioSrc} muted={muted} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={next} />
+        <audio ref={audioRef} src={current.audioSrc} muted={muted} controlsList={current.downloadable === false ? "nodownload" : undefined} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={next} />
       </div>
 
       <div className="mt-4 space-y-1">
@@ -184,15 +187,17 @@ const HomeMusicPlayer = ({ tracks }: MusicPlayerProps) => {
               </span>
               <span className="font-body text-sm">{track.title}</span>
             </div>
-            <a
-              href={track.audioSrc}
-              download
-              className="text-muted-foreground hover:text-primary transition-colors p-1"
-              aria-label={`הורדת ${track.title}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Download size={14} />
-            </a>
+            {track.downloadable !== false && (
+              <a
+                href={track.audioSrc}
+                download
+                className="text-muted-foreground hover:text-primary transition-colors p-1"
+                aria-label={`הורדת ${track.title}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Download size={14} />
+              </a>
+            )}
           </div>
         ))}
       </div>

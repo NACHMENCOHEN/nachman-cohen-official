@@ -5,6 +5,7 @@ export interface Release {
   title: string;
   titleEn: string;
   audioSrc: string;
+  downloadable?: boolean; // Explicitly false disables website download UI for this release
   cover?: string;
   youtubeId?: string;
   videoTitle?: string;

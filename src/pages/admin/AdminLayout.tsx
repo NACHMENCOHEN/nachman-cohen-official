@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import { LogOut, Users, Send, Radio } from "lucide-react";
+import { LogOut, Users, Send, Radio, Music } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
@@ -37,6 +37,7 @@ const AdminLayout = () => {
     { to: "/admin/subscribers", label: "נרשמים", icon: Users },
     { to: "/admin/broadcast", label: "שלח עדכון", icon: Send },
     { to: "/admin/stories", label: "עדכונים חיים", icon: Radio },
+    { to: "/admin/music", label: "העלאת שירים", icon: Music },
   ];
 
   return (
