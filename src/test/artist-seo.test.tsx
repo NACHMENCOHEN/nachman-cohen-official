@@ -1,6 +1,6 @@
 import { readFileSync, existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { ARTIST_ID, artistReference, getPageSEO, SITE_URL } from "@/lib/artist-seo";
+import { ARTIST_ID, ARTIST_IMAGE, artistReference, getPageSEO, SITE_URL } from "@/lib/artist-seo";
 import { releases } from "@/data/releases";
 import { videoPublicationDates } from "@/data/video-publication";
 
@@ -54,6 +54,16 @@ describe("indexability", () => {
     expect(getPageSEO("/", "nachman-cohen-official.lovable.app").robots).toBe("noindex, nofollow");
     expect(getPageSEO("/missing", "nachmancohen.com", true).robots).toBe("noindex, nofollow");
   });
+  it("declares the public artist portrait for image discovery on the about page", () => {
+    const xml = readFileSync("public/sitemap.xml", "utf8");
+    expect(xml).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
+    expect(xml).toContain(`<image:loc>${ARTIST_IMAGE}</image:loc>`);
+    const aboutPage = readFileSync("src/pages/AboutPage.tsx", "utf8");
+    expect(aboutPage).toContain("primaryImageOfPage");
+    expect(aboutPage).toContain("contentUrl: ARTIST_IMAGE");
+    expect(aboutPage).toContain('image="/nachman-artist-profile.png.png"');
+  });
+
   it("lists every public release and excludes private flows from the existing sitemap", () => {
     const xml = readFileSync("public/sitemap.xml", "utf8");
     const urls = Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g), (match) => match[1]);
