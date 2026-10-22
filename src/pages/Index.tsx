@@ -28,7 +28,7 @@ const Index = () => {
   const { tracks: publishedMusic } = usePublishedMusic();
   const newestTrack = publishedMusic.find(track => track.slug === "lachtige-shabbos");
   const featuredTracks = [
-    ...(newestTrack ? [newestTrack] : []),
+    ...(newestTrack?.audioSrc ? [newestTrack] : []),
     ...defaultFeaturedTracks,
   ];
   const heroRef = useRef<HTMLElement>(null);
