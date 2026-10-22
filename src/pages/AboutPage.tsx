@@ -5,7 +5,7 @@ import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import MediaPress from "@/components/MediaPress";
-import { ARTIST_ID, SITE_URL } from "@/lib/artist-seo";
+import { ARTIST_ID, ARTIST_IMAGE, SITE_URL } from "@/lib/artist-seo";
 
 const spring = { type: "spring" as const, duration: 0.5, bounce: 0 };
 
@@ -31,7 +31,31 @@ const AboutPage = () => {
         title="אודות נחמן כהן | About Nachman Cohen – זמר חסידי"
         description="נחמן כהן (Nachman Cohen) הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. About Nachman Cohen, Hasidic singer and composer – the full story."
         path="/about"
-        jsonLd={{ "@context": "https://schema.org", "@type": ["AboutPage", "ProfilePage"], "@id": `${SITE_URL}/about#page`, url: `${SITE_URL}/about`, name: "אודות נחמן כהן | About Nachman Cohen", inLanguage: "he", isPartOf: { "@id": `${SITE_URL}/#website` }, mainEntity: { "@id": ARTIST_ID }, about: { "@id": ARTIST_ID } }}
+        image="/nachman-artist-profile.png.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": ["AboutPage", "ProfilePage"],
+          "@id": `${SITE_URL}/about#page`,
+          url: `${SITE_URL}/about`,
+          name: "אודות נחמן כהן | About Nachman Cohen",
+          inLanguage: "he",
+          isPartOf: { "@id": `${SITE_URL}/#website` },
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            "@id": `${SITE_URL}/about#primaryimage`,
+            url: ARTIST_IMAGE,
+            contentUrl: ARTIST_IMAGE,
+            caption: "נחמן כהן (Nachman Cohen) – זמר ומלחין חסידי",
+          },
+          mainEntity: {
+            "@id": ARTIST_ID,
+            "@type": "Person",
+            name: "נחמן כהן",
+            alternateName: ["Nachman Cohen", "נחמן כהן - Nachman Cohen"],
+            image: ARTIST_IMAGE,
+          },
+          about: { "@id": ARTIST_ID },
+        }}
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
@@ -46,7 +70,7 @@ const AboutPage = () => {
               <div className="aspect-square overflow-hidden rounded-2xl gold-border-glow">
                 <motion.img
                   src={aboutImg}
-                  alt="נחמן כהן"
+                  alt="נחמן כהן (Nachman Cohen) – זמר ומלחין חסידי"
                   className="w-full h-full object-cover object-[center_15%] shadow-lg"
                   style={{ scale: imgScale }}
                 />
