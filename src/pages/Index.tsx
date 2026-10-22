@@ -11,10 +11,11 @@ import PromoVideoModal from "@/components/PromoVideoModal";
 import { socialLinks } from "@/components/social-icons";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import LiveUpdates from "@/components/LiveUpdates";
+import { usePublishedMusic } from "@/hooks/usePublishedMusic";
 
 const spring = { type: "spring" as const, duration: 0.6, bounce: 0 };
 
-const featuredTracks = [
+const defaultFeaturedTracks = [
   { title: "אשר בחר בנו", titleEn: "Asher Bachar Banu", audioSrc: "/music/asher-bachar-banu.mp3" },
   { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3" },
   { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3" },
@@ -24,6 +25,12 @@ const featuredTracks = [
 ];
 
 const Index = () => {
+  const { tracks: publishedMusic } = usePublishedMusic();
+  const newestTrack = publishedMusic.find(track => track.slug === "lachtige-shabbos");
+  const featuredTracks = [
+    ...(newestTrack ? [newestTrack] : []),
+    ...defaultFeaturedTracks,
+  ];
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -185,12 +192,37 @@ const Index = () => {
             className="text-center mb-14"
           >
             <p className="font-body text-xs font-medium text-primary mb-3 tracking-widest">מוזיקה</p>
-            <h2 className="font-display text-4xl md:text-6xl text-foreground mb-2">מוזיקה חדשה</h2>
-            <p className="font-body text-xs text-muted-foreground/70 tracking-widest mb-4" dir="ltr">Latest Releases</p>
+            <h2 className="font-display text-4xl md:text-6xl text-foreground mb-2">{newestTrack ? "מוזיקה חדשה" : "השירים שלי"}</h2>
+            <p className="font-body text-xs text-muted-foreground/70 tracking-widest mb-4" dir="ltr">{newestTrack ? "Latest Releases" : "My Music"}</p>
             <p className="font-body text-muted-foreground max-w-lg mx-auto">
               האזינו לשירים של נחמן כהן ולצלילים שמביאים רגש, עומק וחיבור אמיתי.
             </p>
           </motion.div>
+
+          {newestTrack && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={spring}
+              className="max-w-2xl mx-auto mb-12 flex items-center gap-5 p-4 rounded-2xl bg-card border border-primary/20"
+            >
+              <Link to={`/music/${newestTrack.slug}`} className="shrink-0">
+                <img src={newestTrack.cover} alt="נחמן כהן – לעכטיגע שבת – עטיפת השיר" className="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover" loading="lazy" />
+              </Link>
+              <div className="flex-1 min-w-0">
+                <span className="inline-block font-body text-[10px] font-semibold tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground mb-1.5">NEW RELEASE · חדש</span>
+                <h3 className="font-display text-xl md:text-2xl text-foreground truncate">
+                  <Link to={`/music/${newestTrack.slug}`} className="hover:text-primary transition-colors">{newestTrack.title}</Link>
+                </h3>
+                <p className="font-body text-sm text-muted-foreground">נחמן כהן</p>
+                <p className="font-body text-xs text-muted-foreground/70 truncate" dir="ltr" style={{ textAlign: "right" }}>Nachman Cohen – {newestTrack.titleEn}</p>
+              </div>
+              <Link to={`/music/${newestTrack.slug}`} className="shrink-0 inline-flex items-center gap-1.5 font-body font-medium text-sm px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                <Play size={14} />האזינו עכשיו
+              </Link>
+            </motion.div>
+          )}
 
           <HomeMusicPlayer tracks={featuredTracks} />
 

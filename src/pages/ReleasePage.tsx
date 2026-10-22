@@ -6,7 +6,8 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import NotFound from "@/pages/NotFound";
 import { socialLinks } from "@/components/social-icons";
-import { ARTIST, ARTIST_EN, SITE_URL, getRelease, releases } from "@/data/releases";
+import { ARTIST, ARTIST_EN, SITE_URL } from "@/data/releases";
+import { usePublishedMusic } from "@/hooks/usePublishedMusic";
 import { artistReference } from "@/lib/artist-seo";
 import { videoPublicationDates } from "@/data/video-publication";
 
@@ -15,7 +16,8 @@ const artistLink = (name: string) => socialLinks.find((s) => s.name === name)?.u
 
 const ReleasePage = () => {
   const { slug } = useParams();
-  const release = getRelease(slug);
+  const { tracks, loading } = usePublishedMusic();
+  const release = tracks.find(r => r.slug === slug);
   const [copied, setCopied] = useState(false);
 
   const jsonLd = useMemo(() => {
@@ -30,7 +32,7 @@ const ReleasePage = () => {
         byArtist: artistReference,
         url,
         inLanguage: "he",
-        ...(release.cover && { image: `${SITE_URL}${release.cover}` }),
+        ...(release.cover && { image: release.cover.startsWith("http") ? release.cover : `${SITE_URL}${release.cover}` }),
         ...(release.releaseDate && { datePublished: release.releaseDate }),
       },
       {
@@ -58,6 +60,7 @@ const ReleasePage = () => {
     return data;
   }, [release]);
 
+  if (!release && loading) return <div role="status" className="py-32 text-center text-muted-foreground">טוען שיר...</div>;
   if (!release) return <NotFound />;
 
   const url = `${SITE_URL}/music/${release.slug}`;
@@ -79,7 +82,7 @@ const ReleasePage = () => {
     { label: "YouTube", url: release.youtubeId ? `https://youtu.be/${release.youtubeId}` : undefined },
   ].filter((l) => l.url);
 
-  const others = releases.filter((r) => r.slug !== release.slug).slice(0, 4);
+  const others = tracks.filter((r) => r.slug !== release.slug).slice(0, 4);
 
   return (
     <PageTransition>
@@ -133,7 +136,7 @@ const ReleasePage = () => {
             </div>
           </motion.div>
 
-          <audio controls preload="metadata" src={release.audioSrc} className="w-full mb-14" aria-label={`האזנה: ${release.title}`} />
+          <audio controls controlsList={release.downloadable === false ? "nodownload" : undefined} preload="metadata" src={release.audioSrc} className="w-full mb-14" aria-label={`האזנה: ${release.title}`} />
 
           {release.youtubeId && (
             <section className="mb-14">
