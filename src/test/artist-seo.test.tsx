@@ -37,8 +37,8 @@ describe("artist identity", () => {
   });
   it("uses real public artist images", () => {
     const artist = schemas.find((item) => item["@type"] === "Person");
-    expect(artist.image).toBe(`${SITE_URL}/hero-portrait.jpg`);
-    expect(existsSync("public/hero-portrait.jpg")).toBe(true);
+    expect(artist.image).toBe(`${SITE_URL}/nachman-artist-profile.png.png`);
+    expect(existsSync("public/nachman-artist-profile.png.png")).toBe(true);
     expect(existsSync("public/artist-share.jpg")).toBe(true);
   });
 });
