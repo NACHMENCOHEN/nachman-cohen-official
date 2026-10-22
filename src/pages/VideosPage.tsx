@@ -15,6 +15,7 @@ interface YouTubeVideo {
 }
 
 const videos: YouTubeVideo[] = [
+  { id: "8okNDLOM3mo", title: "נחמן כהן – לעכטיגע שבת | הקליפ הרשמי", titleEn: "Nachman Cohen – Lachtige Shabbos | Official Music Video", thumbQuality: "hqdefault" },
   { id: "E0sWm7bJUEs", title: "נחמן כהן – אשר בחר בנו | LIVE", titleEn: "Nachman Cohen – Asher Bachar Banu | LIVE", thumbQuality: "hqdefault" },
   { id: "IP8vxbsuQu8", title: "מיין טרערעלע" },
   { id: "5HJVtOdDoW4", title: "למעלה", thumbQuality: "hqdefault" },
