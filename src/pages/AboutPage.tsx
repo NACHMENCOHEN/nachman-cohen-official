@@ -28,10 +28,10 @@ const AboutPage = () => {
   return (
     <PageTransition>
       <SEO
-        title="אודות נחמן כהן | האתר הרשמי של נחמן כהן"
-        description="נחמן כהן הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. קראו את הסיפור המלא."
+        title="אודות נחמן כהן | About Nachman Cohen – זמר חסידי"
+        description="נחמן כהן (Nachman Cohen) הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. About Nachman Cohen, Hasidic singer and composer – the full story."
         path="/about"
-        jsonLd={{ "@context": "https://schema.org", "@type": "AboutPage", "@id": `${SITE_URL}/about#page`, url: `${SITE_URL}/about`, mainEntity: { "@id": ARTIST_ID } }}
+        jsonLd={{ "@context": "https://schema.org", "@type": ["AboutPage", "ProfilePage"], "@id": `${SITE_URL}/about#page`, url: `${SITE_URL}/about`, name: "אודות נחמן כהן | About Nachman Cohen", inLanguage: "he", isPartOf: { "@id": `${SITE_URL}/#website` }, mainEntity: { "@id": ARTIST_ID }, about: { "@id": ARTIST_ID } }}
       />
       <div className="pt-28 pb-24">
         <div className="container mx-auto px-6">
