@@ -35,7 +35,7 @@ export const releases: Release[] = [
     youtubeId: "E0sWm7bJUEs",
     videoTitle: "נחמן כהן – אשר בחר בנו | LIVE",
     videoTitleEn: "Nachman Cohen – Asher Bachar Banu | LIVE",
-    isNew: true,
+    isNew: false,
     description: "\"אשר בחר בנו\" בביצוע ובלחן נחמן כהן. ביצוע LIVE מתוך אירוע.",
     metaTitle: "נחמן כהן – אשר בחר בנו | Nachman Cohen – Asher Bachar Banu",
     metaDescription: "\"אשר בחר בנו\" בביצוע ובלחן נחמן כהן. ביצוע LIVE מתוך אירוע. Nachman Cohen – Asher Bachar Banu.",
