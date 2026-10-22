@@ -54,6 +54,15 @@ describe("indexability", () => {
     expect(getPageSEO("/", "nachman-cohen-official.lovable.app").robots).toBe("noindex, nofollow");
     expect(getPageSEO("/missing", "nachmancohen.com", true).robots).toBe("noindex, nofollow");
   });
+  it("keeps the about-page photo separate from the preferred official artist portrait", () => {
+    const aboutPage = readFileSync("src/pages/AboutPage.tsx", "utf8");
+    expect(aboutPage).toContain('import aboutImg from "@/assets/about-portrait.jpg"');
+    expect(aboutPage).toContain("src={aboutImg}");
+    expect(aboutPage).toContain("image: ARTIST_IMAGE");
+    expect(aboutPage).not.toContain("primaryImageOfPage");
+    expect(aboutPage).not.toContain('image="/nachman-artist-profile.png.png"');
+  });
+
   it("lists every public release and excludes private flows from the existing sitemap", () => {
     const xml = readFileSync("public/sitemap.xml", "utf8");
     const urls = Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g), (match) => match[1]);
