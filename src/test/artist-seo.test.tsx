@@ -23,13 +23,17 @@ describe("artist identity", () => {
     const site = schemas.find((item) => item["@type"] === "WebSite");
     expect(site.name).toBe("נחמן כהן • Nachman Cohen");
     expect(site.about).toEqual(artistReference);
+    expect(artist.alternateName).toEqual(["Nachman Cohen", "נחמן כהן - Nachman Cohen"]);
     expect(artist.sameAs).toEqual([
-      "https://www.instagram.com/nachmencohen",
-      "https://youtube.com/@nachman_cohen",
-      "https://www.tiktok.com/@nachman_cohen_music",
+      "https://www.youtube.com/@nachman_cohen",
+      "https://music.youtube.com/@nachman_cohen",
+      "https://music.apple.com/us/artist/6817063247",
       "https://open.spotify.com/artist/3FW9FTp7VhD1x4B9TMN2iF",
-      "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943",
+      "https://musicbrainz.org/artist/b15ff3e7-467f-49cb-892b-ce2ca4ece6b5",
+      "https://www.instagram.com/nachmencohen",
+      "https://www.tiktok.com/@nachman_cohen_music",
     ]);
+    expect(artist.sameAs.some((u: string) => u.includes("1895101943"))).toBe(false);
   });
   it("uses real public artist images", () => {
     const artist = schemas.find((item) => item["@type"] === "Person");

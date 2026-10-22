@@ -55,7 +55,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "Apple Music",
-    url: "https://music.apple.com/gb/artist/%D7%A0%D7%97%D7%9E%D7%9F-%D7%9B%D7%94%D7%9F-nachmancohen/1895101943",
+    url: "https://music.apple.com/us/artist/6817063247",
     Icon: ({ size = 18 }) => <AppleMusicIcon size={size} />,
     hoverColorClass: "hover:text-primary",
   },
