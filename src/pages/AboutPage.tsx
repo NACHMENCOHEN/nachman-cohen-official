@@ -31,7 +31,6 @@ const AboutPage = () => {
         title="אודות נחמן כהן | About Nachman Cohen – זמר חסידי"
         description="נחמן כהן (Nachman Cohen) הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. About Nachman Cohen, Hasidic singer and composer – the full story."
         path="/about"
-        image="/nachman-artist-profile.png.png"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": ["AboutPage", "ProfilePage"],
@@ -40,13 +39,6 @@ const AboutPage = () => {
           name: "אודות נחמן כהן | About Nachman Cohen",
           inLanguage: "he",
           isPartOf: { "@id": `${SITE_URL}/#website` },
-          primaryImageOfPage: {
-            "@type": "ImageObject",
-            "@id": `${SITE_URL}/about#primaryimage`,
-            url: ARTIST_IMAGE,
-            contentUrl: ARTIST_IMAGE,
-            caption: "נחמן כהן (Nachman Cohen) – זמר ומלחין חסידי",
-          },
           mainEntity: {
             "@id": ARTIST_ID,
             "@type": "Person",
@@ -70,7 +62,7 @@ const AboutPage = () => {
               <div className="aspect-square overflow-hidden rounded-2xl gold-border-glow">
                 <motion.img
                   src={aboutImg}
-                  alt="נחמן כהן (Nachman Cohen) – זמר ומלחין חסידי"
+                  alt="נחמן כהן (Nachman Cohen) – זמר חסידי"
                   className="w-full h-full object-cover object-[center_15%] shadow-lg"
                   style={{ scale: imgScale }}
                 />
