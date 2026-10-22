@@ -21,6 +21,25 @@ const cardVariants = {
 };
 
 const TrackCard = ({ track, index }: { track: Track; index: number }) => {
+  if (!track.audioSrc && track.youtubeId) {
+    return (
+      <motion.div custom={index} variants={cardVariants} className="rounded-2xl bg-card border border-primary/30 overflow-hidden">
+        <Link to={`/music/${track.slug}`} className="block">
+          <div className="relative aspect-square">
+            <img src={track.cover} alt={`נחמן כהן – ${track.title}`} className="w-full h-full object-cover" />
+            <span className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">חדש / NEW</span>
+            <span className="absolute inset-0 flex items-center justify-center"><Play className="w-12 h-12 text-primary drop-shadow-lg" /></span>
+          </div>
+          <div className="p-4 text-center">
+            <h3 className="font-medium">{track.title}</h3>
+            <p className="text-xs text-muted-foreground">Nachman Cohen – {track.titleEn}</p>
+            <p className="text-sm mt-3 text-primary">האזינו וצפו בקליפ</p>
+          </div>
+        </Link>
+      </motion.div>
+    );
+  }
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
