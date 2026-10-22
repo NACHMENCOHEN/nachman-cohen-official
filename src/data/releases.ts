@@ -28,6 +28,23 @@ export const SITE_URL = "https://nachmancohen.com";
 
 export const releases: Release[] = [
   {
+    slug: "lachtige-shabbos",
+    title: "לעכטיגע שבת",
+    titleEn: "Lachtige Shabbos",
+    // YouTube playback on-site until private MP3 upload is completed.
+    audioSrc: "",
+    downloadable: false,
+    cover: "https://i.ytimg.com/vi/8okNDLOM3mo/hqdefault.jpg",
+    youtubeId: "8okNDLOM3mo",
+    videoTitle: "נחמן כהן – לעכטיגע שבת | הקליפ הרשמי",
+    videoTitleEn: "Nachman Cohen – Lachtige Shabbos | Official Music Video",
+    releaseDate: "2026-10-22",
+    isNew: true,
+    description: "לעכטיגע שבת – שיר חדש בביצוע ובלחן של נחמן כהן. האזינו וצפו בקליפ הרשמי.",
+    metaTitle: "לעכטיגע שבת – נחמן כהן | Lachtige Shabbos – Nachman Cohen",
+    metaDescription: "לעכטיגע שבת, השיר החדש של נחמן כהן. לצפייה ולהאזנה בקליפ הרשמי באתר האמן.",
+  },
+  {
     slug: "asher-bachar-banu",
     title: "אשר בחר בנו",
     titleEn: "Asher Bachar Banu",
