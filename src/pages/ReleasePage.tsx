@@ -136,7 +136,7 @@ const ReleasePage = () => {
             </div>
           </motion.div>
 
-          <audio controls controlsList={release.downloadable === false ? "nodownload" : undefined} preload="metadata" src={release.audioSrc} className="w-full mb-14" aria-label={`האזנה: ${release.title}`} />
+          {release.audioSrc && <audio controls controlsList={release.downloadable === false ? "nodownload" : undefined} preload="metadata" src={release.audioSrc} className="w-full mb-14" aria-label={`האזנה: ${release.title}`} />}
 
           {release.youtubeId && (
             <section className="mb-14">
