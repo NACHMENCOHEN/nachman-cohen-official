@@ -117,7 +117,7 @@ const Index = () => {
 
       {/* ═══════════════ FEATURED RELEASE ═══════════════ */}
       {newestTrack && (
-        <section className="py-20 md:py-28 overflow-hidden">
+        <section className="py-20 md:py-28">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
               <motion.div {...reveal} className="relative flex justify-center md:justify-start">
