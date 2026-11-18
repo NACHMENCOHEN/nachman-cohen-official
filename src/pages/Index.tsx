@@ -121,16 +121,28 @@ const Index = () => {
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
               <motion.div {...reveal} className="relative flex justify-center md:justify-start">
-                <div className="relative w-64 h-64 md:w-80 md:h-80">
-                  <div className="vinyl spin-slow absolute top-1/2 -translate-y-1/2 -left-20 md:-left-28 rounded-full" style={{ width: "92%", height: "92%" }} />
-                  <Link to={`/music/${newestTrack.slug}`} className="relative block w-full h-full">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 group">
+                  {/* glow taken from the cover's own colours */}
+                  <img src={newestTrack.cover} alt="" aria-hidden
+                    className="absolute inset-0 w-full h-full object-cover blur-[70px] saturate-[1.8] brightness-125 animate-[breathe_6s_ease-in-out_infinite]" />
+                  {/* offset gold frame */}
+                  <div className="absolute inset-0 border border-primary/60 translate-x-4 translate-y-4 md:translate-x-5 md:translate-y-5 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2" aria-hidden />
+                  <Link to={`/music/${newestTrack.slug}`} className="relative block w-full h-full overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,.9)]">
                     <img
                       src={newestTrack.cover}
                       alt={`נחמן כהן – ${newestTrack.title} – עטיפת השיר`}
-                      className="w-full h-full object-cover rounded-sm border-4 border-foreground/90 shadow-2xl"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
+                    {/* light sweep on hover */}
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent" aria-hidden />
                   </Link>
+                  {/* equalizer bars */}
+                  <div className="absolute -bottom-12 left-0 right-0 flex items-end justify-center gap-[3px] h-6" aria-hidden>
+                    {Array.from({ length: 28 }).map((_, i) => (
+                      <span key={i} className="eq-bar w-[3px] rounded-full bg-primary/70" style={{ animationDelay: `${(i * 137) % 900}ms` }} />
+                    ))}
+                  </div>
                 </div>
               </motion.div>
 
