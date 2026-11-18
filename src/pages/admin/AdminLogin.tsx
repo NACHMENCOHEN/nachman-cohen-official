@@ -18,7 +18,7 @@ const AdminLogin = () => {
   useEffect(() => {
     if (!loading && session && isAdmin && !redirectedRef.current) {
       redirectedRef.current = true;
-      navigate("/admin/broadcast", { replace: true });
+      navigate("/admin/music", { replace: true });
     }
   }, [session, isAdmin, loading, navigate]);
 

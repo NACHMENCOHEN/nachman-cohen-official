@@ -9,7 +9,6 @@ import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import PromoVideoModal from "@/components/PromoVideoModal";
 import { socialLinks } from "@/components/social-icons";
-import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import LiveUpdates from "@/components/LiveUpdates";
 import { usePublishedMusic } from "@/hooks/usePublishedMusic";
 
@@ -376,7 +375,6 @@ const Index = () => {
         </div>
       </section>
 
-      <NewsletterSubscribe />
     </PageTransition>
   );
 };

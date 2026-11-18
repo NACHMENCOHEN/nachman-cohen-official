@@ -1,10 +1,4 @@
 project_id = "ikmznyumbojibbwmqpir"
 
-[functions.send-contact-email]
-verify_jwt = false
 
-[functions.subscribe-newsletter]
-verify_jwt = false
 
-[functions.unsubscribe-newsletter]
-verify_jwt = false

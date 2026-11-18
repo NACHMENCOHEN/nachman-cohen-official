@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Play, Pause, RotateCcw, RotateCw, Download } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
-import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import { Link } from "react-router-dom";
 import { type Release } from "@/data/releases";
 import { usePublishedMusic } from "@/hooks/usePublishedMusic";
@@ -227,7 +226,6 @@ const MusicPage = () => {
           </motion.div>
         </div>
       </div>
-      <NewsletterSubscribe />
     </PageTransition>
   );
 };
