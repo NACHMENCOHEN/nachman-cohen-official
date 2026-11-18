@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Music, Play, Phone, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import heroImg from "@/assets/nachman-hero-clean.webp";
 import aboutImg from "@/assets/about-portrait.jpg";
-import HomeMusicPlayer from "@/components/HomeMusicPlayer";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import PromoVideoModal from "@/components/PromoVideoModal";
@@ -19,15 +18,6 @@ const reveal = {
   viewport: { once: true, margin: "-80px" },
   transition: spring,
 };
-
-const defaultFeaturedTracks = [
-  { title: "אשר בחר בנו", titleEn: "Asher Bachar Banu", audioSrc: "/music/asher-bachar-banu.mp3" },
-  { title: "רפואה", titleEn: "Refua", audioSrc: "/music/refua.mp3" },
-  { title: "למעלה", titleEn: "Lemala", audioSrc: "/music/lemala.mp3" },
-  { title: "תפילין", titleEn: "Tefillin (Cover)", audioSrc: "/music/tefillin.mp3" },
-  { title: "למצוא חן", titleEn: "Limtzo Chen", audioSrc: "/music/limtzo-chen.mp3" },
-  { title: "מיין טייערע לעכטעלע", titleEn: "Mein Taiere Lechtele", audioSrc: "/music/mein-taiere-lechtele.mp3" },
-];
 
 const videos: { id: string; title: string; sub: string; thumb?: string }[] = [
   { id: "8okNDLOM3mo", title: "לעכטיגע שבת", sub: "הקליפ הרשמי", thumb: "/covers/lachtige-shabbos-wide.jpg" },
@@ -45,7 +35,6 @@ const SectionTitle = ({ title, en }: { title: string; en: string }) => (
 const Index = () => {
   const { tracks: publishedMusic } = usePublishedMusic();
   const newestTrack = publishedMusic.find((t) => t.slug === "lachtige-shabbos") ?? publishedMusic[0];
-  const featuredTracks = [...(newestTrack?.audioSrc ? [newestTrack] : []), ...defaultFeaturedTracks];
   const releasesWithCover = publishedMusic.filter((r) => r.cover);
 
   const heroRef = useRef<HTMLElement>(null);
@@ -214,10 +203,7 @@ const Index = () => {
             </div>
           </div>
 
-          <motion.div {...reveal} className="mt-16 max-w-3xl mx-auto">
-            <HomeMusicPlayer tracks={featuredTracks} />
-          </motion.div>
-          <div className="text-center mt-10">
+          <div className="text-center mt-12">
             <Link to="/music" className="ghost-btn">לכל השירים</Link>
           </div>
         </div>
