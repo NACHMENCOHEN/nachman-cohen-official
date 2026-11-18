@@ -55,33 +55,29 @@ const Index = () => {
       />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section ref={heroRef} className="relative h-[92vh] min-h-[620px] overflow-hidden">
-        {/* giant word behind the portrait */}
+      <section ref={heroRef} className="relative -mt-2 h-[92vh] min-h-[620px] overflow-hidden">
+        {/* cinematic clip background (Lachtige Shabbos montage) */}
         <motion.div
           style={{ y: wordY }}
-          initial={{ opacity: 0, scale: 1.08 }}
+          initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ ...spring, duration: 1.4 }}
-          className="absolute inset-x-0 top-[8%] z-0 flex justify-center pointer-events-none select-none"
-          dir="ltr"
+          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 z-0 hero-fade"
+          aria-hidden
         >
-          <div className="relative isolate overflow-hidden">
-            {/* Lachtige Shabbos clip montage playing inside the letters */}
-            <video
-              src="/video/hero-loop.mp4"
-              poster="/video/hero-poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-            />
-            <span className="relative block font-poster text-white bg-black mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
-            <span className="absolute inset-0 block font-poster text-black site-texture mix-blend-lighten text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
-            <span className="absolute inset-0 block font-poster hero-stroke text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
-          </div>
+          <video
+            src="/video/hero-loop.mp4"
+            poster="/video/hero-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[.42] saturate-[.8] contrast-[1.1]"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,.75)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 mix-blend-soft-light bg-[linear-gradient(120deg,transparent_30%,hsla(38,70%,60%,.35)_50%,transparent_70%)] animate-[sweep_9s_ease-in-out_infinite]" />
         </motion.div>
 
         {/* portrait */}
@@ -106,7 +102,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.6, duration: 1 }}
-            className="font-condensed gold-text text-7xl md:text-9xl mb-2"
+            className="font-condensed gold-text text-[22vw] md:text-[11rem] lg:text-[13rem] mb-1 drop-shadow-[0_6px_40px_rgba(0,0,0,.8)]"
           >
             נחמן כהן
           </motion.h1>
@@ -114,7 +110,7 @@ const Index = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ...spring, delay: 0.75 }}
-            className="font-body text-base md:text-lg text-foreground/70 mb-7"
+            className="font-body text-base md:text-xl text-foreground/80 mb-7 tracking-wide"
           >
             מוזיקה עם נשמה. קול שנוגע בלב.
           </motion.p>
