@@ -29,8 +29,8 @@ const defaultFeaturedTracks = [
   { title: "מיין טייערע לעכטעלע", titleEn: "Mein Taiere Lechtele", audioSrc: "/music/mein-taiere-lechtele.mp3" },
 ];
 
-const videos = [
-  { id: "8okNDLOM3mo", title: "לעכטיגע שבת", sub: "הקליפ הרשמי" },
+const videos: { id: string; title: string; sub: string; thumb?: string }[] = [
+  { id: "8okNDLOM3mo", title: "לעכטיגע שבת", sub: "הקליפ הרשמי", thumb: "/covers/lachtige-shabbos-wide.jpg" },
   { id: "E0sWm7bJUEs", title: "אשר בחר בנו", sub: "LIVE" },
   { id: "IP8vxbsuQu8", title: "מיין טרערעלע", sub: "קליפ" },
 ];
@@ -77,14 +77,17 @@ const Index = () => {
           dir="ltr"
         >
           <div className="relative isolate overflow-hidden">
-            {/* Lachtige Shabbos clip playing inside the letters */}
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/8okNDLOM3mo?autoplay=1&mute=1&loop=1&playlist=8okNDLOM3mo&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&fs=0"
-              title="לעכטיגע שבת"
-              allow="autoplay; encrypted-media"
-              tabIndex={-1}
+            {/* Lachtige Shabbos clip montage playing inside the letters */}
+            <video
+              src="/video/hero-loop.mp4"
+              poster="/video/hero-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-video pointer-events-none border-0"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
             <span className="relative block font-poster text-white bg-black mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
             <span className="absolute inset-0 block font-poster text-black bg-[#121110] mix-blend-lighten text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
@@ -230,7 +233,7 @@ const Index = () => {
               <motion.div key={v.id} {...reveal} transition={{ ...spring, delay: i * 0.08 }}>
                 <Link to="/videos" className="group block">
                   <div className="relative overflow-hidden rounded-sm border border-border aspect-video">
-                    <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={`${v.title} – נחמן כהן`} loading="lazy"
+                    <img src={v.thumb ?? `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={`${v.title} – נחמן כהן`} loading="lazy"
                       className="w-full h-full object-cover grayscale-[.35] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" />
                     <span className="absolute inset-0 flex items-center justify-center">
                       <span className="w-14 h-14 rounded-full gold-gradient flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">

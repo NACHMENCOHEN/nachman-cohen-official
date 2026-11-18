@@ -31,10 +31,9 @@ export const releases: Release[] = [
     slug: "lachtige-shabbos",
     title: "לעכטיגע שבת",
     titleEn: "Lachtige Shabbos",
-    // YouTube playback on-site until private MP3 upload is completed.
-    audioSrc: "",
+    audioSrc: "/music/lachtige-shabbos.mp3",
     downloadable: false,
-    cover: "https://i.ytimg.com/vi/8okNDLOM3mo/hqdefault.jpg",
+    cover: "/covers/lachtige-shabbos.jpg",
     youtubeId: "8okNDLOM3mo",
     videoTitle: "נחמן כהן – לעכטיגע שבת | הקליפ הרשמי",
     videoTitleEn: "Nachman Cohen – Lachtige Shabbos | Official Music Video",

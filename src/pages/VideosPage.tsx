@@ -12,10 +12,11 @@ interface YouTubeVideo {
   title: string;
   titleEn?: string;
   thumbQuality?: string;
+  thumb?: string;
 }
 
 const videos: YouTubeVideo[] = [
-  { id: "8okNDLOM3mo", title: "נחמן כהן – לעכטיגע שבת | הקליפ הרשמי", titleEn: "Nachman Cohen – Lachtige Shabbos | Official Music Video", thumbQuality: "hqdefault" },
+  { id: "8okNDLOM3mo", title: "נחמן כהן – לעכטיגע שבת | הקליפ הרשמי", titleEn: "Nachman Cohen – Lachtige Shabbos | Official Music Video", thumbQuality: "hqdefault", thumb: "/covers/lachtige-shabbos-wide.jpg" },
   { id: "E0sWm7bJUEs", title: "נחמן כהן – אשר בחר בנו | LIVE", titleEn: "Nachman Cohen – Asher Bachar Banu | LIVE", thumbQuality: "hqdefault" },
   { id: "IP8vxbsuQu8", title: "מיין טרערעלע" },
   { id: "5HJVtOdDoW4", title: "למעלה", thumbQuality: "hqdefault" },
@@ -73,7 +74,7 @@ const VideosPage = () => {
               >
                 <div className="relative aspect-video overflow-hidden">
                   <img
-                    src={`https://img.youtube.com/vi/${video.id}/${video.thumbQuality || "maxresdefault"}.jpg`}
+                    src={video.thumb ?? `https://img.youtube.com/vi/${video.id}/${video.thumbQuality || "maxresdefault"}.jpg`}
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
