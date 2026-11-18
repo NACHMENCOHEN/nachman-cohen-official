@@ -125,8 +125,8 @@ const Index = () => {
                   {/* glow taken from the cover's own colours */}
                   <img src={newestTrack.cover} alt="" aria-hidden
                     className="absolute inset-0 w-full h-full object-cover blur-[70px] saturate-[1.8] brightness-125 animate-[breathe_6s_ease-in-out_infinite]" />
-                  {/* offset gold frame */}
-                  <div className="absolute inset-0 border border-primary/60 translate-x-4 translate-y-4 md:translate-x-5 md:translate-y-5 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2" aria-hidden />
+                  {/* gold frame around the cover */}
+                  <div className="absolute -inset-3 md:-inset-4 border border-primary/60 transition-colors duration-500 group-hover:border-primary" aria-hidden />
                   <Link to={`/music/${newestTrack.slug}`} className="relative block w-full h-full overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,.9)]">
                     <img
                       src={newestTrack.cover}
