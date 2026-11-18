@@ -40,7 +40,6 @@ const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const wordY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
   const scrollRail = (dir: 1 | -1) => railRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
@@ -56,29 +55,8 @@ const Index = () => {
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section ref={heroRef} className="relative -mt-2 h-[92vh] min-h-[620px] overflow-hidden">
-        {/* cinematic clip background (Lachtige Shabbos montage) */}
-        <motion.div
-          style={{ y: wordY }}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 z-0 hero-fade"
-          aria-hidden
-        >
-          <video
-            src="/video/hero-loop.mp4"
-            poster="/video/hero-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[.42] saturate-[.8] contrast-[1.1]"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,.75)_100%)]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
-          <div className="absolute inset-0 mix-blend-soft-light bg-[linear-gradient(120deg,transparent_30%,hsla(38,70%,60%,.35)_50%,transparent_70%)] animate-[sweep_9s_ease-in-out_infinite]" />
-        </motion.div>
+        {/* soft gold glow behind the portrait */}
+        <div className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 z-0 w-[70vw] max-w-[900px] aspect-square rounded-full bg-[radial-gradient(circle,hsla(38,55%,60%,.16),transparent_65%)] pointer-events-none" aria-hidden />
 
         {/* portrait */}
         <motion.div
