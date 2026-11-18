@@ -247,7 +247,7 @@ const Index = () => {
             <motion.div {...reveal} className="flex justify-center">
               <div className="w-64 md:w-80 p-2.5 arch border border-primary/50 shadow-[0_25px_60px_-20px_rgba(0,0,0,.9)]">
                 <img src={aboutImg} alt="נחמן כהן" loading="lazy"
-                  className="block arch w-full aspect-[3/4] object-cover object-top grayscale" />
+                  className="block arch w-full aspect-[3/4] object-cover object-top grayscale -scale-x-100" />
               </div>
             </motion.div>
             <motion.div {...reveal}>
