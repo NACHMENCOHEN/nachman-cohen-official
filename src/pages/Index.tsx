@@ -66,7 +66,7 @@ const Index = () => {
       />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section ref={heroRef} className="relative h-[92vh] min-h-[620px] overflow-hidden bg-[#121110]">
+      <section ref={heroRef} className="relative h-[92vh] min-h-[620px] overflow-hidden">
         {/* giant word behind the portrait */}
         <motion.div
           style={{ y: wordY }}
@@ -90,7 +90,7 @@ const Index = () => {
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
             <span className="relative block font-poster text-white bg-black mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
-            <span className="absolute inset-0 block font-poster text-black bg-[#121110] mix-blend-lighten text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
+            <span className="absolute inset-0 block font-poster text-black site-texture mix-blend-lighten text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
             <span className="absolute inset-0 block font-poster hero-stroke text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
           </div>
         </motion.div>
@@ -110,7 +110,6 @@ const Index = () => {
           />
         </motion.div>
 
-        <div className="absolute inset-x-0 bottom-0 h-1/2 z-[3] bg-gradient-to-t from-background via-background/70 to-transparent" />
 
         {/* name + actions */}
         <div className="absolute inset-x-0 bottom-0 z-10 pb-10 md:pb-14 px-6 text-center">
