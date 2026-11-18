@@ -9,7 +9,7 @@ SELECT cron.schedule(
   '17 * * * *',
   $$
   SELECT net.http_post(
-    url := 'https://xyroqrqhvicdzafmogph.supabase.co/functions/v1/cleanup-stories',
+    url := 'https://ikmznyumbojibbwmqpir.supabase.co/functions/v1/cleanup-stories',
     headers := '{"Content-Type": "application/json"}'::jsonb,
     body := '{}'::jsonb
   );

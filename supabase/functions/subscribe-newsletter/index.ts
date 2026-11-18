@@ -49,17 +49,16 @@ function isEmail(s: string) {
 }
 
 async function sendBrevo(payload: unknown) {
-  const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
   const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
-  if (!LOVABLE_API_KEY || !BREVO_API_KEY) {
+  if (!BREVO_API_KEY) {
     throw new Error("Missing email credentials");
   }
-  const res = await fetch("https://connector-gateway.lovable.dev/brevo/smtp/email", {
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      "X-Connection-Api-Key": BREVO_API_KEY,
+      accept: "application/json",
+      "api-key": BREVO_API_KEY,
     },
     body: JSON.stringify(payload),
   });
