@@ -117,7 +117,7 @@ const AboutPage = () => {
         <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-12">
           {[...words, ...words, ...words, ...words].map((w, i) => (
             <span key={i} className="flex items-center gap-12 font-condensed text-5xl md:text-6xl text-foreground/80">
-              {w}<span className="text-primary text-2xl">✦</span>
+              {w}<span className="block w-10 h-px bg-primary/60" />
             </span>
           ))}
         </div>
