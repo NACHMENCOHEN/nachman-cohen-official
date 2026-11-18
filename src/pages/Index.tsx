@@ -245,10 +245,9 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-center">
             <motion.div {...reveal} className="flex justify-center">
-              <div className="relative w-64 md:w-80">
-                <div className="absolute inset-0 arch border border-primary/50 translate-x-3 translate-y-3" />
+              <div className="w-64 md:w-80 p-2.5 arch border border-primary/50 shadow-[0_25px_60px_-20px_rgba(0,0,0,.9)]">
                 <img src={aboutImg} alt="נחמן כהן" loading="lazy"
-                  className="relative arch w-full aspect-[3/4] object-cover object-top grayscale" />
+                  className="block arch w-full aspect-[3/4] object-cover object-top grayscale" />
               </div>
             </motion.div>
             <motion.div {...reveal}>
