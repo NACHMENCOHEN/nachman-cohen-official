@@ -19,26 +19,27 @@ const cardVariants = {
   }),
 };
 
-const TrackCard = ({ track, index }: { track: Track; index: number }) => {
-  if (!track.audioSrc && track.youtubeId) {
-    return (
-      <motion.div custom={index} variants={cardVariants} className="rounded-2xl bg-card border border-primary/30 overflow-hidden">
-        <Link to={`/music/${track.slug}`} className="block">
-          <div className="relative aspect-square">
-            <img src={track.cover} alt={`נחמן כהן – ${track.title}`} className="w-full h-full object-cover" />
-            <span className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">חדש / NEW</span>
-            <span className="absolute inset-0 flex items-center justify-center"><Play className="w-12 h-12 text-primary drop-shadow-lg" /></span>
-          </div>
-          <div className="p-4 text-center">
-            <h3 className="font-medium">{track.title}</h3>
-            <p className="text-xs text-muted-foreground">Nachman Cohen – {track.titleEn}</p>
-            <p className="text-sm mt-3 text-primary">האזינו וצפו בקליפ</p>
-          </div>
-        </Link>
-      </motion.div>
-    );
-  }
+const VideoOnlyCard = ({ track, index }: { track: Track; index: number }) => (
+  <motion.div custom={index} variants={cardVariants} className="group">
+    <Link to={`/music/${track.slug}`} className="block">
+      <div className="relative">
+        <div className="relative z-10 aspect-square overflow-hidden rounded-sm ring-1 ring-foreground/15 shadow-[0_18px_40px_-12px_rgba(0,0,0,.8)]">
+          <img src={track.cover} alt={`נחמן כהן – ${track.title}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <span className="absolute top-3 right-3 font-poster tracking-[0.2em] text-xs px-2.5 py-1 bg-primary text-primary-foreground" dir="ltr">NEW</span>
+          <span className="absolute bottom-2 left-2 md:bottom-3 md:left-3 w-10 h-10 md:w-12 md:h-12 rounded-full gold-gradient flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+            <Play size={18} className="text-primary-foreground mr-[-2px]" fill="currentColor" />
+          </span>
+        </div>
+      </div>
+      <h3 className="font-condensed text-[1.7rem] md:text-4xl text-foreground mt-4 leading-none line-clamp-2 group-hover:text-primary transition-colors">{track.title}</h3>
+      <p className="font-body text-xs text-muted-foreground truncate" dir="ltr" style={{ textAlign: "right" }}>Nachman Cohen – {track.titleEn}</p>
+      <p className="font-body text-xs text-primary mt-2">האזינו וצפו בקליפ ←</p>
+    </Link>
+  </motion.div>
+);
 
+const AudioCard = ({ track, index }: { track: Track; index: number }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -47,15 +48,18 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
   const [dragging, setDragging] = useState(false);
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
-    if (playing) audioRef.current.pause();
-    else audioRef.current.play();
+    const a = audioRef.current;
+    if (!a) return;
+    if (playing) a.pause();
+    else {
+      document.querySelectorAll("audio").forEach((el) => { if (el !== a) el.pause(); });
+      a.play();
+    }
     setPlaying(!playing);
   };
 
   const syncDuration = () => {
-    if (!audioRef.current) return;
-    const dur = audioRef.current.duration;
+    const dur = audioRef.current?.duration;
     if (dur && isFinite(dur)) setDuration(dur);
   };
 
@@ -70,125 +74,91 @@ const TrackCard = ({ track, index }: { track: Track; index: number }) => {
     const dur = audioRef.current.duration;
     if (!dur || !isFinite(dur)) return;
     const rect = barRef.current.getBoundingClientRect();
-    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const ratio = Math.max(0, Math.min(1, (rect.right - clientX) / rect.width));
     const newTime = ratio * dur;
     audioRef.current.currentTime = newTime;
     setProgress(newTime);
     setDuration(dur);
   };
 
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.currentTarget.setPointerCapture(e.pointerId);
-    setDragging(true);
-    seekToPosition(e.clientX);
-  };
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragging) return;
-    seekToPosition(e.clientX);
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragging) return;
-    setDragging(false);
-    seekToPosition(e.clientX);
-  };
-
   const skip = (seconds: number) => {
-    if (!audioRef.current) return;
-    const dur = audioRef.current.duration;
-    if (!dur || !isFinite(dur)) return;
-    const newTime = Math.max(0, Math.min(dur, audioRef.current.currentTime + seconds));
-    audioRef.current.currentTime = newTime;
-    setProgress(newTime);
+    const a = audioRef.current;
+    if (!a || !a.duration || !isFinite(a.duration)) return;
+    a.currentTime = Math.max(0, Math.min(a.duration, a.currentTime + seconds));
+    setProgress(a.currentTime);
   };
 
-  const formatTime = (t: number) => {
-    const m = Math.floor(t / 60);
-    const s = Math.floor(t % 60);
-    return `${m}:${s.toString().padStart(2, "0")}`;
-  };
+  const formatTime = (t: number) => `${Math.floor(t / 60)}:${Math.floor(t % 60).toString().padStart(2, "0")}`;
+  const pct = duration ? (progress / duration) * 100 : 0;
 
   return (
-    <motion.div
-      custom={index}
-      variants={cardVariants}
-      whileHover={{ y: -4 }}
-      className="rounded-2xl bg-card border border-border overflow-hidden hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all"
-    >
-      <div className="relative aspect-square overflow-hidden cursor-pointer group" onClick={togglePlay}>
-        {track.cover ? (
-          <motion.img src={track.cover} alt={`נחמן כהן – ${track.title} – עטיפת השיר`} className="w-full h-full object-cover" whileHover={{ scale: 1.04 }} transition={{ duration: 0.4 }} />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-muted to-card flex items-center justify-center">
-            <span className="font-display text-5xl text-muted-foreground/20 select-none">♪</span>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-        {track.isNew && <span className="absolute top-2 right-2 z-10 font-body text-[10px] font-semibold tracking-widest px-2 py-0.5 rounded-full bg-primary text-primary-foreground">חדש / NEW</span>}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-opacity ${
-              playing ? "bg-primary text-primary-foreground opacity-100" : "bg-primary/90 text-primary-foreground opacity-0 group-hover:opacity-100"
-            }`}
+    <motion.div custom={index} variants={cardVariants} className="group">
+      {/* sleeve + record */}
+      <div className="relative cursor-pointer" onClick={togglePlay}>
+        <div
+          className={`vinyl absolute top-[6%] h-[88%] aspect-square rounded-full transition-all duration-700 ease-out ${
+            playing ? "-left-[22%] spin-slow" : "left-[6%] group-hover:-left-[16%]"
+          }`}
+          aria-hidden
+        />
+        <div className="relative z-10 aspect-square overflow-hidden rounded-sm ring-1 ring-foreground/15 shadow-[0_18px_40px_-12px_rgba(0,0,0,.8)] bg-card">
+          {track.cover ? (
+            <img src={track.cover} alt={`נחמן כהן – ${track.title} – עטיפת השיר`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(circle_at_30%_20%,hsl(38_30%_18%),hsl(30_5%_8%))]">
+              <span className="font-condensed text-5xl md:text-6xl gold-text px-4 text-center">{track.title}</span>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {track.isNew && <span className="absolute top-3 right-3 font-poster tracking-[0.2em] text-xs px-2.5 py-1 bg-primary text-primary-foreground" dir="ltr">NEW</span>}
+          <motion.span
+            whileTap={{ scale: 0.92 }}
+            className="absolute bottom-2 left-2 md:bottom-3 md:left-3 w-10 h-10 md:w-12 md:h-12 rounded-full gold-gradient flex items-center justify-center shadow-lg transition-transform group-hover:scale-110"
           >
-            {playing ? <Pause size={18} /> : <Play size={18} className="ms-0.5" />}
-          </motion.div>
+            {playing ? <Pause size={18} className="text-primary-foreground" fill="currentColor" /> : <Play size={18} className="text-primary-foreground mr-[-2px]" fill="currentColor" />}
+          </motion.span>
         </div>
       </div>
 
-      <div className="px-4 py-3.5">
-        <h3 className="font-body text-sm font-medium text-foreground truncate"><Link to={`/music/${track.slug}`} className="hover:text-primary transition-colors">{track.title}</Link></h3>
-        <p className="font-body text-xs text-muted-foreground mt-0.5 truncate">נחמן כהן</p>
+      {/* info */}
+      <h3 className="font-condensed text-[1.7rem] md:text-4xl text-foreground mt-4 leading-none line-clamp-2">
+        <Link to={`/music/${track.slug}`} className="hover:text-primary transition-colors">{track.title}</Link>
+      </h3>
+      <p className="font-body text-xs text-muted-foreground truncate" dir="ltr" style={{ textAlign: "right" }}>Nachman Cohen – {track.titleEn}</p>
 
-        <div className="mt-3">
-          <div
-            ref={barRef}
-            className="w-full h-5 cursor-pointer group/bar flex items-center touch-none select-none"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-          >
-            <div className="w-full h-1.5 bg-muted rounded-full relative">
-              <div className="h-full bg-primary rounded-full pointer-events-none" style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }} />
-              <div
-                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-md pointer-events-none opacity-0 group-hover/bar:opacity-100 transition-opacity"
-                style={{ left: duration ? `calc(${(progress / duration) * 100}% - 7px)` : "0" }}
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-between mt-1.5">
-            <span className="font-body text-[10px] text-muted-foreground">{formatTime(progress)}</span>
-            <div className="flex items-center gap-2">
-              <button onClick={() => skip(-10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="אחורה 10 שניות">
-                <RotateCcw size={12} />
-              </button>
-              <button onClick={() => skip(10)} className="text-muted-foreground hover:text-foreground transition-colors" aria-label="קדימה 10 שניות">
-                <RotateCw size={12} />
-              </button>
-            </div>
-            <span className="font-body text-[10px] text-muted-foreground">{duration ? formatTime(duration) : "0:00"}</span>
-          </div>
+      <div
+        ref={barRef}
+        className="mt-3 h-4 flex items-center cursor-pointer touch-none select-none group/bar"
+        onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); setDragging(true); seekToPosition(e.clientX); }}
+        onPointerMove={(e) => dragging && seekToPosition(e.clientX)}
+        onPointerUp={(e) => { setDragging(false); seekToPosition(e.clientX); }}
+      >
+        <div className="w-full h-[3px] bg-foreground/10 relative">
+          <div className="absolute inset-y-0 right-0 bg-primary" style={{ width: `${pct}%` }} />
+          <div className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary opacity-0 group-hover/bar:opacity-100 transition-opacity" style={{ right: `calc(${pct}% - 6px)` }} />
         </div>
       </div>
-
-      {track.downloadable !== false && (
-        <div className="px-4 pb-3">
-          <a href={track.audioSrc} download className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
-            <Download size={12} />
-            <span>הורדה</span>
-          </a>
+      <div className="flex items-center justify-between mt-1 font-body text-[11px] text-muted-foreground">
+        <span>{formatTime(progress)}</span>
+        <div className="flex items-center gap-3">
+          <button onClick={() => skip(10)} className="hover:text-foreground transition-colors" aria-label="קדימה 10 שניות"><RotateCw size={13} /></button>
+          <button onClick={() => skip(-10)} className="hover:text-foreground transition-colors" aria-label="אחורה 10 שניות"><RotateCcw size={13} /></button>
+          {track.downloadable !== false && (
+            <a href={track.audioSrc} download className="hover:text-primary transition-colors" aria-label="הורדה"><Download size={13} /></a>
+          )}
         </div>
-      )}
+        <span>{duration ? formatTime(duration) : "0:00"}</span>
+      </div>
 
-      <audio ref={audioRef} src={track.audioSrc} controlsList={track.downloadable === false ? "nodownload" : undefined} preload="metadata" onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration} onEnded={() => setPlaying(false)} />
+      <audio ref={audioRef} src={track.audioSrc} controlsList={track.downloadable === false ? "nodownload" : undefined} preload="metadata"
+        onTimeUpdate={onTimeUpdate} onLoadedMetadata={syncDuration} onDurationChange={syncDuration}
+        onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} onEnded={() => setPlaying(false)} />
     </motion.div>
   );
 };
+
+const TrackCard = ({ track, index }: { track: Track; index: number }) =>
+  !track.audioSrc && track.youtubeId ? <VideoOnlyCard track={track} index={index} /> : <AudioCard track={track} index={index} />;
 
 const MusicPage = () => {
   const { tracks } = usePublishedMusic();
@@ -205,12 +175,14 @@ const MusicPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={spring}
-            className="text-center mb-16"
+            className="max-w-6xl mx-auto mb-14 md:mb-20"
           >
-            <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">מוזיקה</h1>
-            <p className="text-muted-foreground font-body max-w-lg mx-auto mb-2">האזינו לשירים של נחמן כהן</p>
-            <p className="text-muted-foreground/70 font-body text-sm max-w-xl mx-auto">
-              אוסף השירים של נחמן כהן עם מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה, רגש וחיבור אמיתי.
+            <div className="flex items-end justify-between gap-6 border-b border-primary/20 pb-6">
+              <h1 className="font-condensed text-7xl md:text-9xl text-foreground">מוזיקה</h1>
+              <span className="font-poster text-2xl md:text-4xl tracking-[0.2em] text-primary/50 pb-3" dir="ltr">MUSIC</span>
+            </div>
+            <p className="text-muted-foreground font-body max-w-xl mt-6">
+              אוסף השירים של נחמן כהן – מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה. לחצו על עטיפה כדי להאזין.
             </p>
           </motion.div>
 
@@ -218,7 +190,7 @@ const MusicPage = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-5xl mx-auto"
+            className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14 md:gap-x-14 md:gap-y-16 max-w-6xl mx-auto"
           >
             {tracks.map((track, i) => (
               <TrackCard key={track.slug} track={track} index={i} />
