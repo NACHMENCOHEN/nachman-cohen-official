@@ -66,7 +66,7 @@ const Index = () => {
       />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section ref={heroRef} className="relative h-[92vh] min-h-[620px] overflow-hidden">
+      <section ref={heroRef} className="relative h-[92vh] min-h-[620px] overflow-hidden bg-[#121110]">
         {/* giant word behind the portrait */}
         <motion.div
           style={{ y: wordY }}
@@ -76,7 +76,19 @@ const Index = () => {
           className="absolute inset-x-0 top-[8%] z-0 flex justify-center pointer-events-none select-none"
           dir="ltr"
         >
-          <span className="font-poster hero-word text-[34vw] md:text-[26vw] whitespace-nowrap">NACHMAN</span>
+          <div className="relative isolate overflow-hidden">
+            {/* Lachtige Shabbos clip playing inside the letters */}
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/8okNDLOM3mo?autoplay=1&mute=1&loop=1&playlist=8okNDLOM3mo&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&fs=0"
+              title="לעכטיגע שבת"
+              allow="autoplay; encrypted-media"
+              tabIndex={-1}
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-video pointer-events-none border-0"
+            />
+            <span className="relative block font-poster text-white bg-[#121110] mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
+            <span className="absolute inset-0 block font-poster hero-stroke text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
+          </div>
         </motion.div>
 
         {/* portrait */}

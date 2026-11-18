@@ -151,6 +151,7 @@
     background: linear-gradient(180deg, hsla(38,55%,65%,.18), hsla(38,55%,65%,0) 85%);
     -webkit-background-clip: text; background-clip: text;
   }
+  .hero-stroke { color: transparent; -webkit-text-stroke: 1.5px hsla(38, 55%, 65%, .55); }
   .arch { border-radius: 999px 999px 18px 18px; }
   .vinyl {
     background:
