@@ -86,7 +86,8 @@ const Index = () => {
               aria-hidden
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-video pointer-events-none border-0"
             />
-            <span className="relative block font-poster text-white bg-[#121110] mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
+            <span className="relative block font-poster text-white bg-black mix-blend-multiply text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]">NACHMAN</span>
+            <span className="absolute inset-0 block font-poster text-black bg-[#121110] mix-blend-lighten text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
             <span className="absolute inset-0 block font-poster hero-stroke text-[34vw] md:text-[26vw] whitespace-nowrap px-[1vw]" aria-hidden>NACHMAN</span>
           </div>
         </motion.div>
