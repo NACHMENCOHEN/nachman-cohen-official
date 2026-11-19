@@ -57,9 +57,7 @@ const ContactPage = () => {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <motion.a
                     href="tel:+447435952083"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 gold-gradient text-primary-foreground font-body font-semibold text-sm px-8 py-4 rounded-full transition-shadow hover:shadow-lg hover:shadow-primary/20 w-full sm:w-auto justify-center"
+                    className="gold-btn w-full sm:w-auto"
                   >
                     <Phone size={18} />
                     התקשרו עכשיו
@@ -68,9 +66,7 @@ const ContactPage = () => {
                     href="https://wa.me/447435952083"
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all hover:border-primary/60 w-full sm:w-auto justify-center"
+                    className="ghost-btn w-full sm:w-auto"
                   >
                     <MessageCircle size={18} />
                     שלחו וואטסאפ

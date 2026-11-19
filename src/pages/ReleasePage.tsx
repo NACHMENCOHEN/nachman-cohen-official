@@ -125,13 +125,13 @@ const ReleasePage = () => {
               <div className="flex flex-wrap gap-3 mt-6">
                 {listen.map((l) => (
                   <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
-                    className="font-body text-sm px-5 py-2 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all">{l.label}</a>
+                    className="chip-btn">{l.label}</a>
                 ))}
-                <button onClick={share} className="font-body text-sm px-5 py-2 rounded-full border border-border text-muted-foreground hover:text-primary inline-flex items-center gap-2">
+                <button onClick={share} className="chip-btn">
                   {copied ? <Check size={14} /> : <Share2 size={14} />}{copied ? "הקישור הועתק" : "שיתוף"}
                 </button>
                 <a href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${url}`)}`} target="_blank" rel="noopener noreferrer"
-                  className="font-body text-sm px-5 py-2 rounded-full border border-border text-muted-foreground hover:text-primary">WhatsApp</a>
+                  className="chip-btn">WhatsApp</a>
               </div>
             </div>
           </motion.div>
@@ -179,10 +179,10 @@ const ReleasePage = () => {
                 </li>
               ))}
             </ul>
-            <div className="flex gap-6 mt-8 font-body text-sm">
-              <Link to="/music" className="text-primary inline-flex items-center gap-1"><ArrowRight size={14} />לכל השירים</Link>
-              <Link to="/videos" className="text-muted-foreground hover:text-primary">קליפים והופעות</Link>
-              <Link to="/about" className="text-muted-foreground hover:text-primary">אודות נחמן כהן</Link>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link to="/music" className="gold-btn"><ArrowRight size={16} />לכל השירים</Link>
+              <Link to="/videos" className="ghost-btn">קליפים והופעות</Link>
+              <Link to="/about" className="ghost-btn">אודות נחמן כהן</Link>
             </div>
           </section>
         </div>

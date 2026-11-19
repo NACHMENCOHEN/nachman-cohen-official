@@ -172,13 +172,42 @@
   }
   .spin-slow { animation: spin 9s linear infinite; }
   .gold-btn {
-    @apply inline-flex items-center gap-2 font-body font-semibold text-sm px-6 py-3 rounded-md text-primary-foreground transition-all;
-    background: linear-gradient(135deg, #e2c189, #b8965a);
+    @apply relative inline-flex items-center justify-center gap-2.5 h-12 px-7 rounded-full font-body font-semibold text-[0.95rem] tracking-wide overflow-hidden isolate;
+    color: #1a1408;
+    background: linear-gradient(180deg, #f1d79f 0%, #d4ac66 55%, #b88d47 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(0,0,0,.18), 0 8px 24px -10px hsla(38,70%,55%,.55);
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
   }
-  .gold-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .gold-btn::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%);
+    transform: translateX(-120%); transition: transform .7s ease;
+  }
+  .gold-btn:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(0,0,0,.18), 0 14px 34px -10px hsla(38,80%,55%,.7); }
+  .gold-btn:hover::after { transform: translateX(120%); }
+  .gold-btn:active { transform: translateY(0) scale(.98); }
+  .gold-btn svg { transition: transform .25s ease; }
+  .gold-btn:hover svg { transform: translateX(-3px); }
+
   .ghost-btn {
-    @apply inline-flex items-center gap-2 font-body font-medium text-sm px-6 py-3 rounded-md border border-primary/40 text-primary transition-all hover:bg-primary/10;
+    @apply relative inline-flex items-center justify-center gap-2.5 h-12 px-7 rounded-full font-body font-medium text-[0.95rem] tracking-wide text-foreground;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: transform .25s ease, border-color .25s ease, color .25s ease, background .25s ease;
   }
+  .ghost-btn:hover { transform: translateY(-2px); border-color: hsla(38,55%,65%,.7); color: hsl(38 55% 70%); background: hsla(38,55%,65%,.08); }
+  .ghost-btn:active { transform: translateY(0) scale(.98); }
+  .ghost-btn svg { transition: transform .25s ease; }
+  .ghost-btn:hover svg { transform: translateX(-3px); }
+
+  .chip-btn {
+    @apply inline-flex items-center gap-2 h-10 px-5 rounded-full font-body text-sm text-foreground/85;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12);
+    transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .chip-btn:hover { border-color: hsla(38,55%,65%,.6); color: hsl(38 55% 70%); background: hsla(38,55%,65%,.08); transform: translateY(-1px); }
+
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { scrollbar-width: none; }
 }

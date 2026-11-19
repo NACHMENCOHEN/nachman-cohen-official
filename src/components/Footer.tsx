@@ -15,7 +15,7 @@ const footerLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border py-16 bg-[#0a0a0a]">
+    <footer className="border-t border-primary/15 py-16">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

@@ -184,8 +184,8 @@ const Index = () => {
               ))}
             </div>
             <div className="hidden md:flex gap-2 mt-6">
-              <button onClick={() => scrollRail(1)} aria-label="הבא" className="ghost-btn !px-3"><ChevronRight size={18} /></button>
-              <button onClick={() => scrollRail(-1)} aria-label="הקודם" className="ghost-btn !px-3"><ChevronLeft size={18} /></button>
+              <button onClick={() => scrollRail(1)} aria-label="הבא" className="ghost-btn !px-0 w-12"><ChevronRight size={18} /></button>
+              <button onClick={() => scrollRail(-1)} aria-label="הקודם" className="ghost-btn !px-0 w-12"><ChevronLeft size={18} /></button>
             </div>
           </div>
 
