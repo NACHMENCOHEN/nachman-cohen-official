@@ -43,7 +43,6 @@ const AboutPage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const wordX = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
 
   return (
     <PageTransition>
@@ -56,9 +55,6 @@ const AboutPage = () => {
 
       {/* ═══════════ HERO ═══════════ */}
       <section ref={heroRef} className="relative pt-28 md:pt-32 pb-20 overflow-hidden">
-        <motion.div style={{ x: wordX }} className="absolute top-20 right-0 opacity-40 pointer-events-none select-none" aria-hidden dir="ltr">
-          <span className="font-poster hero-word text-[30vw] md:text-[22vw] whitespace-nowrap">ABOUT</span>
-        </motion.div>
 
         <div className="container mx-auto px-6 relative">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-14 lg:gap-20 items-center">
