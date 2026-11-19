@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Music, Play, Phone, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
-import heroImg from "@/assets/nachman-hero-clean.webp";
+import heroImg from "@/assets/nachman-hero-color.webp";
 import aboutImg from "@/assets/about-portrait.jpg";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
@@ -69,7 +69,7 @@ const Index = () => {
           <img
             src={heroImg}
             alt="נחמן כהן"
-            className="h-[85%] md:h-auto w-auto max-w-none md:max-h-full md:max-w-[min(100%,980px)] object-contain object-bottom grayscale contrast-[1.08] brightness-[.95]"
+            className="h-[85%] md:h-auto w-auto max-w-none md:max-h-full md:max-w-[min(100%,980px)] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,.6)]"
           />
         </motion.div>
 

@@ -32,10 +32,7 @@ const events = [
   { label: "אירועים פרטיים", Icon: PartyPopper },
 ];
 
-const words = ["נשמה", "חיבור", "התרוממות", "שמחה", "רגש", "ניגון"];
-
 const gallery = [
-  { src: "/gallery/lachtige-1.jpg", alt: "נחמן כהן בשטריימל – מתוך הקליפ לעכטיגע שבת" },
   { src: "/gallery/lachtige-2.jpg", alt: "נרות שבת – מתוך הקליפ לעכטיגע שבת" },
   { src: "/gallery/lachtige-4.jpg", alt: "שולחן שבת – מתוך הקליפ לעכטיגע שבת" },
   { src: "/gallery/lachtige-3.jpg", alt: "סעודת שבת – מתוך הקליפ לעכטיגע שבת" },
@@ -112,17 +109,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* ═══════════ WORDS MARQUEE ═══════════ */}
-      <div className="border-y border-primary/20 py-6 overflow-hidden" aria-hidden>
-        <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-12">
-          {[...words, ...words, ...words, ...words].map((w, i) => (
-            <span key={i} className="flex items-center gap-12 font-condensed text-5xl md:text-6xl text-foreground/80">
-              {w}<span className="block w-10 h-px bg-primary/60" />
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* ═══════════ GALLERY ═══════════ */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-6">
@@ -130,17 +116,17 @@ const AboutPage = () => {
             <h2 className="font-condensed text-6xl md:text-8xl text-foreground">מאחורי הקלעים</h2>
             <Link to="/music/lachtige-shabbos" className="font-body text-sm text-primary hover:underline pb-3">מתוך "לעכטיגע שבת" ←</Link>
           </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:gap-4 md:h-[520px]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {gallery.map((g, i) => (
               <motion.div
                 key={g.src}
                 {...reveal}
                 transition={{ ...spring, delay: i * 0.08 }}
-                className={`group relative overflow-hidden rounded-sm ${i === 0 ? "col-span-2 row-span-2 aspect-video md:aspect-auto" : "aspect-video md:aspect-auto"}`}
+                className="group relative overflow-hidden rounded-sm aspect-[4/5]"
               >
                 <img src={g.src} alt={g.alt} loading="lazy"
-                  className="w-full h-full object-cover grayscale-[.5] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-primary/0 group-hover:ring-primary/50 transition-all" />
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 ring-1 ring-inset ring-primary/20 group-hover:ring-primary/60 transition-all" />
               </motion.div>
             ))}
           </div>
