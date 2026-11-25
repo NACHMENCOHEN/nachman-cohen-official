@@ -165,8 +165,8 @@ const MusicPage = () => {
   return (
     <PageTransition>
       <SEO
-        title="מוזיקה של נחמן כהן | זמר חסידי"
-        description="האזינו לשירים של נחמן כהן. אוסף השירים עם מוזיקה חסידית, שירים מרגשים וביצועים מלאי נשמה."
+        title="שירים של נחמן כהן – זמר חסידי | Nachman Cohen Music"
+        description="האזינו לשירים של נחמן כהן, זמר חסידי מלונדון: לעכטיגע שבת, אשר בחר בנו, רפואה ועוד. Listen to Nachman Cohen – Hasidic singer from London."
         path="/music"
       />
       <div className="pt-28 pb-24">

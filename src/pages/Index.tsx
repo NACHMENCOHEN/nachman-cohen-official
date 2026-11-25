@@ -48,8 +48,8 @@ const Index = () => {
     <PageTransition>
       <PromoVideoModal />
       <SEO
-        title="נחמן כהן | Nachman Cohen – זמר ומלחין חסידי"
-        description="האתר הרשמי של הזמר והמלחין נחמן כהן. מוזיקה חסידית, שירים חדשים, קליפים, הופעות ועדכונים. Official website of Jewish singer and composer Nachman Cohen."
+        title="נחמן כהן | זמר חסידי מלונדון – Nachman Cohen, Hasidic Singer"
+        description="נחמן כהן – זמר ומלחין חסידי מלונדון. האתר הרשמי: שירים חדשים, קליפים והזמנת הופעות. Nachman Cohen – Hasidic Jewish singer and composer from London, official website."
         path="/"
       />
 
@@ -91,6 +91,7 @@ const Index = () => {
             className="font-body text-base md:text-xl text-foreground/80 mb-7 tracking-wide"
           >
             מוזיקה עם נשמה. קול שנוגע בלב.
+            <span className="block mt-1 text-sm text-primary/80">זמר ומלחין חסידי · לונדון · <span dir="ltr">Hasidic Singer · London</span></span>
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 12 }}

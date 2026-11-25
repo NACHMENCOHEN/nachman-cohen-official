@@ -47,7 +47,7 @@ const AboutPage = () => {
   return (
     <PageTransition>
       <SEO
-        title="אודות נחמן כהן | About Nachman Cohen – זמר חסידי"
+        title="אודות נחמן כהן – זמר חסידי מלונדון | About Nachman Cohen"
         description="נחמן כהן (Nachman Cohen) הוא זמר חסידי בעל קול ייחודי, חם ומלא רגש. About Nachman Cohen, Hasidic singer and composer – the full story."
         path="/about"
         jsonLd={{ "@context": "https://schema.org", "@type": ["AboutPage", "ProfilePage"], "@id": `${SITE_URL}/about#page`, url: `${SITE_URL}/about`, name: "אודות נחמן כהן | About Nachman Cohen", inLanguage: "he", isPartOf: { "@id": `${SITE_URL}/#website` }, mainEntity: { "@id": ARTIST_ID }, about: { "@id": ARTIST_ID } }}
@@ -88,6 +88,20 @@ const AboutPage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════ ENGLISH ═══════════ */}
+      <section className="pb-6" lang="en" dir="ltr">
+        <div className="container mx-auto px-6">
+          <motion.div {...reveal} className="max-w-3xl mx-auto border-t border-primary/20 pt-10 text-left">
+            <h2 className="font-poster tracking-[0.15em] text-3xl md:text-4xl text-foreground mb-4">About Nachman Cohen</h2>
+            <p className="font-body text-foreground/70 leading-relaxed">
+              Nachman Cohen is a Hasidic Jewish singer and composer based in London. His warm, soulful voice brings
+              Hasidic and Jewish music to life, with original songs such as Lachtige Shabbos, Asher Bachar Banu and Refua.
+              Nachman performs at weddings, dinners, receptions and special events.
+            </p>
+          </motion.div>
         </div>
       </section>
 

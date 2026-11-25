@@ -37,8 +37,8 @@ const VideosPage = () => {
   return (
     <PageTransition>
       <SEO
-        title="קליפים והופעות של נחמן כהן | זמר חסידי"
-        description="צפו בקליפים ובהופעות של נחמן כהן. קליפים, הופעות ורגעים מוזיקליים מיוחדים."
+        title="קליפים והופעות של נחמן כהן | Nachman Cohen Videos"
+        description="צפו בקליפים ובהופעות של הזמר החסידי נחמן כהן. Watch music videos and live performances by Nachman Cohen."
         path="/videos"
         jsonLd={videos.map((v) => ({ "@context": "https://schema.org", "@type": "VideoObject", name: v.title, description: `${v.title} – נחמן כהן`, thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`, embedUrl: `https://www.youtube.com/embed/${v.id}`, contentUrl: `https://www.youtube.com/watch?v=${v.id}`, uploadDate: videoPublicationDates[v.id] }))}
       />

@@ -10,8 +10,8 @@ const ContactPage = () => {
   return (
     <PageTransition>
       <SEO
-        title="יצירת קשר עם נחמן כהן | זמר חסידי"
-        description="צרו קשר עם נחמן כהן להופעות, בירורים ושיתופי פעולה. טלפון, וואטסאפ ואימייל."
+        title="הזמנת הופעה – נחמן כהן, זמר חסידי בלונדון | Book Nachman Cohen"
+        description="להזמנת הופעה של הזמר החסידי נחמן כהן בלונדון: חתונות, דינרים ואירועים. Book Nachman Cohen, Hasidic singer in London – phone, WhatsApp, email."
         path="/contact"
       />
       <div className="pt-28 pb-24">
