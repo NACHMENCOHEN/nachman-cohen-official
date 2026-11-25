@@ -64,12 +64,12 @@ const Index = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, duration: 1.2, delay: 0.2 }}
-          className="absolute inset-x-0 bottom-[16%] md:bottom-[12%] top-[14%] z-[2] flex justify-center items-end"
+          className="absolute inset-x-0 bottom-[38%] md:bottom-[12%] top-[12%] md:top-[14%] z-[2] flex justify-center items-end"
         >
           <img
             src={heroImg}
             alt="נחמן כהן"
-            className="h-[85%] md:h-auto w-auto max-w-none md:max-h-full md:max-w-[min(100%,980px)] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,.6)]"
+            className="max-h-full max-w-[min(100%,980px)] w-auto mx-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,.6)]"
           />
         </motion.div>
 
