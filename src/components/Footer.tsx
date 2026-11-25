@@ -82,6 +82,11 @@ const Footer = () => {
               </a>
             </p>
           </div>
+          <p className="mt-4 text-center text-[11px] text-muted-foreground/50" dir="rtl">
+            <a href="https://ncgraphics.site/" target="_blank" rel="noopener" className="hover:text-primary transition-colors">
+              האתר נבנה ע״י <span dir="ltr">NC Graphics</span>
+            </a>
+          </p>
         </motion.div>
       </div>
     </footer>
