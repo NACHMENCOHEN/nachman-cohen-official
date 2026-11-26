@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Music, Play, Phone, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import heroImg from "@/assets/nachman-hero-color.webp";
@@ -42,7 +42,24 @@ const Index = () => {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
-  const scrollRail = (dir: 1 | -1) => railRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
+  const [railPaused, setRailPaused] = useState(false);
+  // dir 1 = next (towards the left in RTL), -1 = previous
+  const scrollRail = (dir: 1 | -1) => {
+    const el = railRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 20 : 320;
+    const atEnd = Math.abs(el.scrollLeft) + el.clientWidth >= el.scrollWidth - 8;
+    const atStart = Math.abs(el.scrollLeft) < 8;
+    if (dir === 1 && atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+    else if (dir === -1 && atStart) el.scrollTo({ left: -(el.scrollWidth - el.clientWidth), behavior: "smooth" });
+    else el.scrollBy({ left: -dir * step, behavior: "smooth" });
+  };
+  useEffect(() => {
+    if (railPaused) return;
+    const id = window.setInterval(() => scrollRail(1), 3500);
+    return () => window.clearInterval(id);
+  }, [railPaused]);
 
   return (
     <PageTransition>
@@ -165,33 +182,42 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <motion.div {...reveal}><SectionTitle title="שירים" en="MUSIC" /></motion.div>
 
-          <div className="relative">
+          <div
+            className="relative md:px-28"
+            onMouseEnter={() => setRailPaused(true)}
+            onMouseLeave={() => setRailPaused(false)}
+            onTouchStart={() => setRailPaused(true)}
+          >
             <div ref={railRef} className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2">
               {releasesWithCover.map((r) => (
                 <Link
                   key={r.slug}
                   to={`/music/${r.slug}`}
-                  className="group snap-start shrink-0 w-44 md:w-56"
+                  className="group snap-start shrink-0 w-[70%] sm:w-64 md:w-72"
                 >
-                  <div className="relative overflow-hidden rounded-sm border border-border">
+                  <div className="relative overflow-hidden border border-primary/50 shadow-[0_20px_40px_-15px_rgba(0,0,0,.8)]">
                     <img src={r.cover} alt={`${r.title} – נחמן כהן`} loading="lazy"
-                      className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/45 transition-colors">
-                      <Play className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" size={36} />
+                      className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/35 transition-colors">
+                      <Play className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" size={40} fill="currentColor" />
                     </span>
                   </div>
                   <p className="font-condensed text-3xl text-foreground mt-3 group-hover:text-primary transition-colors">{r.title}</p>
                 </Link>
               ))}
             </div>
-            <div className="hidden md:flex gap-2 mt-6">
-              <button onClick={() => scrollRail(1)} aria-label="הבא" className="ghost-btn !px-0 w-12"><ChevronRight size={18} /></button>
-              <button onClick={() => scrollRail(-1)} aria-label="הקודם" className="ghost-btn !px-0 w-12"><ChevronLeft size={18} /></button>
-            </div>
+            <button onClick={() => scrollRail(-1)} aria-label="הקודם"
+              className="hidden md:flex absolute right-12 top-[calc(50%-1.75rem)] -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full text-primary bg-background/60 backdrop-blur border border-primary/30 hover:border-primary transition-colors">
+              <ChevronRight size={22} />
+            </button>
+            <button onClick={() => scrollRail(1)} aria-label="הבא"
+              className="hidden md:flex absolute left-16 top-[calc(50%-1.75rem)] -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full text-primary bg-background/60 backdrop-blur border border-primary/30 hover:border-primary transition-colors">
+              <ChevronLeft size={22} />
+            </button>
           </div>
 
-          <div className="text-center mt-12">
-            <Link to="/music" className="ghost-btn">לכל השירים</Link>
+          <div className="text-center mt-10">
+            <Link to="/music" className="gold-btn">לעמוד המוזיקה</Link>
           </div>
         </div>
       </section>
