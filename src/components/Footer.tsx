@@ -53,9 +53,17 @@ const Footer = () => {
           </div>
 
           {/* credit */}
-          <p className="mt-6 text-center text-[11px] text-muted-foreground/50" dir="rtl">
-            <a href="https://ncgraphics.site/" target="_blank" rel="noopener" className="hover:text-primary transition-colors">
-              האתר נבנה ע״י <span dir="ltr">NC Graphics</span>
+          <p className="mt-6 flex justify-center" dir="rtl">
+            <a
+              href="https://ncgraphics.site/"
+              target="_blank"
+              rel="noopener"
+              className="nc-credit inline-flex items-center gap-2 text-[13px] text-foreground/70 opacity-80 hover:opacity-100 transition-opacity"
+            >
+              <span>
+                האתר נבנה ע״י <span dir="ltr">NC Graphics</span>
+              </span>
+              <img src="https://ncgraphics.site/img/nc-mark-dark-bg.svg" alt="NC Graphics" width={30} height={18} className="h-[18px] w-auto" loading="lazy" />
             </a>
           </p>
         </div>
